@@ -137,7 +137,8 @@ For project-specific rules, add sections like:
 ```markdown
 ## Project-Specific Guidelines
 
-- Use TypeScript strict mode
+- <img width="615" height="420" alt="17697848434601208097994988083924" src="https://github.com/user-attachments/assets/890b2e86-59bc-4592-85bf-2695e861ff5e" />
+ TypeScript strict mode
 - All API endpoints must have tests
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
