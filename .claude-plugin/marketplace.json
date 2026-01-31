@@ -1,0 +1,29 @@
+{
+  "name": "karpathy-skills",
+  "id": "karpathy-skills",
+  "owner": {
+    "name": "forrestchang"
+  },
+  "metadata": {
+    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "andrej-karpathy-skills",
+      "source": "./",
+      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
+      "version": "1.0.0",
+      "author": {
+        "name": "forrestchang"
+      },
+      "keywords": [
+        "guidelines",
+        "best-practices",
+        "coding",
+        "karpathy"
+      ],
+      "category": "workflow"
+    }
+  ]
+}
