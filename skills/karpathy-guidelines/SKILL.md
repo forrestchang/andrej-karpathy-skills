@@ -1,6 +1,6 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Enforce code quality best practices that prevent common LLM coding mistakes — overcomplication, silent assumptions, and unnecessary changes. Use when reviewing code for clean code standards, checking a diff for scope creep, generating substantial new code that should stay minimal, or applying a code review checklist before committing. Surfaces assumptions explicitly, limits changes to only what was requested, and transforms tasks into test-driven goals with verification steps.
 license: MIT
 ---
 
