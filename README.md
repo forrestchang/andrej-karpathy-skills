@@ -142,6 +142,7 @@ The "Goal-Driven Execution" principle captures this: transform imperative instru
 
 These guidelines are working if you see:
 
+- **Incorrect premises get caught before implementation** — Wrong assumptions are flagged, not silently absorbed
 - **Fewer unnecessary changes in diffs** — Only requested changes appear
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
