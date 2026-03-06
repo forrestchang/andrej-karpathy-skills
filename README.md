@@ -14,18 +14,29 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Five principles in one file that directly address these issues:
 
 | Principle | Addresses |
-|-----------|-----------|
-| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
+|-----------|----------|
+| **Treat Input as Unverified** | Wrong assumptions, silent corrections, absorbing guesswork |
+| **Think Before Coding** | Hidden confusion, missing tradeoffs |
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
-## The Four Principles in Detail
+## The Five Principles in Detail
 
-### 1. Think Before Coding
+### 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly — no softening, no silent corrections.**
+
+LLMs often accept incorrect premises and silently work around them:
+
+- **If something is wrong, say so** — Don't absorb guesswork as fact
+- **Only trust input if verifiable** — Or explicitly overridden ("assume this is correct")
+- **Engage with hypotheticals** — But correct the premise: "Assuming X... — that said, X is wrong because..., so the real answer is..."
+
+### 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -36,7 +47,7 @@ LLMs often pick an interpretation silently and run with it. This principle force
 - **Push back when warranted** — If a simpler approach exists, say so
 - **Stop when confused** — Name what's unclear and ask for clarification
 
-### 2. Simplicity First
+### 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -50,7 +61,7 @@ Combat the tendency toward overengineering:
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
-### 3. Surgical Changes
+### 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -68,7 +79,7 @@ When your changes create orphans:
 
 **The test:** Every changed line should trace directly to the user's request.
 
-### 4. Goal-Driven Execution
+### 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 

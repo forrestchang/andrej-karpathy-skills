@@ -1,10 +1,70 @@
 # Examples
 
-Real-world code examples demonstrating the four principles. Each example shows what LLMs commonly do wrong and how to fix it.
+Real-world code examples demonstrating the five principles. Each example shows what LLMs commonly do wrong and how to fix it.
 
 ---
 
-## 1. Think Before Coding
+## 1. Treat Input as Unverified
+
+### Example 1: Silent Absorption of Wrong Premises
+
+**User Request:** "The `calculate_tax` function on line 42 is using the wrong rate of 15%. Fix it to use 20%."
+
+**❌ What LLMs Do (Accept and Execute)**
+
+```python
+# Changes line 42 from 0.15 to 0.20 without checking
+def calculate_tax(amount: float) -> float:
+    return amount * 0.20  # Updated tax rate
+```
+
+**Problems:**
+- Never verified that line 42 actually contains a tax calculation
+- Never checked if the current rate is actually 15%
+- Didn't question whether 20% is the correct rate for the context
+- Silently accepted the user's assertion without verification
+
+**✅ What Should Happen (Verify Before Acting)**
+
+```
+Let me check line 42 first.
+
+Line 42 is actually `return amount * 0.25` — not 0.15.
+The current rate is 25%, not 15% as stated.
+
+Before changing it to 20%, can you confirm:
+1. Are we talking about the right function? There's also `calculate_vat` on line 67.
+2. 25% → 20% is a different change than 15% → 20%. Is 20% still the correct target?
+```
+
+### Example 2: Hypothetical with Wrong Premise
+
+**User Request:** "Since Python lists are immutable, we need to use a different data structure for this."
+
+**❌ What LLMs Do (Absorb the Error)**
+
+```python
+# Silently goes along with the wrong premise
+# Switches to some other data structure unnecessarily
+from collections import deque
+data = deque([1, 2, 3])  # "Because lists are immutable"
+```
+
+**✅ What Should Happen (Correct the Premise)**
+
+```
+Python lists are actually mutable — you can append, remove, and 
+modify elements in place. You may be thinking of tuples, which 
+are immutable.
+
+If a list works for your use case, no change is needed. 
+What problem are you trying to solve? That will help determine 
+the right data structure.
+```
+
+---
+
+## 2. Think Before Coding
 
 ### Example 1: Hidden Assumptions
 
@@ -94,7 +154,7 @@ Which aspect matters most for your use case?
 
 ---
 
-## 2. Simplicity First
+## 3. Simplicity First
 
 ### Example 1: Over-abstraction
 
@@ -222,7 +282,7 @@ def save_preferences(db, user_id: int, preferences: dict):
 
 ---
 
-## 3. Surgical Changes
+## 4. Surgical Changes
 
 ### Example 1: Drive-by Refactoring
 
@@ -367,7 +427,7 @@ def save_preferences(db, user_id: int, preferences: dict):
 
 ---
 
-## 4. Goal-Driven Execution
+## 5. Goal-Driven Execution
 
 ### Example 1: Vague vs. Verifiable
 

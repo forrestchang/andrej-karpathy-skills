@@ -4,17 +4,25 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## 1. Think Before Coding
+## 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly — no softening, no silent corrections.**
+
+- If something is wrong, say so. Don't absorb guesswork as fact.
+- Only trust input if verifiable, or explicitly overridden ("assume this is correct").
+- Engage with hypotheticals — but correct the premise: "Assuming X... — that said, X is wrong because..., so the real answer is..."
+
+## 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
+- State your assumptions explicitly. If uncertain about input correctness, apply #1 first.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+- If something remains unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+## 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -26,7 +34,7 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -42,7 +50,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
+## 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
@@ -62,4 +70,4 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** incorrect premises get caught before implementation, fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
