@@ -60,6 +60,20 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Documents over Documentation
+
+**One document, one truth. No meta-docs.**
+
+Don't create documents to explain other documents. Edit the source instead.
+
+- Summary of existing doc? → Add a "Summary" section at the top of the existing doc.
+- Explanation of changes? → Edit the original with inline context.
+- Alternative options? → Archive in a `research/` subfolder, not the main directory.
+- Questions & answers? → Edit the spec directly; clarify in place.
+- Process artifacts? → Delete after the task completes; don't archive as "record-keeping".
+
+Ask yourself: "Does this document exist ONLY to explain or summarize another document?" If yes, delete it and fix the original instead.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
