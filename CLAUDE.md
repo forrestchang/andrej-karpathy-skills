@@ -60,6 +60,26 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Communicate Progress
+
+**Narrate what you are doing, not what you did.**
+
+For multi-step tasks:
+- Announce the current step *before* starting it, not after.
+- Confirm completion of each step in one line.
+- Flag unexpected findings immediately — don't silently adapt and continue.
+
+```
+Step 1/3: Adding validation to src/auth.ts → verify: function accepts empty input
+✓ Done. Step 2/3: Writing failing test → verify: test fails before fix
+✓ Done. Step 3/3: Making test pass → verify: test suite green
+```
+
+Bad: Silently editing 12 files, then a final summary.
+Good: One line before and after each step so the user can interrupt if the plan is wrong.
+
+Keep narration minimal — one line per step is enough. No essays.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
