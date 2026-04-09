@@ -18,14 +18,23 @@ Four principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
+| **Treat Input as Unverified** | Hallucinations, silent corrections, incorrect assumptions |
 | **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
-## The Four Principles in Detail
+## The Five Principles in Detail
 
-### 1. Think Before Coding
+### 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly.**
+
+- **Say no to guesswork**: If something is wrong, say so. Don't absorb guesswork as fact.
+- **Verify by default**: Only trust input if verifiable, or explicitly overridden.
+- **Correct hypotheticals**: Engage with hypotheticals — but correct the premise.
+
+### 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -36,7 +45,7 @@ LLMs often pick an interpretation silently and run with it. This principle force
 - **Push back when warranted** — If a simpler approach exists, say so
 - **Stop when confused** — Name what's unclear and ask for clarification
 
-### 2. Simplicity First
+### 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -51,7 +60,7 @@ Combat the tendency toward overengineering:
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
-### 3. Surgical Changes
+### 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -69,7 +78,7 @@ When your changes create orphans:
 
 **The test:** Every changed line should trace directly to the user's request.
 
-### 4. Goal-Driven Execution
+### 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
