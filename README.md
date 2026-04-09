@@ -47,6 +47,7 @@ Combat the tendency toward overengineering:
 - No "flexibility" or "configurability" that wasn't requested
 - No error handling for impossible scenarios
 - If 200 lines could be 50, rewrite it
+- **Documents over Documentation** — Prioritize actual project documents (code, `CLAUDE.md`, tests) over meta-documentation or speculative notes. Don't bloat the project with AI-generated summaries that track state—let the code and specific config files do that.
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
@@ -90,23 +91,29 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+#### The 6-Step Pattern
+For significant features or bug fixes, follow this loop:
+1. **Vision** → **Spec** → **Plan** → **Execute** → **Verify** → **Reflect**
+
 ## Install
 
-**Option A: Claude Code Plugin (recommended)**
+**Option A: Claude Code Plugin (Global)**
 
-From within Claude Code, first add the marketplace:
-```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
-```
-
-Then install the plugin:
-```
-/plugin install andrej-karpathy-skills@karpathy-skills
+From within Claude Code, you can add the marketplace and install the skill:
+```bash
+/plugin marketplace add https://github.com/forrestchang/andrej-karpathy-skills
+/plugin install karpathy-guidelines
 ```
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
+**Option B: Manual Install (Project-specific)**
 
-**Option B: CLAUDE.md (per-project)**
+If the automated plugin install fails, you can install the skill manually into your project:
+```bash
+mkdir -p .claude/skills
+git clone https://github.com/forrestchang/andrej-karpathy-skills.git .claude/skills/karpathy-guidelines
+```
+
+**Option C: CLAUDE.md (Per-project file)**
 
 New project:
 ```bash

@@ -1,6 +1,11 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Behavioral guidelines for Claude Code and other agents to reduce overcomplication, make surgical changes, and follow goal-driven execution. Inspired by Andrej Karpathy.
+allowed-tools:
+  - Read
+  - Grep
+  - Bash
+  - Write
 license: MIT
 ---
 
@@ -29,6 +34,7 @@ Before implementing:
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - If you write 200 lines and it could be 50, rewrite it.
+- **Documents over Documentation**: Prioritize actual project documents (code, `CLAUDE.md`, tests) over meta-documentation or speculative notes. Don't bloat the project with AI-generated summaries that track state—let the code and specific config files do that.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
@@ -65,3 +71,12 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+### The 6-Step Pattern
+For significant features or bug fixes, follow this loop:
+1. **Vision**: Understand the high-level goal and user intent.
+2. **Spec**: Define technical requirements and success criteria.
+3. **Plan**: Write a step-by-step implementation plan (checklists are encouraged).
+4. **Execute**: Implement changes incrementally.
+5. **Verify**: Use tests or manual checks at every step.
+6. **Reflect**: Briefly summarize what was learned or what changed.
