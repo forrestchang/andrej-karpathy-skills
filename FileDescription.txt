@@ -1,0 +1,32 @@
+📂 Directory Structure:
+├── dist/            ⭐ This is the production build (recommended for direct use)
+│   ├── index.html   → Open this file in a browser to preview the website
+│   ├── assets/      → Bundled CSS, JS, and other resource files
+│   └── ...
+├── src/             📝 Source code directory (for development and modification)
+│   ├── components/  → React components
+│   ├── App.jsx      → Main application component
+│   ├── index.js     → Entry file
+│   └── ...
+├── package.json     📦 Project dependency configuration
+├── README.md        📖 Project documentation
+└── ...
+
+🚀 Quick Start (Two Options):
+Option 1: Direct Use (Recommended for Beginners)
+1. Navigate to the dist/ directory
+2. Double-click the index.html file
+3. The website will open in your browser!
+
+Option 2: Development Mode (For Users with Coding Experience)
+1. Make sure Node.js is installed (recommended version: 16+)
+2. Open terminal/command line in the project root directory
+3. Run: npm install
+4. Run: npm start
+5. The development server will automatically open in your browser
+
+💡 Tips:
+- The dist/ directory contains the optimized build and can be directly deployed to a server
+- The root-level index.html is not the final version — always use the one inside dist/
+- To modify the code, edit files inside src/ and rebuild the project
+- The project uses TypeScript and Tailwind CSS tech stack
