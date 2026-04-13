@@ -60,6 +60,21 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Machine-Verified Completeness
+
+**"Looks right" is not done. Passing gates are done.**
+
+After every non-trivial change:
+- Run your project's lint and type-check. Both must pass before claiming "fixed"
+- For multi-step tasks, declare success criteria upfront — not just a plan, but what passing looks like:
+  ```
+  1. [Step] → verify: [specific check, not "test it"]
+  2. [Step] → verify: [specific check]
+  ```
+- Declare gaps explicitly before saying "done": what was verified by automation vs. what requires runtime/browser testing
+
+The test: "Build passes" ≠ "done". Only verified execution of the user's actual scenario is done.
+
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, clarifying questions come before implementation rather than after mistakes, and "fixed" means a gate passed — not a gut feeling.
