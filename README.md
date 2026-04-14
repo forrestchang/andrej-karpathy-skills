@@ -1,5 +1,7 @@
 # Karpathy-Inspired Claude Code Guidelines
 
+> **Looking for a managed agents platform?** Check out [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
+
 A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 ## The Problems
@@ -94,8 +96,14 @@ Strong success criteria let the LLM loop independently. Weak criteria ("make it 
 
 **Option A: Claude Code Plugin (recommended)**
 
-```bash
-claude plugins add https://github.com/forrestchang/andrej-karpathy-skills
+From within Claude Code, first add the marketplace:
+```
+/plugin marketplace add forrestchang/andrej-karpathy-skills
+```
+
+Then install the plugin:
+```
+/plugin install andrej-karpathy-skills@karpathy-skills
 ```
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
@@ -151,5 +159,5 @@ These guidelines bias toward **caution over speed**. For trivial tasks (simple t
 The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
 
 ## License
-
+jdhfa
 MIT
