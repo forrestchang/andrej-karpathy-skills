@@ -158,6 +158,12 @@ These guidelines bias toward **caution over speed**. For trivial tasks (simple t
 
 The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
 
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=forrestchang/andrej-karpathy-skills&type=Date)](https://star-history.com/#forrestchang/andrej-karpathy-skills&Date)
+
+
 ## License
 
 MIT
