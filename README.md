@@ -121,6 +121,15 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: GitHub Copilot (workspace instructions)**
+
+The repo includes `.github/copilot-instructions.md` for GitHub Copilot users. Copy it to your project:
+
+```bash
+mkdir -p .github
+curl -o .github/copilot-instructions.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.github/copilot-instructions.md
+```
+
 ## Key Insight
 
 From Andrej:
