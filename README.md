@@ -121,6 +121,10 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: [Multica](https://github.com/multica-ai/multica) (managed agents platform)**
+
+This skill is available on [Multica](https://github.com/multica-ai/multica) — an open-source platform that turns coding agents into real teammates. Install the skill through Multica's skill management to share it across your entire team.
+
 ## Key Insight
 
 From Andrej:
