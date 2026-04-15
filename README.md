@@ -6,7 +6,7 @@ A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej 
 
 ## The Problems
 
-From Andrej's post:
+From Marcus' post:
 
 > "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
 
