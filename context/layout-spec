@@ -1,0 +1,121 @@
+# Penguin Trailers Inc — Layout Spec
+
+Section-by-section layout for each page. Ordered top-to-bottom as they appear on the page.
+
+**Design rhythm:** Alternate between light (#F3F4F6) and white (#FFFFFF) section backgrounds to create visual separation. Use the dark navy (#003366) sparingly for high-impact CTA sections.
+
+-----
+
+## Home page
+
+|#|Section Type      |Variant                                                                   |Width     |Design Notes                                                                                                                                                        |
+|-|------------------|--------------------------------------------------------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|1|Hero              |Full-bleed image/video with dark overlay. Centered text. Dual CTA buttons.|Full-bleed|Drone yard shot or looping video background. “Since 2006” badge top-left or integrated into headline. Height: 85-100vh. Mobile: stack CTAs vertically.              |
+|2|Stats Bar         |Horizontal 4-column number strip                                          |Contained |Navy background, white text. Number + label per stat. Animate numbers on scroll.                                                                                    |
+|3|Services Grid     |3-4 column card grid with images                                          |Contained |White background. Cards: image top, title, 2-line description, text link. Hover: subtle lift shadow. Mobile: 2-col or stack.                                        |
+|4|Featured Inventory|3-4 column product card grid                                              |Contained |Light grey background. Cards: photo top, type badge, title, key spec, CTA button. Dynamically populated from inventory data. “View All Inventory” button below grid.|
+|5|About Teaser      |Split layout — text left, image right                                     |Contained |White background. Jason’s photo on right, story excerpt on left.                                                                                                    |
+|6|Image Strip       |Auto-scrolling horizontal image carousel                                  |Full-bleed|Breadner-style ongoing images. 4-6 photos of operations, yard, trailers. Auto-scroll with pause-on-hover.                                                           |
+|7|Testimonials      |Single featured quote or carousel                                         |Contained |Light grey background. Build structure now even if testimonials aren’t ready. Large quote marks, reviewer name, company. Placeholder state needed.                  |
+|8|CTA Banner        |Full-width colored band with headline + button                            |Full-bleed|Dark navy (#003366) background, white text. Headline + subline + button + phone number.                                                                             |
+|9|Footer            |Multi-column footer                                                       |Full-bleed|Dark navy or near-black background. Logo (reversed), nav links, contact info, LinkedIn icon, yard address. Copyright line.                                          |
+
+-----
+
+## Inventory page
+
+|#|Section Type  |Variant                              |Width     |Design Notes                                                                                                        |
+|-|--------------|-------------------------------------|----------|--------------------------------------------------------------------------------------------------------------------|
+|1|Page Header   |Simple header with title + intro text|Contained |White background. H1 + 2-line intro paragraph.                                                                      |
+|2|Filter Bar    |Horizontal filter strip              |Contained |Sticky on scroll. Filter by: type (dry van, reefer, chassis), year range, sort by (newest, price).                  |
+|3|Inventory Grid|3-column product card grid, paginated|Contained |Cards: primary photo, type badge, title, year, key spec, price/inquiry CTA. Hover: slight lift. Mobile: 1-2 columns.|
+|4|CTA Banner    |Full-width CTA                       |Full-bleed|“Don’t see what you’re looking for? Call us.” Navy background.                                                      |
+|5|Footer        |Standard footer                      |Full-bleed|Same as homepage.                                                                                                   |
+
+-----
+
+## We Buy Trailers page
+
+|#|Section Type  |Variant                                   |Width     |Design Notes                                                                           |
+|-|--------------|------------------------------------------|----------|---------------------------------------------------------------------------------------|
+|1|Hero          |Split layout — text left, image right     |Contained |White/light background. Bold headline left, yard volume photo right. CTA button.       |
+|2|Value Props   |3-column image cards                      |Contained |Light grey background. Three key reasons: Speed, Ease, Expertise. Each card with photo.|
+|3|Process Steps |Numbered steps with photos (4 steps)      |Contained |White background. Step 1-2-3-4 with photo per step.                                    |
+|4|Volume / Scale|Text section with side or background image|Contained |Light grey background. Scale messaging with large yard aerial photo.                   |
+|5|What We Buy   |Image cards per trailer type (4 types)    |Contained |White background. Dry vans, reefers, chassis, other. Photo + description per type.     |
+|6|Contact Form  |Form section with side image              |Contained |Light grey background. Form + context text + side image.                               |
+|7|CTA Banner    |Full-width CTA                            |Full-bleed|Navy background. Phone number prominent.                                               |
+|8|Footer        |Standard footer                           |Full-bleed|Same as homepage.                                                                      |
+
+-----
+
+## Fleet Evaluations page
+
+|# |Section Type    |Variant                                            |Width     |Design Notes                                                                                                             |
+|--|----------------|---------------------------------------------------|----------|-------------------------------------------------------------------------------------------------------------------------|
+|1 |Hero            |Centered text hero with full-bleed background image|Full-bleed|Inspection photo as background. Headline + subheadline + CTA. Dark overlay.                                              |
+|2 |Why It Matters  |Text section with side image                       |Contained |White background.                                                                                                        |
+|3 |What We Evaluate|Image cards per trailer type (4 types)             |Contained |Light grey background. Dry vans (interior shot), reefers (unit close-up), chassis (undercarriage), mixed fleets (aerial).|
+|4 |Why Penguin     |4-column image cards                               |Contained |White background. Four differentiators each with photo.                                                                  |
+|5 |How It Works    |3 numbered steps with photos                       |Contained |Light grey background.                                                                                                   |
+|6 |Pricing         |Text section with accent image                     |Contained |White background. Placeholder for pricing. “Contact for Pricing” for now.                                                |
+|7 |Who This Is For |Text section with background or accent image       |Contained |Light grey background. Five audience segments described.                                                                 |
+|8 |Contact Form    |Form section with side image                       |Contained |White background. Fleet evaluation request form.                                                                         |
+|9 |CTA Banner      |Full-width CTA                                     |Full-bleed|Navy background.                                                                                                         |
+|10|Footer          |Standard footer                                    |Full-bleed|Same as homepage.                                                                                                        |
+
+-----
+
+## Consignment page
+
+|#|Section Type    |Variant                              |Width     |Design Notes                                           |
+|-|----------------|-------------------------------------|----------|-------------------------------------------------------|
+|1|Hero            |Split layout — text left, image right|Contained |White background. Trailers staged for sale image.      |
+|2|Why Consignment |Text section with side image         |Contained |Light grey background.                                 |
+|3|Benefits        |6-card grid with photos              |Contained |White background. Two rows of 3 cards, each with photo.|
+|4|How It Works    |5 numbered steps with photos         |Contained |Light grey background.                                 |
+|5|Who This Is For |Text section with accent image       |Contained |White background.                                      |
+|6|Comparison Table|Table section with accent image      |Contained |Light grey background. Penguin vs. selling on your own.|
+|7|Contact Form    |Form section with side image         |Contained |White background. Consignment inquiry form.            |
+|8|CTA Banner      |Full-width CTA                       |Full-bleed|Navy background.                                       |
+|9|Footer          |Standard footer                      |Full-bleed|Same as homepage.                                      |
+
+-----
+
+## Leasing / Credit Application page
+
+|#|Section Type        |Variant                                       |Width     |Design Notes                                                  |
+|-|--------------------|----------------------------------------------|----------|--------------------------------------------------------------|
+|1|Hero                |Centered text with full-bleed background image|Full-bleed|Truck on highway image. Text overlay with CTA.                |
+|2|Why Lease           |Text section with side image                  |Contained |White background.                                             |
+|3|How It Works        |3 numbered steps with photos                  |Contained |Light grey background.                                        |
+|4|Benefits            |4-column image cards                          |Contained |White background.                                             |
+|5|What You Can Finance|Image cards per trailer type (3 types)        |Contained |Light grey background.                                        |
+|6|Credit Application  |Form section with side image                  |Contained |White background. Placeholder until client provides specifics.|
+|7|FAQ Accordion       |Expandable Q&A section with accent image      |Contained |Light grey background. 5 common financing questions.          |
+|8|CTA Banner          |Full-width CTA                                |Full-bleed|Navy background.                                              |
+|9|Footer              |Standard footer                               |Full-bleed|Same as homepage.                                             |
+
+-----
+
+## About page
+
+|#|Section Type |Variant                                  |Width     |Design Notes                                                                     |
+|-|-------------|-----------------------------------------|----------|---------------------------------------------------------------------------------|
+|1|Hero         |Full-width image with overlay text       |Full-bleed|Team or yard photo background. “Our Story” headline. “Since 2006” badge.         |
+|2|Company Story|Long-form text, alternating split layouts|Contained |White background. Alternating text-left/image-right blocks.                      |
+|3|Stats Bar    |Horizontal numbers strip                 |Full-bleed|Same design as homepage stats bar.                                               |
+|4|Team Section |Photo card grid                          |Contained |Light grey background. Card per team member: photo, name, role, 2-3 sentence bio.|
+|5|CTA Banner   |Full-width CTA                           |Full-bleed|Navy background.                                                                 |
+|6|Footer       |Standard footer                          |Full-bleed|Same as homepage.                                                                |
+
+-----
+
+## Contact page
+
+|#|Section Type |Variant              |Width                  |Design Notes                                                       |
+|-|-------------|---------------------|-----------------------|-------------------------------------------------------------------|
+|1|Page Header  |Simple title         |Contained              |White background.                                                  |
+|2|Contact Split|Form left, info right|Contained              |White background. Form + phone/email/address + map.                |
+|3|Map Embed    |Google Maps          |Full-bleed or contained|5393 Steeles Ave W., Milton, ON. Add Abbotsford BC later if needed.|
+|4|Footer       |Standard footer      |Full-bleed             |Same as homepage.                                                  |

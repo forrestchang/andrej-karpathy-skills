@@ -1,0 +1,87 @@
+# Penguin Trailers Inc — Style Guide
+
+-----
+
+## Color palette
+
+Client specified “black, blue, and white.” The following palette expands this into a functional set for web use. Hex codes are recommended starting points. Confirm with client and adjust based on the branding PDF logo file extraction.
+
+|Role         |Color      |Hex    |Usage                                            |
+|-------------|-----------|-------|-------------------------------------------------|
+|Primary      |Deep Navy  |#003366|Headers, navigation bar, footer, primary buttons |
+|Secondary    |Bright Blue|#1A73E8|CTAs, links, hover states, interactive elements  |
+|Dark / Text  |Near Black |#1B1B1B|Body text, overlays, dark section backgrounds    |
+|White        |White      |#FFFFFF|Page backgrounds, text on dark surfaces, cards   |
+|Light Accent |Ice Blue   |#E8F0FE|Section backgrounds, card fills, highlight strips|
+|Neutral      |Cool Grey  |#6B7280|Secondary text, captions, meta info, borders     |
+|Neutral Light|Light Grey |#F3F4F6|Alternating section backgrounds, form fields     |
+
+**[INFERRED]** — Exact hex codes derived from client description and industry analysis. Needs client approval.
+
+-----
+
+## Typography
+
+No fonts were specified by the client. The following pairing is recommended based on the brand personality (professional, industrial, trustworthy).
+
+### Heading font: Montserrat
+
+Strong, geometric sans-serif with a modern industrial feel. Communicates confidence and authority. Widely used in B2B and industrial sectors.
+
+### Body font: Open Sans
+
+Clean, highly readable sans-serif that pairs well with Montserrat. Neutral enough to let the content speak while maintaining professionalism. Excellent at small sizes for body copy, captions, and form fields.
+
+|Element              |Font      |Weight        |Size           |
+|---------------------|----------|--------------|---------------|
+|H1 — Page Titles     |Montserrat|Bold (700)    |42-48px        |
+|H2 — Section Headings|Montserrat|SemiBold (600)|30-36px        |
+|H3 — Sub-sections    |Montserrat|SemiBold (600)|22-26px        |
+|H4 — Card Titles     |Montserrat|Medium (500)  |18-20px        |
+|Body Text            |Open Sans |Regular (400) |16-18px        |
+|Small / Captions     |Open Sans |Regular (400) |14px           |
+|Buttons / CTAs       |Montserrat|SemiBold (600)|16px, uppercase|
+|Nav Links            |Open Sans |SemiBold (600)|15-16px        |
+
+**[INFERRED]** — No fonts provided by client. Needs approval.
+
+-----
+
+## Logo usage
+
+The client provided a branding identity PDF (“Penguin Trailers Identity 3.pdf”), a PNG logo, and a logo proof PDF. The logo features a penguin icon alongside the “Penguin Trailers” wordmark.
+
+### Recommended usage
+
+- **Header:** Full logo (icon + wordmark), horizontally arranged, on white or light background.
+- **Footer:** Reversed logo (white) on dark navy background.
+- **Favicon / Mobile:** Penguin icon only, simplified.
+- **Minimum clear space:** Equal to the height of the penguin icon on all sides.
+
+-----
+
+## Visual direction
+
+**Bold, professional, and grounded — with warmth.**
+
+The Penguin Trailers brand should feel like a company that knows exactly what it’s doing and has been doing it for 20 years. Not flashy. Not corporate-sterile. The visual direction should communicate trust, capability, and approachability. Jason described the company as “kind, easy to speak with, and happy to help” — that personality should come through in warm photography, clear communication, and a layout that doesn’t overwhelm with jargon.
+
+Photography should emphasize scale (full yard shots, rows of trailers, aerial views) and people (Jason and team in the yard, handshakes, inspections). The drone shot Jason requested for the homepage should set the tone for the entire visual identity.
+
+**Avoid:** stock photography that feels generic, overly corporate imagery, complex animations, or trendy design patterns. The audience is fleet managers and carrier executives. They want to see real trailers, real people, and a clear path to making contact.
+
+-----
+
+## Reference websites
+
+### transporttrailersales.com
+
+What to draw from: Clean inventory browsing experience, functional layout, industry-standard navigation (Products, Inventory, Rentals, Parts, Contact). The inventory page organization with filtering by trailer type is a strong model.
+
+### docksidetrailers.com
+
+What to draw from: Recently redesigned with a modern feel. Strong team page with personality. Manufacturer showcase pattern that could translate well to a “trailer types” or “brands we know” section. Clean visual hierarchy.
+
+### breadnertrailers.com
+
+What to draw from: Jason specifically loves the ongoing/rotating images on the homepage. Breadner uses strong hero imagery and scrolling visual elements that showcase active operations. Replicate this approach with a hero carousel or auto-scrolling image strip featuring yard shots, trailer inventory, and team at work.

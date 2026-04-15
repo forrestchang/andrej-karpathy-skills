@@ -1,0 +1,133 @@
+# Penguin Trailers Inc — Project Brief
+
+**Client:** Penguin Trailers Inc
+**Owner:** Jason Hirsch
+**Domain:** penguintrailers.ca
+**Date:** March 2026
+
+-----
+
+## 1. Client overview
+
+### Business information
+
+- **Business name:** Penguin Trailers Inc
+- **Business number:** 839721495
+- **Domain:** penguintrailers.ca (newly secured, no existing site)
+- **Email:** jason@penguintrailers.com
+- **Phone:** (647) 221-8888
+- **Yard address:** 5393 Steeles Ave W., Milton, ON L9E 0R7
+- **Mailing address:** 3-1750 The Queensway, Etobicoke, ON M9C 5H5
+- **Service areas:** Ontario (primary), all of Canada, yard in Abbotsford, BC
+- **Social media:** LinkedIn
+- **Established:** 2006
+
+### What Penguin Trailers does
+
+Penguin Trailers is a boutique used transport trailer dealer based in the Greater Toronto Area. They buy and sell between 600 and 1,200 trailers per year, primarily dry vans, reefers, and container chassis. They work with 50 of the top 100 carriers in Canada and have built strong relationships with major manufacturers and local dealerships for acquiring used trades.
+
+What sets them apart is their deep product knowledge (Jason has hands-on manufacturing and welding experience), their personalized boutique approach to client relationships, and their speed. They pay fast, pick up fast, and turn equipment around quickly.
+
+### Key services
+
+- **Used trailer sales** — Dry vans, reefers, container chassis. Large rotating inventory.
+- **We buy trailers** — Quick-pay acquisition from fleets and carriers across Canada.
+- **Fleet evaluations** — Professional assessments of fleet trailer condition and value. Dedicated landing page with pricing structure planned.
+- **Consignment** — Clients place equipment with Penguin for sale, gaining access to 5,000+ potential buyers in the GTA and Penguin’s focused customer base.
+- **Leasing / credit** — Financing options with a credit application landing page.
+
+### The team
+
+- **Jason Hirsch — Owner/Founder:** Started in trucking at 18. Welder/machinist by trade, rose through plant management and corporate sales. Started first company at 29. Deeply knowledgeable about how trailers are built, break down, and perform.
+- **Anthony Buffa — General Manager:** Oversees logistics, yards, licensing, and repair. Manages trailer lifecycle from acquisition to sale. Has his own customer network.
+- **Jeremy Montalban — Associate Dealer, BC:** Jason’s brother-in-law. Also owns Grizzly Trailer Sales. Extensive buy/sell/rent background. Manages the BC yard in Abbotsford.
+- **Linkon Price — Sales Associate:** Handles new sales development, social media presence, and special projects.
+- **Monique Hirsch — Office Manager:** Manages accounts payable/receivable. Jason’s wife.
+
+-----
+
+## 2. Target audience
+
+Jason described the target as “anyone, not specific.” Based on the business model and industry research, the practical audience breaks down like this:
+
+- Fleet managers and operations directors at mid-to-large Canadian carriers looking to buy or sell used trailers
+- Owner-operators and small fleet owners seeking quality used equipment at competitive prices
+- Trucking companies looking to offload aging equipment quickly (the “we buy trailers” audience)
+- Companies wanting professional fleet evaluations before making buy/sell decisions
+- Businesses seeking consignment services to move equipment without doing the sales work themselves
+
+-----
+
+## 3. Inventory page requirements
+
+The inventory page must be readily accessible and easy for the team to manage.
+
+- **Active listings:** 5-10 groups of trailers at any time
+- **Scalable:** Start with 25 open slots, with room to grow
+- **Update frequency:** Roughly once a week
+- **Each listing includes:** ~10 photos plus structured data fields
+- **Listing fields:** Make, Year, Model, Length, Axles, Interior, Description, Price
+- **Who updates:** Jason, Anthony, and Linkon all need access
+
+**Open question:** “Groups of trailers” needs clarification. Does Jason mean one listing per individual trailer, or one listing for a batch (e.g., “5x 2019 Hyundai Translead Dry Vans”)?
+
+-----
+
+## 4. Site hierarchy
+
+- **Home** — Hero with drone/yard imagery, “Since 2006”, key service highlights, featured inventory, trust signals
+- **Inventory** — Filterable listing of used trailers for sale
+- **We Buy Trailers** — Dedicated page for sellers. How the process works, why sell to Penguin, inquiry form
+- **Fleet Evaluations** — Landing page for evaluation service. What it includes, pricing (to be populated later), request form
+- **Consignment** — How consignment works, benefits, inquiry form
+- **Leasing / Credit** — Financing options overview + credit application form
+- **About** — Company story (est. 2006), Jason’s background, team profiles, family values
+- **Contact** — Form, phone, email, yard location with map
+
+**Navigation:** Home | Inventory | We Buy Trailers | Services (dropdown: Fleet Evaluations, Consignment, Leasing) | About | Contact
+
+**Header elements:** “Since 2006” badge or tagline. Phone number (647-221-8888) prominent for mobile tap-to-call.
+
+-----
+
+## 5. Assets inventory
+
+### Provided by client
+
+- Logo files: Branding PDF (Penguin Trailers Identity 3.pdf), PNG logo image, logo proof PDF
+- Owner profile photo: Jason Hirsch headshot
+- Team photo: Linkon Price headshot
+- Trailer/yard photos: 4 product images (trailer yard shots, inventory images)
+- Additional yard/operation images: 2 images showing inventory scale and operations
+
+### Still needed
+
+- Drone footage or aerial yard shot (Jason specifically requested this for the homepage hero)
+- High-resolution individual trailer photos for inventory listings
+- Team photos for Anthony Buffa, Jeremy Montalban, and Monique Hirsch
+- Testimonials (Jason wants the ability to add these, none provided yet)
+- Fleet evaluation pricing/packages
+- Leasing/credit application form details or third-party integration info
+- LinkedIn profile URL
+- BC yard (Abbotsford) address for multi-location display
+
+-----
+
+## 6. Open questions
+
+1. **Color palette approval** — We proposed navy (#003366), bright blue (#1A73E8), and near-black (#1B1B1B) based on “black, blue, and white.” Does this match? The branding PDF may have exact values.
+1. **Font approval** — Montserrat + Open Sans recommended. Any preferences?
+1. **Fleet evaluation pricing** — What are the packages/tiers? Or “request a quote” model for now?
+1. **Credit application** — Built-in form, downloadable PDF, or third-party link?
+1. **Drone content** — Is this being arranged? Timeline?
+1. **Domain and hosting** — penguintrailers.ca secured. DNS and hosting setup needed?
+1. **Testimonials** — Dynamically managed section or manual additions?
+1. **Breadner-style scrolling images** — Hero carousel, scrolling image strip, or auto-playing gallery?
+
+-----
+
+## 7. Website examples the client loves
+
+- **transporttrailersales.com** — Ontario trailer dealer in Milton. Clean, functional layout with prominent inventory section. Good reference for navigation and content structure.
+- **docksidetrailers.com** — Ontario dealer specializing in Extreme and Doepker trailers. Recently redesigned. Strong team page, manufacturer highlights, clean inventory browsing.
+- **breadnertrailers.com** — Jason specifically likes the “ongoing pictures on the homepage.” 60-year Ontario dealer using rotating/scrolling imagery showing active operations, yard shots, and product.
