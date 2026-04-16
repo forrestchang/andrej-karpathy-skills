@@ -123,6 +123,26 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: skills CLI (global or npx)**
+
+Prerequisite: install Node.js so `npm`/`npx` are available.
+
+Use `npx` if you don't want to install the CLI globally:
+
+```bash
+npx skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
+```
+
+Or install the CLI globally first:
+
+```bash
+npm install -g skills
+skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
+```
+
+The `npx` form downloads and runs the CLI on demand, while the global install gives you a persistent `skills` command. Both install the guidelines as a skill so they are available across your Claude Code projects.
+
+
 ## Key Insight
 
 From Andrej:
