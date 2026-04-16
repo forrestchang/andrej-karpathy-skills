@@ -65,3 +65,77 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+## Examples
+
+### 1. Think Before Coding
+
+**User:** "Add a feature to export user data"
+
+❌ Silently assumes format, fields, scope, writes full implementation  
+✅ Lists assumptions, asks: export all users? which format? which fields? what volume?
+
+**User:** "Make the search faster"
+
+❌ Adds caching + async + connection pooling without asking  
+✅ Presents 3 interpretations (response time / throughput / perceived speed) with effort estimates, asks which matters
+
+---
+
+### 2. Simplicity First
+
+**User:** "Add a function to calculate discount"
+
+❌ Abstract base class + strategy pattern + dataclass config + calculator class (~60 lines)  
+✅ `def calculate_discount(amount, percent): return amount * (percent / 100)` (2 lines)
+
+**User:** "Save user preferences to database"
+
+❌ PreferenceManager with cache, validator, merge flag, notify flag, 60+ lines  
+✅ `db.execute("UPDATE users SET preferences = ? WHERE id = ?", (json.dumps(preferences), user_id))`
+
+---
+
+### 3. Surgical Changes
+
+**User:** "Fix the bug where empty emails crash the validator"
+
+❌ Also improves email regex, adds username length/alphanumeric checks, changes comments  
+✅ Only patches the `if not user_data.get('email')` line to handle empty strings
+
+**User:** "Add logging to the upload function"
+
+❌ Adds type hints, docstring, changes quote style, reformats whitespace, rewrites boolean logic  
+✅ Adds `logger.info/error/exception` calls only, matches existing single-quote style
+
+---
+
+### 4. Goal-Driven Execution
+
+**User:** "Fix the authentication system"
+
+❌ "I'll review, identify issues, make improvements, test" — no verifiable criteria  
+✅ Defines: write test for specific bug → verify it fails → fix → verify it passes → run full suite
+
+**User:** "Add rate limiting to the API"
+
+❌ Full Redis + multi-strategy + config system in one 300-line commit, no steps  
+✅ 4 incremental steps each with explicit verify criteria, independently deployable
+
+**User:** "The sorting breaks with duplicate scores"
+
+❌ Immediately changes sort logic without reproducing the bug  
+✅ Writes failing test first → confirms it reproduces → fixes → confirms test passes
+
+---
+
+## Anti-Patterns Summary
+
+| Principle | Anti-Pattern | Fix |
+|-----------|-------------|-----|
+| Think Before Coding | Silently picks interpretation | State assumptions, ask first |
+| Simplicity First | Strategy pattern for one discount | One function until complexity is needed |
+| Surgical Changes | Reformats while fixing bug | Only change lines tied to the request |
+| Goal-Driven | "Review and improve" | "Test reproduces bug → fix → passes" |
