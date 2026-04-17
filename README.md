@@ -1,5 +1,7 @@
 # Karpathy-Inspired Claude Code Guidelines
 
+[English](README.md) | [हिन्दी](README.hi-IN.md)
+
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
