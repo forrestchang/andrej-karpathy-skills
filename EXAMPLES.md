@@ -451,6 +451,21 @@ Each step is independently verifiable and deployable.
 Start with step 1?
 ```
 
+**Suggested commit messages for this workflow**
+
+```bash
+test(rate-limit): add failing test for per-client request cap
+feat(rate-limit): add in-memory limiter for users endpoint
+refactor(rate-limit): extract limiter into shared middleware
+feat(rate-limit): add Redis-backed store for distributed counters
+feat(rate-limit): add endpoint-specific rate-limit configuration
+```
+
+Each message answers:
+- what changed (`test`/`feat`/`refactor`)
+- where it changed (`rate-limit`)
+- why it changed (clear intent after the colon)
+
 ### Example 3: Test-First Verification
 
 **User Request:** "The sorting breaks when there are duplicate scores"
