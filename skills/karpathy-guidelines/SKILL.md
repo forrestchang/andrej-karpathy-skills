@@ -20,17 +20,18 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+## 2. Maintainability First
 
-**Minimum code that solves the problem. Nothing speculative.**
+**Code that works, and that anyone can understand later.**
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- Clarity over cleverness. If a one-liner needs a comment to explain it, write it as three lines instead.
+- Write the code as verbose as it needs to be, not more, not less.
+- Name things for what they *are*, not what they *do* in the moment.
+- No abstractions for single-use code, but don't repeat yourself if a helper makes intent clearer.
+- Error handling where failure is real and likely.
+- If a senior engineer would need a minute to parse it, make it more understandable.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+Ask yourself: "Could someone unfamiliar with this code understand it in 60 seconds?" If no, rewrite it.
 
 ## 3. Surgical Changes
 

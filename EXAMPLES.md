@@ -94,18 +94,16 @@ Which aspect matters most for your use case?
 
 ---
 
-## 2. Simplicity First
+## 2. Maintainability First
 
-### Example 1: Over-abstraction
+### Example 1: Too Many Layers to Follow
 
 **User Request:** "Add a function to calculate discount"
 
-**❌ What LLMs Do (Overengineered)**
+**❌ What LLMs Do (Layers That Obscure Intent)**
 
 ```python
 from abc import ABC, abstractmethod
-from enum import Enum
-from typing import Protocol, Union
 from dataclasses import dataclass
 
 class DiscountStrategy(ABC):
@@ -120,18 +118,10 @@ class PercentageDiscount(DiscountStrategy):
     def calculate(self, amount: float) -> float:
         return amount * (self.percentage / 100)
 
-class FixedDiscount(DiscountStrategy):
-    def __init__(self, fixed_amount: float):
-        self.fixed_amount = fixed_amount
-    
-    def calculate(self, amount: float) -> float:
-        return min(self.fixed_amount, amount)
-
 @dataclass
 class DiscountConfig:
     strategy: DiscountStrategy
     min_purchase: float = 0.0
-    max_discount: float = float('inf')
 
 class DiscountCalculator:
     def __init__(self, config: DiscountConfig):
@@ -140,85 +130,59 @@ class DiscountCalculator:
     def apply_discount(self, amount: float) -> float:
         if amount < self.config.min_purchase:
             return 0
-        discount = self.config.strategy.calculate(amount)
-        return min(discount, self.config.max_discount)
-
-# Usage requires 30+ lines of setup for a simple calculation
+        return self.config.strategy.calculate(amount)
 ```
 
-**✅ What Should Happen (Simple)**
+**Problems:**
+- To understand what `apply_discount(100.0)` does, you must trace through four classes
+- The abstraction layers answer questions nobody asked ("what if we need a fixed discount someday?")
+- A new engineer cannot understand this in 60 seconds
+
+**✅ What Should Happen (Readable at a Glance)**
 
 ```python
 def calculate_discount(amount: float, percent: float) -> float:
-    """Calculate discount amount. percent should be 0-100."""
     return amount * (percent / 100)
-
-# Usage
-discount = calculate_discount(100.0, 10.0)  # $10 off
 ```
 
-**When to add complexity:** Only when you actually need multiple discount types. If that requirement comes later, refactor then.
+**The maintainability test:** Can someone unfamiliar with this code understand what it does in 60 seconds? The one-function version: yes. The four-class version: no.
 
-### Example 2: Speculative Features
+**When abstraction helps maintainability:** When there are genuinely multiple discount types already in use and the pattern reduces duplication that would otherwise make future changes error-prone.
 
-**User Request:** "Save user preferences to database"
+### Example 2: Cleverness Over Clarity
 
-**❌ What LLMs Do (Unnecessary Features)**
+**User Request:** "Calculate the total price for items in a cart"
+
+**❌ What LLMs Do (Clever but Hard to Parse)**
 
 ```python
-class PreferenceManager:
-    def __init__(self, db, cache=None, validator=None):
-        self.db = db
-        self.cache = cache or InMemoryCache()
-        self.validator = validator or DefaultValidator()
-    
-    def save(self, user_id: int, prefs: dict, 
-             merge: bool = True, 
-             validate: bool = True,
-             notify: bool = False) -> bool:
-        """Save preferences with optional merging, validation, and notifications."""
-        
-        if validate:
-            errors = self.validator.validate(prefs)
-            if errors:
-                raise ValidationError(errors)
-        
-        existing = self.get(user_id) if merge else {}
-        
-        if merge:
-            existing.update(prefs)
-            prefs = existing
-        
-        self.db.execute(
-            "UPDATE users SET preferences = ? WHERE id = ?",
-            (json.dumps(prefs), user_id)
-        )
-        
-        if self.cache:
-            self.cache.set(f"prefs:{user_id}", prefs)
-        
-        if notify:
-            self.notify_preference_change(user_id, prefs)
-        
-        return True
-    
-    def notify_preference_change(self, user_id: int, prefs: dict):
-        # Another 30 lines for a feature nobody asked for
-        pass
+def get_cart_total(cart):
+    return sum(i['price'] * i['qty'] * (1 - i.get('discount', 0))
+               for i in cart if i.get('qty', 0) > 0)
 ```
 
-**✅ What Should Happen (Just What Was Asked)**
+**Problems:**
+- Requires a careful read to separate price, quantity, and discount logic
+- The guard condition (`qty > 0`) is buried at the end
+- Adding a new condition (e.g., skip out-of-stock items) means untangling the expression
+- Not wrong — just takes longer than 60 seconds to fully trust
+
+**✅ What Should Happen (Explicit and Traceable)**
 
 ```python
-def save_preferences(db, user_id: int, preferences: dict):
-    """Save user preferences to database."""
-    db.execute(
-        "UPDATE users SET preferences = ? WHERE id = ?",
-        (json.dumps(preferences), user_id)
-    )
+def get_cart_total(cart):
+    total = 0.0
+    for item in cart:
+        if item.get('qty', 0) <= 0:
+            continue
+        price = item['price']
+        quantity = item['qty']
+        discount = item.get('discount', 0)
+        total += price * quantity * (1 - discount)
+    return total
 ```
 
-**Add later if needed:** Caching (when performance matters), validation (when bad data appears), merging (when requirement emerges).
+**This version has more lines — that's fine.** Each variable has a name. Each condition is on its own line. A future reader doesn't have to mentally unpack the expression to verify it's correct.
 
 ---
 
@@ -500,23 +464,17 @@ def sort_scores(scores):
 | Principle | Anti-Pattern | Fix |
 |-----------|-------------|-----|
 | Think Before Coding | Silently assumes file format, fields, scope | List assumptions explicitly, ask for clarification |
-| Simplicity First | Strategy pattern for single discount calculation | One function until complexity is actually needed |
+| Maintainability First | Clever one-liner or deep abstraction that takes >60s to understand | Write it so a new reader can follow it without tracing through layers |
 | Surgical Changes | Reformats quotes, adds type hints while fixing bug | Only change lines that fix the reported issue |
 | Goal-Driven | "I'll review and improve the code" | "Write test for bug X → make it pass → verify no regressions" |
 
 ## Key Insight
 
-The "overcomplicated" examples aren't obviously wrong—they follow design patterns and best practices. The problem is **timing**: they add complexity before it's needed, which:
+The "hard to read" examples aren't obviously wrong — they often follow design patterns and best practices. The problem is that **correctness isn't enough**. Code is read far more often than it is written, and code that takes a minute to parse will slow down every future change, review, and debug session.
 
-- Makes code harder to understand
-- Introduces more bugs
-- Takes longer to implement
-- Harder to test
+The readable versions share a few traits:
+- Each step has a name, so you don't have to hold context in your head
+- Conditions are stated directly, not embedded in expressions
+- Abstractions only exist when they reduce duplication that already exists
 
-The "simple" versions are:
-- Easier to understand
-- Faster to implement
-- Easier to test
-- Can be refactored later when complexity is actually needed
-
-**Good code is code that solves today's problem simply, not tomorrow's problem prematurely.**
+**More lines is not the same as more complex.** A 10-line function with clear variable names is easier to maintain than a 2-line expression that requires careful unpacking. Write for the reader, not the character count.

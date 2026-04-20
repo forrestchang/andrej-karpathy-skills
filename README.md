@@ -25,7 +25,7 @@ Four principles in one file that directly address these issues:
 | Principle | Addresses |
 |-----------|-----------|
 | **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
-| **Simplicity First** | Overcomplication, bloated abstractions |
+| **Maintainability First** | Overcomplication, unreadable code, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
@@ -42,19 +42,19 @@ LLMs often pick an interpretation silently and run with it. This principle force
 - **Push back when warranted** — If a simpler approach exists, say so
 - **Stop when confused** — Name what's unclear and ask for clarification
 
-### 2. Simplicity First
+### 2. Maintainability First
 
-**Minimum code that solves the problem. Nothing speculative.**
+**Code that works, and that anyone can understand later.**
 
-Combat the tendency toward overengineering:
+Combat the tendency toward unreadable, overcomplicated code:
 
-- No features beyond what was asked
-- No abstractions for single-use code
-- No "flexibility" or "configurability" that wasn't requested
-- No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
+- Clarity over cleverness — if a one-liner needs a comment, write it as three lines instead
+- Name things for what they *are*, not what they *do* in the moment
+- No abstractions for single-use code, but don't repeat yourself if a helper makes intent clearer
+- Error handling where failure is real and likely — not for impossible scenarios
+- If a senior engineer would need a minute to parse it, make it more understandable
 
-**The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
+**The test:** Could someone unfamiliar with this code understand it in 60 seconds? If no, rewrite it.
 
 ### 3. Surgical Changes
 
