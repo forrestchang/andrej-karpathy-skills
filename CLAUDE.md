@@ -63,3 +63,22 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+---
+
+## Enforcement Hooks
+
+These guidelines are backed by lightweight Claude Code hooks that
+surface warnings when principles are at risk of being violated:
+
+- **PreToolUse** (`think-before-coding.mjs`) — warns when writing
+  200+ lines in a single tool call (Principle 2: Simplicity First).
+- **PostToolUse** (`surgical-changes.mjs`) — warns on suppression
+  markers (`eslint-disable`, `@ts-ignore`), formatting-only changes,
+  and comment removal (Principle 3: Surgical Changes).
+- **Stop** (`goal-driven-stop.mjs`) — surfaces a verification
+  checklist before task close (Principle 4: Goal-Driven Execution).
+
+The hooks are **advisory by default** — they warn but don't block.
+This matches the "bias toward caution over speed" philosophy while
+letting the agent exercise judgment on trivial tasks.
