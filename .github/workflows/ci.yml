@@ -1,0 +1,184 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-plugin:
+    name: Validate plugin structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate plugin.json exists and is valid JSON
+        run: |
+          if [ ! -f .claude-plugin/plugin.json ]; then
+            echo "::error::Missing .claude-plugin/plugin.json"
+            exit 1
+          fi
+          node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'))"
+          echo "✓ plugin.json is valid JSON"
+
+      - name: Validate plugin.json required fields
+        run: |
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'));
+            const required = ['name', 'version', 'description', 'author', 'license'];
+            const missing = required.filter(f => !pkg[f]);
+            if (missing.length) {
+              console.error('Missing required fields:', missing.join(', '));
+              process.exit(1);
+            }
+            console.log('✓ All required fields present');
+            console.log('  name:', pkg.name);
+            console.log('  version:', pkg.version);
+          "
+
+      - name: Validate CLAUDE.md exists
+        run: |
+          if [ ! -f CLAUDE.md ]; then
+            echo "::error::Missing CLAUDE.md — this is the agent contract"
+            exit 1
+          fi
+          echo "✓ CLAUDE.md exists ($(wc -l < CLAUDE.md) lines)"
+
+  validate-hooks:
+    name: Validate hooks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate hooks.json exists and is valid
+        run: |
+          if [ ! -f hooks/hooks.json ]; then
+            echo "::warning::No hooks/hooks.json found — plugin has no enforcement"
+            exit 0
+          fi
+          node -e "JSON.parse(require('fs').readFileSync('hooks/hooks.json','utf8'))"
+          echo "✓ hooks.json is valid JSON"
+
+      - name: Validate hooks.json references valid files
+        run: |
+          if [ ! -f hooks/hooks.json ]; then exit 0; fi
+          node -e "
+            const hooks = JSON.parse(require('fs').readFileSync('hooks/hooks.json','utf8'));
+            const fs = require('fs');
+            let errors = 0;
+            for (const [event, matchers] of Object.entries(hooks.hooks || {})) {
+              for (const matcher of matchers) {
+                for (const hook of matcher.hooks || []) {
+                  const cmd = hook.command || '';
+                  // Extract the script path from 'node \${CLAUDE_PLUGIN_ROOT}/hooks/foo.mjs'
+                  const match = cmd.match(/hooks\/[\w-]+\.mjs/);
+                  if (match && !fs.existsSync(match[0])) {
+                    console.error('Missing hook script:', match[0], '(referenced in', event, ')');
+                    errors++;
+                  }
+                }
+              }
+            }
+            if (errors) process.exit(1);
+            console.log('✓ All hook scripts exist');
+          "
+
+      - name: Validate hook scripts are syntactically valid
+        run: |
+          for f in hooks/*.mjs; do
+            [ -f "$f" ] || continue
+            node --check "$f" 2>&1 || { echo "::error::Syntax error in $f"; exit 1; }
+            echo "✓ $f — syntax OK"
+          done
+
+      - name: Validate hook scripts are executable
+        run: |
+          for f in hooks/*.mjs; do
+            [ -f "$f" ] || continue
+            if [ ! -x "$f" ]; then
+              echo "::error::$f is not executable (chmod +x)"
+              exit 1
+            fi
+            echo "✓ $f — executable"
+          done
+
+      - name: Smoke test hooks with empty stdin
+        run: |
+          for f in hooks/*.mjs; do
+            [ -f "$f" ] || continue
+            echo "" | node "$f" 2>/dev/null
+            code=$?
+            if [ $code -ne 0 ]; then
+              echo "::error::$f exited with code $code on empty stdin (should exit 0)"
+              exit 1
+            fi
+            echo "✓ $f — empty stdin → exit 0"
+          done
+
+  validate-skills:
+    name: Validate skills
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate skill directories have SKILL.md
+        run: |
+          found=0
+          for dir in skills/*/; do
+            [ -d "$dir" ] || continue
+            if [ ! -f "${dir}SKILL.md" ]; then
+              echo "::error::Missing SKILL.md in $dir"
+              exit 1
+            fi
+            echo "✓ ${dir}SKILL.md exists"
+            found=$((found + 1))
+          done
+          if [ $found -eq 0 ]; then
+            echo "::warning::No skills found in skills/"
+          else
+            echo "✓ $found skill(s) validated"
+          fi
+
+  markdown-links:
+    name: Check markdown links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check internal links in markdown files
+        run: |
+          errors=0
+          for md in *.md; do
+            [ -f "$md" ] || continue
+            # Extract local file references like [text](./path) or [text](path)
+            grep -oP '\[.*?\]\(\K[^)]+' "$md" 2>/dev/null | while read -r link; do
+              # Skip URLs, anchors, and template variables
+              case "$link" in
+                http*|https*|mailto*|\#*|\$*) continue ;;
+              esac
+              # Strip anchor from path
+              path="${link%%#*}"
+              if [ -n "$path" ] && [ ! -e "$path" ]; then
+                echo "::warning file=$md::Broken link: $link"
+                errors=$((errors + 1))
+              fi
+            done
+          done
+          echo "✓ Link check complete"
