@@ -1,0 +1,85 @@
+{
+  "name": "karpathy-skills",
+  "id": "karpathy-skills",
+  "version": "1.0.0",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, inspired by Andrej Karpathy's observations",
+
+  "author": {
+    "name": "forrestchang"
+  },
+
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forrestchang/karpathy-skills"
+  },
+
+  "homepage": "https://github.com/forrestchang/karpathy-skills",
+
+  "bugs": {
+    "url": "https://github.com/forrestchang/karpathy-skills/issues"
+  },
+
+  "keywords": [
+    "llm",
+    "prompt-engineering",
+    "ai-guidelines",
+    "software-engineering",
+    "best-practices",
+    "coding-standards",
+    "karpathy",
+    "developer-workflow"
+  ],
+
+  "engines": {
+    "node": ">=18.0.0"
+  },
+
+  "platforms": ["windows", "linux", "mac"],
+
+  "release": {
+    "status": "stable",
+    "releaseDate": "2026-04-09"
+  },
+
+  "docs": {
+    "readme": "./README.md",
+    "changelog": "./CHANGELOG.md",
+    "contributing": "./CONTRIBUTING.md"
+  },
+
+  "config": {
+    "strictMode": true,
+    "autoRefactor": false,
+    "verbosity": "medium"
+  },
+
+  "plugins": [
+    {
+      "name": "andrej-karpathy-skills",
+      "source": "./",
+      "description": "Behavioral workflow rules for AI-assisted coding: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
+      "version": "1.0.0",
+      "author": {
+        "name": "forrestchang"
+      },
+      "category": "workflow",
+
+      "capabilities": [
+        "code-review-guidelines",
+        "refactoring-assistance",
+        "prompt-optimization",
+        "bug-prevention",
+        "developer-productivity"
+      ],
+
+      "features": {
+        "thinkBeforeCoding": true,
+        "simplicityFirst": true,
+        "surgicalChanges": true,
+        "goalDrivenExecution": true
+      }
+    }
+  ]
+}
