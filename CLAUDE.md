@@ -4,7 +4,15 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## 1. Think Before Coding
+## 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly.**
+
+- **Say no to guesswork**: If something is wrong, say so. Don't absorb guesswork as fact.
+- **Verify by default**: Only trust input if verifiable, or explicitly overridden.
+- **Correct hypotheticals**: Engage with hypotheticals — but correct the premise.
+
+## 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -14,7 +22,7 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+## 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -23,10 +31,11 @@ Before implementing:
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - If you write 200 lines and it could be 50, rewrite it.
+- **Documents over Documentation**: Prioritize actual project documents (code, `CLAUDE.md`, tests) over meta-documentation or speculative notes. Don't bloat the project with AI-generated summaries that track state—let the code and specific config files do that.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -42,7 +51,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
+## 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
@@ -59,6 +68,10 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+### The 6-Step Pattern
+For significant features or bug fixes, follow this loop:
+1. **Vision** → **Spec** → **Plan** → **Execute** → **Verify** → **Reflect**
 
 ---
 

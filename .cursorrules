@@ -1,0 +1,36 @@
+# Cursor Rules - Karpathy Guidelines
+
+Follow these guidelines for all code changes. These are derived from Andrej Karpathy's observations on LLM coding pitfalls.
+
+## Core Principles
+
+### 1. Treat Input as Unverified
+- **Don't assume assertions are correct.** Flag errors explicitly.
+- **Say no to guesswork.** Don't absorb guesswork as fact.
+- **Verify by default.** Only trust input if verifiable.
+
+### 2. Think Before Coding
+- **Don't assume.** State assumptions explicitly before implementing.
+- **Clarify ambiguity.** If a request has multiple interpretations, list them and ask for preference.
+- **Push back.** Suggest simpler alternatives if the requested approach seems over-engineered.
+- **Stop when confused.** Don't "hallucinate" an implementation if requirements are unclear.
+
+### 3. Simplicity First
+- **Minimum code only.** No speculative features or "maybe useful" abstractions.
+- **No YAGNI.** Avoid "flexibility" that hasn't been requested yet.
+- **Documents over Documentation.** Prioritize code, `CLAUDE.md`, and tests over meta-docs.
+
+### 4. Surgical Changes
+- **Touch only what you must.** Match existing style/spacing perfectly.
+- **No drive-by refactoring.** Don't "improve" adjacent code unless it's strictly necessary for the task.
+- **Clean your own mess.** Remove imports or variables that YOUR changes made unused.
+
+### 5. Goal-Driven Execution (6-Step Pattern)
+Follow this flow for non-trivial tasks:
+1. **Vision** → **Spec** → **Plan** → **Execute** → **Verify** → **Reflect**
+- Always define success criteria before starting.
+- Prefer test-first development when possible.
+
+## Project Structure
+- Skills are stored in `.claude/skills/`
+- Project-specific rules in `CLAUDE.md`

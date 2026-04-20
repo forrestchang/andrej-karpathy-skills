@@ -1,0 +1,27 @@
+{
+  "name": "karpathy-guidelines",
+  "version": "1.0.0",
+  "description": "Behavioral guidelines for Claude Code and other agents to reduce common LLM coding mistakes.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forrestchang/andrej-karpathy-skills.git"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "guidelines",
+    "karpathy",
+    "coding",
+    "llm"
+  ],
+  "author": "Forrest Chang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/forrestchang/andrej-karpathy-skills/issues"
+  },
+  "homepage": "https://github.com/forrestchang/andrej-karpathy-skills#readme",
+  "anthropic": {
+    "skill_path": ".claude/skills/karpathy-guidelines/SKILL.md"
+  }
+}

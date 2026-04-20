@@ -24,14 +24,23 @@ Four principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
+| **Treat Input as Unverified** | Hallucinations, silent corrections, incorrect assumptions |
 | **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
-## The Four Principles in Detail
+## The Five Principles in Detail
 
-### 1. Think Before Coding
+### 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly.**
+
+- **Say no to guesswork**: If something is wrong, say so. Don't absorb guesswork as fact.
+- **Verify by default**: Only trust input if verifiable, or explicitly overridden.
+- **Correct hypotheticals**: Engage with hypotheticals — but correct the premise.
+
+### 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -42,7 +51,7 @@ LLMs often pick an interpretation silently and run with it. This principle force
 - **Push back when warranted** — If a simpler approach exists, say so
 - **Stop when confused** — Name what's unclear and ask for clarification
 
-### 2. Simplicity First
+### 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -53,10 +62,11 @@ Combat the tendency toward overengineering:
 - No "flexibility" or "configurability" that wasn't requested
 - No error handling for impossible scenarios
 - If 200 lines could be 50, rewrite it
+- **Documents over Documentation** — Prioritize actual project documents (code, `CLAUDE.md`, tests) over meta-documentation or speculative notes. Don't bloat the project with AI-generated summaries that track state—let the code and specific config files do that.
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
-### 3. Surgical Changes
+### 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -74,7 +84,7 @@ When your changes create orphans:
 
 **The test:** Every changed line should trace directly to the user's request.
 
-### 4. Goal-Driven Execution
+### 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
@@ -96,23 +106,29 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+#### The 6-Step Pattern
+For significant features or bug fixes, follow this loop:
+1. **Vision** → **Spec** → **Plan** → **Execute** → **Verify** → **Reflect**
+
 ## Install
 
-**Option A: Claude Code Plugin (recommended)**
+**Option A: Claude Code Plugin (Global)**
 
-From within Claude Code, first add the marketplace:
-```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
-```
-
-Then install the plugin:
-```
-/plugin install andrej-karpathy-skills@karpathy-skills
+From within Claude Code, you can add the marketplace and install the skill:
+```bash
+/plugin marketplace add https://github.com/forrestchang/andrej-karpathy-skills
+/plugin install karpathy-guidelines
 ```
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
+**Option B: Manual Install (Project-specific)**
 
-**Option B: CLAUDE.md (per-project)**
+If the automated plugin install fails, you can install the skill manually into your project:
+```bash
+mkdir -p .claude/skills
+git clone https://github.com/forrestchang/andrej-karpathy-skills.git .claude/skills/karpathy-guidelines
+```
+
+**Option C: CLAUDE.md (Per-project file)**
 
 New project:
 ```bash

@@ -1,6 +1,11 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Expert coding guidelines for Claude Code and other agents. Reduces hallucinations, overengineering, and surgical mistakes. Essential for complex refactors and new features. Inspired by Andrej Karpathy.
+allowed-tools:
+  - Read
+  - Grep
+  - Bash
+  - Write
 license: MIT
 ---
 
@@ -10,7 +15,15 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## 1. Think Before Coding
+## 1. Treat Input as Unverified
+
+**Don't assume assertions are correct. Flag errors explicitly — no softening, no silent corrections.**
+
+- **Say no to guesswork**: If something is wrong, say so. Don't absorb guesswork as fact.
+- **Verify by default**: Only trust input if verifiable, or explicitly overridden (e.g., "assume this is correct").
+- **Correct hypotheticals**: Engage with hypotheticals — but correct the premise: *"Assuming X... — that said, X is wrong because..., so the real answer is..."*
+
+## 2. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -20,7 +33,7 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+## 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -29,10 +42,11 @@ Before implementing:
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - If you write 200 lines and it could be 50, rewrite it.
+- **Documents over Documentation**: Prioritize actual project documents (code, `CLAUDE.md`, tests) over meta-documentation or speculative notes. Don't bloat the project with AI-generated summaries that track state—let the code and specific config files do that.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -48,7 +62,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
+## 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
@@ -65,3 +79,12 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+### The 6-Step Pattern
+For significant features or bug fixes, follow this loop:
+1. **Vision**: Understand the high-level goal and user intent.
+2. **Spec**: Define technical requirements and success criteria.
+3. **Plan**: Write a step-by-step implementation plan (checklists are encouraged).
+4. **Execute**: Implement changes incrementally.
+5. **Verify**: Use tests or manual checks at every step.
+6. **Reflect**: Briefly summarize what was learned or what changed.
