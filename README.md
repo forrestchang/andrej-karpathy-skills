@@ -159,7 +159,17 @@ For project-specific rules, add sections like:
 - All API endpoints must have tests
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
+## Clarifying Questions Rule
 
+Before implementation, ask questions if:
+
+- Requirements are ambiguous
+- Multiple valid approaches exist
+- There is risk of breaking existing functionality
+
+Do NOT ask questions if:
+- The task is trivial
+- The intent is obvious
 ## Tradeoff Note
 
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
