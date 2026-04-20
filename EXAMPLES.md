@@ -495,6 +495,8 @@ def sort_scores(scores):
 
 ---
 
+```
+
 ## Anti-Patterns Summary
 
 | Principle | Anti-Pattern | Fix |
