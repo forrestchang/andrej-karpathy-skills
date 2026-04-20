@@ -504,6 +504,129 @@ def sort_scores(scores):
 | Surgical Changes | Reformats quotes, adds type hints while fixing bug | Only change lines that fix the reported issue |
 | Goal-Driven | "I'll review and improve the code" | "Write test for bug X → make it pass → verify no regressions" |
 
+---
+
+## 5. LLM/AI Code (Bonus)
+
+These examples apply the same principles to LLM application code — where over-abstraction is especially tempting because frameworks like LangChain look "production-ready."
+
+### Example 1: Framework Over-abstraction
+
+**User Request:** "Add a function that summarizes a document using Claude"
+
+**❌ What LLMs Do (Wrap Everything in a Framework)**
+
+```python
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain.chat_models import ChatAnthropic
+from langchain.callbacks import StreamingStdOutCallbackHandler
+from langchain.schema import HumanMessage, SystemMessage
+
+template = PromptTemplate(
+    input_variables=["document"],
+    template="Summarize the following document:\n\n{document}"
+)
+
+llm = ChatAnthropic(
+    model="claude-sonnet-4-6",
+    streaming=True,
+    callbacks=[StreamingStdOutCallbackHandler()],
+    temperature=0
+)
+
+chain = LLMChain(llm=llm, prompt=template)
+
+def summarize_document(document: str) -> str:
+    """Summarize a document using Claude via LangChain."""
+    result = chain.run(document=document)
+    return result
+```
+
+**Problems:**
+- Five imports for a single API call
+- LangChain abstracts away what's actually happening
+- Debugging requires understanding LangChain internals
+- Version pinning becomes a maintenance burden
+- `chain.run()` hides the actual request/response structure
+
+**✅ What Should Happen (Direct API Call)**
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()
+
+def summarize_document(document: str) -> str:
+    """Summarize a document using Claude."""
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": f"Summarize the following document:\n\n{document}"}]
+    )
+    return response.content[0].text
+```
+
+**When to add a framework:** Only when you actually need features the framework provides — complex chains, vector store integration, built-in retry logic you don't want to write. A single LLM call never qualifies.
+
+### Example 2: Premature Agent Architecture
+
+**User Request:** "Write a script that searches the web and summarizes results"
+
+**❌ What LLMs Do (Build an Agent Framework)**
+
+```python
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain.tools import DuckDuckGoSearchRun
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import PromptTemplate
+# ... 60 more lines of agent setup
+
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    memory=memory,
+    verbose=True,
+    handle_parsing_errors=True,
+    max_iterations=5,
+)
+
+def search_and_summarize(query: str) -> str:
+    return agent_executor.run(query)
+```
+
+**Problems:**
+- ReAct agent loop for a two-step task
+- Memory system for a stateless operation
+- Parsing error handling for a single call
+- "Verbose" output that ships to production
+
+**✅ What Should Happen (Two Functions)**
+
+```python
+import httpx
+import anthropic
+
+def search_web(query: str) -> str:
+    response = httpx.get("https://api.search.example.com", params={"q": query})
+    return response.json()["results"]
+
+def summarize_results(query: str, results: str) -> str:
+    client = anthropic.Anthropic()
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": f"Query: {query}\n\nResults: {results}\n\nSummarize the key findings."}]
+    )
+    return response.content[0].text
+
+def search_and_summarize(query: str) -> str:
+    results = search_web(query)
+    return summarize_results(query, results)
+```
+
+**Add an agent framework when:** You have dynamic, unpredictable tool selection across many turns — not when you know exactly what two things need to happen.
+
 ## Key Insight
 
 The "overcomplicated" examples aren't obviously wrong—they follow design patterns and best practices. The problem is **timing**: they add complexity before it's needed, which:
