@@ -160,6 +160,11 @@ For project-specific rules, add sections like:
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
 
+## Related Links
+
+- [AI-powered Accessibility Scanner (AI11Y)](https://github.com/github/accessibility-scanner)
+- [The A11Y Project](https://github.com/a11yproject/a11yproject.com)
+
 ## Tradeoff Note
 
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
