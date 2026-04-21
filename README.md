@@ -112,35 +112,7 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
-
-New project:
-```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
-```
-
-Existing project (append):
-```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
-```
-
-**Option C: Codex (per-project)**
-
-New project:
-```bash
-curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/AGENTS.md
-```
-
-Optional repo skill:
-```bash
-mkdir -p .agents/skills/karpathy-guidelines
-curl -o .agents/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.agents/skills/karpathy-guidelines/SKILL.md
-```
-
-Codex reads `AGENTS.md` automatically at the repository level, and discovers repo-scoped skills under `.agents/skills/`.
-
-**Option D: skills CLI (global or npx)**
+**Option B: skills CLI (global or npx)**
 
 Prerequisite: install Node.js so `npm` and `npx` are available.
 
@@ -157,7 +129,7 @@ npm install -g skills
 skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
 ```
 
-The `npx` form downloads and runs the CLI on demand, while the global install gives you a persistent `skills` command. Both install the guidelines as a skill so they are available across your Claude Code projects.
+The `npx` form downloads and runs the CLI on demand, while the global install gives you a persistent `skills` command. Both install the guidelines as a skill from this repository.
 
 ## Using with Cursor
 
@@ -165,7 +137,7 @@ This repository includes a committed Cursor project rule ([`.cursor/rules/karpat
 
 ## Codex Support
 
-This repository also includes [`AGENTS.md`](AGENTS.md) and a repo-scoped Codex skill at [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md), so Codex users can apply the same guidance without a separate rewrite of the project. See **[CODEX.md](CODEX.md)** for the Codex-specific setup.
+This repository also includes Codex-specific assets such as [`AGENTS.md`](AGENTS.md), [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md), and **[CODEX.md](CODEX.md)** for Codex-focused usage.
 
 ## Key Insight
 
@@ -183,20 +155,6 @@ These guidelines are working if you see:
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
-
-## Customization
-
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or `AGENTS.md`, or create a new one for the tool you use.
-
-For project-specific rules, add sections like:
-
-```markdown
-## Project-Specific Guidelines
-
-- Use TypeScript strict mode
-- All API endpoints must have tests
-- Follow the existing error handling patterns in `src/utils/errors.ts`
-```
 
 ## Tradeoff Note
 

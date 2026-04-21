@@ -112,35 +112,7 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
 
-**选项 B：CLAUDE.md（按项目）**
-
-新项目：
-```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
-```
-
-已有项目（追加）：
-```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
-```
-
-**选项 C：Codex（按项目）**
-
-新项目：
-```bash
-curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/AGENTS.md
-```
-
-可选的仓库技能：
-```bash
-mkdir -p .agents/skills/karpathy-guidelines
-curl -o .agents/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.agents/skills/karpathy-guidelines/SKILL.md
-```
-
-Codex 会自动读取仓库级别的 `AGENTS.md`，并发现 `.agents/skills/` 下的仓库技能。
-
-**选项 D：skills CLI（全局或 npx）**
+**选项 B：skills CLI（全局或 npx）**
 
 前提条件：先安装 Node.js，确保 `npm` 和 `npx` 可用。
 
@@ -157,7 +129,7 @@ npm install -g skills
 skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
 ```
 
-`npx` 方式会按需下载并运行 CLI，而全局安装会提供一个持久可用的 `skills` 命令。两种方式都会将这些指南作为 skill 安装，使其在你的 Claude Code 项目中可用。
+`npx` 方式会按需下载并运行 CLI，而全局安装会提供一个持久可用的 `skills` 命令。两种方式都会从这个仓库安装该 skill。
 
 ## 在 Cursor 中使用
 
@@ -165,7 +137,7 @@ skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpat
 
 ## Codex 支持
 
-本仓库也包含 [`AGENTS.md`](AGENTS.md) 和位于 [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md) 的 Codex 仓库技能，因此 Codex 用户也能复用同一套指南，而不需要为该项目单独维护另一份内容。详情请参见 **[CODEX.md](CODEX.md)**。
+本仓库也包含 Codex 相关资源，例如 [`AGENTS.md`](AGENTS.md)、[`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md) 和面向 Codex 的说明文档 **[CODEX.md](CODEX.md)**。
 
 ## 核心洞察
 
@@ -183,20 +155,6 @@ skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpat
 - **因过度复杂而导致的重写更少** —— 代码第一次就写得简洁
 - **澄清问题在实现之前提出** —— 而不是在犯错之后
 - **干净、精简的 PR** —— 没有顺带的重构或"改进"
-
-## 定制
-
-这些指南设计用于与项目特定指令合并。将它们添加到你现有的 `CLAUDE.md` 或 `AGENTS.md` 中，或根据你使用的工具新建一个。
-
-对于项目特定规则，添加如下章节：
-
-```markdown
-## 项目特定指南
-
-- 使用 TypeScript 严格模式
-- 所有 API 端点必须有测试
-- 遵循 `src/utils/errors.ts` 中现有的错误处理模式
-```
 
 ## 权衡说明
 
