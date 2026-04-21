@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Claude Code and Cursor Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Reusable instruction files and skills to improve Claude Code and Cursor behavior, with Codex support included, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -125,9 +125,28 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: Codex (per-project)**
+
+New project:
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/AGENTS.md
+```
+
+Optional repo skill:
+```bash
+mkdir -p .agents/skills/karpathy-guidelines
+curl -o .agents/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.agents/skills/karpathy-guidelines/SKILL.md
+```
+
+Codex reads `AGENTS.md` automatically at the repository level, and discovers repo-scoped skills under `.agents/skills/`.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+
+## Codex Support
+
+This repository also includes [`AGENTS.md`](AGENTS.md) and a repo-scoped Codex skill at [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md), so Codex users can apply the same guidance without a separate rewrite of the project. See **[CODEX.md](CODEX.md)** for the Codex-specific setup.
 
 ## Key Insight
 
@@ -148,7 +167,7 @@ These guidelines are working if you see:
 
 ## Customization
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
+These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or `AGENTS.md`, or create a new one for the tool you use.
 
 For project-specific rules, add sections like:
 

@@ -1,10 +1,10 @@
-# 受 Karpathy 启发的 Claude Code 指南
+# 受 Karpathy 启发的 Claude Code 与 Cursor 指南
 
 > 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
 >
 > 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+一组可复用的指令文件和技能，用于改善 Claude Code 和 Cursor 的行为，并补充 Codex 支持，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 对 LLM 编码陷阱的总结。
 
 [English](./README.md) | 简体中文
 
@@ -125,9 +125,28 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**选项 C：Codex（按项目）**
+
+新项目：
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/AGENTS.md
+```
+
+可选的仓库技能：
+```bash
+mkdir -p .agents/skills/karpathy-guidelines
+curl -o .agents/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.agents/skills/karpathy-guidelines/SKILL.md
+```
+
+Codex 会自动读取仓库级别的 `AGENTS.md`，并发现 `.agents/skills/` 下的仓库技能。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
+
+## Codex 支持
+
+本仓库也包含 [`AGENTS.md`](AGENTS.md) 和位于 [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md) 的 Codex 仓库技能，因此 Codex 用户也能复用同一套指南，而不需要为该项目单独维护另一份内容。详情请参见 **[CODEX.md](CODEX.md)**。
 
 ## 核心洞察
 
@@ -148,7 +167,7 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 ## 定制
 
-这些指南设计用于与项目特定指令合并。将它们添加到你现有的 `CLAUDE.md` 或创建一个新的。
+这些指南设计用于与项目特定指令合并。将它们添加到你现有的 `CLAUDE.md` 或 `AGENTS.md` 中，或根据你使用的工具新建一个。
 
 对于项目特定规则，添加如下章节：
 
