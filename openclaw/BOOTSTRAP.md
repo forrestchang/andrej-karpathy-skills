@@ -5,6 +5,7 @@ First-run setup for this OpenClaw adaptation.
 ## Objective
 
 Load this stack as a multi-file behavior layer that preserves `CLAUDE.md` intent without modifying existing Claude-focused files.
+This file is the entrypoint and should be read first.
 
 ## Boot steps
 

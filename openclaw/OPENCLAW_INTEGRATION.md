@@ -6,12 +6,14 @@ Integration notes for using this repository’s principles in an OpenClaw-compat
 
 Preserve the original philosophy of `CLAUDE.md` while splitting responsibilities into dedicated OpenClaw-style files.
 
-## Suggested layering
+## Entrypoint and layering
 
-- `SOUL.md`: enduring behavior and values
-- `OPENCLAW.md`: execution contract for task flow
-- `TOOLS.md`: tool-use and safety constraints
-- `BOOTSTRAP.md`: first-run initialization and self-check
+- Read `BOOTSTRAP.md` first as the entrypoint.
+- Then load behavioral layers in this order:
+  1. `SOUL.md`: enduring behavior and values
+  2. `OPENCLAW.md`: execution contract for task flow
+  3. `TOOLS.md`: tool-use and safety constraints
+- Use `OPENCLAW_INTEGRATION.md` as a compatibility/mapping reference once core layers are loaded.
 
 ## Non-goals
 

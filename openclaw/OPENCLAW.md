@@ -8,7 +8,7 @@ This file translates repository behavior into an OpenClaw operational style, whi
 
 ## Working mode
 
-1. Read task and restate objective internally.
+1. Read task and restate the objective briefly and explicitly.
 2. Identify ambiguity before implementation.
 3. Propose or follow the smallest complete change set.
 4. Verify outcomes with concrete checks.
