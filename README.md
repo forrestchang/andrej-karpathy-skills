@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Claude Code and Cursor Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Reusable instruction files and skills to improve Claude Code and Cursor behavior, with Codex support included, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -112,22 +112,32 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option B: skills CLI (global or npx)**
 
-New project:
+Prerequisite: install Node.js so `npm` and `npx` are available.
+
+Use `npx` if you don't want to install the CLI globally:
+
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+npx skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
 ```
 
-Existing project (append):
+Or install the CLI globally first:
+
 ```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+npm install -g skills
+skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
 ```
+
+The `npx` form downloads and runs the CLI on demand, while the global install gives you a persistent `skills` command. Both install the guidelines as a skill from this repository.
 
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+
+## Codex Support
+
+This repository also includes Codex-specific assets such as [`AGENTS.md`](AGENTS.md), [`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md), and **[CODEX.md](CODEX.md)** for Codex-focused usage.
 
 ## Key Insight
 
@@ -145,20 +155,6 @@ These guidelines are working if you see:
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
-
-## Customization
-
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
-
-For project-specific rules, add sections like:
-
-```markdown
-## Project-Specific Guidelines
-
-- Use TypeScript strict mode
-- All API endpoints must have tests
-- Follow the existing error handling patterns in `src/utils/errors.ts`
-```
 
 ## Tradeoff Note
 
