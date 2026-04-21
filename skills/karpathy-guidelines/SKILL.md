@@ -10,6 +10,10 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## Optional Reference
+
+- When the user asks for concrete examples, anti-patterns, or demonstrations of the four principles, load `references/EXAMPLES.md`.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
