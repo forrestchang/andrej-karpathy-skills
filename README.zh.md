@@ -140,6 +140,25 @@ curl -o .agents/skills/karpathy-guidelines/SKILL.md https://raw.githubuserconten
 
 Codex 会自动读取仓库级别的 `AGENTS.md`，并发现 `.agents/skills/` 下的仓库技能。
 
+**选项 D：skills CLI（全局或 npx）**
+
+前提条件：先安装 Node.js，确保 `npm` 和 `npx` 可用。
+
+如果你不想全局安装 CLI，可以直接使用 `npx`：
+
+```bash
+npx skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
+```
+
+或者先全局安装 CLI：
+
+```bash
+npm install -g skills
+skills add https://github.com/forrestchang/andrej-karpathy-skills --skill karpathy-guidelines
+```
+
+`npx` 方式会按需下载并运行 CLI，而全局安装会提供一个持久可用的 `skills` 命令。两种方式都会将这些指南作为 skill 安装，使其在你的 Claude Code 项目中可用。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
