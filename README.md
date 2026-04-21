@@ -129,6 +129,17 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## OpenClaw adaptation
+
+This repository now includes an OpenClaw-compatible multi-file adaptation under [`openclaw/`](openclaw/), preserving the same four principles from [`CLAUDE.md`](CLAUDE.md) without modifying Claude-focused files.
+
+- Core behavior: [`openclaw/SOUL.md`](openclaw/SOUL.md)
+- OpenClaw execution contract: [`openclaw/OPENCLAW.md`](openclaw/OPENCLAW.md)
+- Tooling and safety policy: [`openclaw/TOOLS.md`](openclaw/TOOLS.md)
+- Initialization flow: [`openclaw/BOOTSTRAP.md`](openclaw/BOOTSTRAP.md)
+- Integration mapping: [`openclaw/OPENCLAW_INTEGRATION.md`](openclaw/OPENCLAW_INTEGRATION.md)
+- Behavior tests and manual checklist: [`openclaw/tests/`](openclaw/tests/)
+
 ## Key Insight
 
 From Andrej:
