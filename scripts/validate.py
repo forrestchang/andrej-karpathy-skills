@@ -10,7 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN_JSON = ROOT / ".claude-plugin" / "plugin.json"
 MARKETPLACE_JSON = ROOT / ".claude-plugin" / "marketplace.json"
+HOOKS_JSON = ROOT / "hooks" / "hooks.json"
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---", re.DOTALL)
+PLUGIN_ROOT_VAR = re.compile(r"\$\{CLAUDE_PLUGIN_ROOT\}")
 
 errors: list[str] = []
 
@@ -39,6 +41,26 @@ def parse_frontmatter(text: str) -> dict[str, str] | None:
             k, _, v = line.partition(":")
             fields[k.strip()] = v.strip()
     return fields
+
+
+def validate_hooks() -> None:
+    hooks_cfg = load_json(HOOKS_JSON)
+    if hooks_cfg is None:
+        return
+    events = hooks_cfg.get("hooks", {})
+    if not isinstance(events, dict):
+        err("hooks/hooks.json: top-level 'hooks' must be an object")
+        return
+    for event, matchers in events.items():
+        for matcher in matchers:
+            for entry in matcher.get("hooks", []):
+                cmd = entry.get("command", "")
+                rel = PLUGIN_ROOT_VAR.sub("", cmd).lstrip("/")
+                script = ROOT / rel
+                if not script.exists():
+                    err(f"hooks/hooks.json: {event} references missing script: {rel}")
+                elif not script.stat().st_mode & 0o111:
+                    err(f"hooks/hooks.json: {event} script not executable: {rel}")
 
 
 def validate_skill(rel_path: str, seen_names: set[str]) -> None:
@@ -78,6 +100,9 @@ def main() -> int:
     seen: set[str] = set()
     for rel in skills:
         validate_skill(rel, seen)
+
+    if HOOKS_JSON.exists():
+        validate_hooks()
 
     if errors:
         print("VALIDATION FAILED:", file=sys.stderr)
