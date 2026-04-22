@@ -110,7 +110,39 @@ Then install the plugin:
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
+This installs the guidelines as a Claude Code plugin, making the four skills below available across all your projects.
+
+### What ships
+
+The plugin installs four auto-triggered skills, one per principle, so each loads only when its trigger conditions match:
+
+| Skill | Loads when… |
+|---|---|
+| `think-before-coding` | The request is ambiguous (vague verbs, missing scope, multiple valid interpretations) |
+| `simplicity-first` | About to introduce abstractions, design patterns, config flags, or speculative features |
+| `surgical-changes` | About to edit existing files (bug fixes, logging, small modifications) |
+| `goal-driven-execution` | Multi-step tasks or vague tasks like "fix X", "make Y work", "refactor Z" |
+
+Splitting the principles keeps each skill's context small and lets the right one fire at the right moment, instead of loading all four guidelines for every request.
+
+### Bundled hooks
+
+The plugin also ships two opinionated, non-blocking hooks that reinforce the skills at the moments they matter. They auto-activate on install:
+
+| Hook | Fires on | What it does |
+|---|---|---|
+| `surgical-reminder.sh` | `PreToolUse` for `Edit` / `Write` / `MultiEdit` | Prints a one-line stderr reminder that every changed line should trace to the request |
+| `vague-verb-check.py` | `UserPromptSubmit` when the prompt matches `fix` / `improve` / `refactor` / `optimize` / `clean up` / `tidy` / `polish` | Injects a one-paragraph reminder into Claude's context to surface ambiguity and define a verifiable success criterion before coding |
+
+Both hooks exit `0` and never block the tool call or prompt.
+
+**Disabling the hooks**
+
+Granular per-hook disable isn't supported by Claude Code — it's currently all-or-nothing:
+
+- **Disable every hook in the session** (including non-plugin hooks): add `"disableAllHooks": true` to `~/.claude/settings.json` or `.claude/settings.local.json`.
+- **Keep the skills, drop the hooks**: disable the plugin with `/plugin disable andrej-karpathy-skills`, then add the four skill markdown files directly to your `CLAUDE.md` or `~/.claude/skills/` instead.
+- **Tune them**: fork the repo and edit `hooks/hooks.json` / the scripts under `hooks/`. The scripts are ~10 lines each.
 
 **Option B: CLAUDE.md (per-project)**
 
