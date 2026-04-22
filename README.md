@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Trae
+
+This repository includes a committed Trae project rule ([`.trae/rules/karpathy-guidelines.md`](.trae/rules/karpathy-guidelines.md)) so the same guidelines apply when you open the project in Trae. See **[TRAE.md](TRAE.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+
 ## Key Insight
 
 From Andrej:
