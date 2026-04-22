@@ -1,6 +1,6 @@
 ---
 name: goal-driven-execution
-description: Use BEFORE multi-step tasks (refactors, bug fixes, feature additions, "fix X", "make Y work") to define verifiable success criteria up front so the work can loop independently to completion. Trigger when the task is vague ("fix it", "make it work", "improve X", "refactor Y"); transforms imperative tasks into test-first plans with per-step verification. Captures Karpathy's "give it success criteria and watch it go".
+description: Use for multi-step coding work where the goal is already clear — bug fixes (write a failing reproducer first), performance work (state baseline + target number, verify with benchmark), and features that span more than one file or layer (numbered plan with a per-step verification check). Distinct from clarifying scope (handled separately): this fires once the user's intent is understood, to make execution verifiable and loop-safe rather than open-ended. Skip for single-line changes, exploration, or tasks where scope itself is still ambiguous.
 license: MIT
 ---
 
@@ -33,10 +33,12 @@ For multi-step tasks, state a brief plan up front:
 
 ## When this fires
 
-- Task verbs without measurable outcome: "fix", "improve", "clean up", "refactor"
-- Bug reports without a reproducer
-- Performance work without a number
-- Multi-step features (>1 file, >1 layer)
+- Bug reports where the goal is clear but no failing test exists yet
+- Performance work without a stated baseline + target number
+- Features that span more than one file or layer
+- Refactors where "before" and "after" need to be proven equivalent
+
+If scope itself is unclear (vague "fix it" / "improve X" with no specifics), that's a `think-before-coding` situation first — clarify the goal, then come back here to make execution verifiable.
 
 ## Worked example
 

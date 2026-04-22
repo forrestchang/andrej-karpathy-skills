@@ -1,6 +1,6 @@
 ---
 name: simplicity-first
-description: Use when writing new code, designing APIs, or about to add abstractions, to keep implementations minimal. Trigger BEFORE introducing classes, design patterns (Strategy/Factory/Builder), config systems, optional flags, generic interfaces, dependency injection, or any speculative "flexibility". Forces "minimum code that solves today's problem" instead of designing for hypothetical future requirements.
+description: Use only when about to introduce abstraction or flexibility that wasn't explicitly requested — class hierarchies, design patterns (Strategy/Factory/Builder/Repository), config objects/dataclasses, optional parameters with defaults the user didn't ask for (validate=True, merge=True, notify=False), generic interfaces (ABC, Protocol), plugin systems, dependency injection, or "just in case" try/except wrappers. Forces minimum code over speculative design. Skip for straightforward implementations of clearly-scoped requests where no extra abstraction is being considered.
 license: MIT
 ---
 

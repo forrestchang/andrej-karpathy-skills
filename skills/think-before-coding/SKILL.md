@@ -1,6 +1,6 @@
 ---
 name: think-before-coding
-description: Use BEFORE starting any non-trivial coding task to surface assumptions, present multiple interpretations, and ask clarifying questions instead of silently picking one. Trigger when the user's request has ambiguity around scope, fields, format, file location, or behavior; when multiple reasonable approaches exist; when something feels underspecified. Prevents the "wrong assumption, run with it" failure mode.
+description: Use only when the user's request contains a specific ambiguity that admits multiple valid interpretations — vague verbs without scope ("export users", "make it faster", "clean up X"), missing details (file location, fields, format, data volume), or unstated constraints (privacy, auth model, pagination). Forces surfacing 2-3 interpretations with tradeoffs and asking before coding, instead of silently picking one. Skip for unambiguous requests (typo fixes, clearly-scoped changes, requests where the user already specified format/scope/fields).
 license: MIT
 ---
 
