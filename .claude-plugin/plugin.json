@@ -7,5 +7,10 @@
   },
   "license": "MIT",
   "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
-  "skills": ["./skills/karpathy-guidelines"]
+  "skills": [
+    "./skills/think-before-coding",
+    "./skills/simplicity-first",
+    "./skills/surgical-changes",
+    "./skills/goal-driven-execution"
+  ]
 }
