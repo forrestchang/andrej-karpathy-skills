@@ -1,0 +1,6 @@
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Apply careful coding guardrails"
+  default_prompt: "Use $karpathy-guidelines for this coding task so you surface assumptions, keep changes minimal, and verify the result."
+policy:
+  allow_implicit_invocation: true
