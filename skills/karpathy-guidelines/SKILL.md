@@ -6,7 +6,7 @@ license: MIT
 
 # Karpathy Guidelines
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy&#39;s observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
@@ -15,6 +15,7 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
+
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
@@ -37,12 +38,14 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 **Touch only what you must. Clean up only your own mess.**
 
 When editing existing code:
+
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
 
 When your changes create orphans:
+
 - Remove imports/variables/functions that YOUR changes made unused.
 - Don't remove pre-existing dead code unless asked.
 
@@ -53,11 +56,13 @@ The test: Every changed line should trace directly to the user's request.
 **Define success criteria. Loop until verified.**
 
 Transform tasks into verifiable goals:
+
 - "Add validation" → "Write tests for invalid inputs, then make them pass"
 - "Fix the bug" → "Write a test that reproduces it, then make it pass"
 - "Refactor X" → "Ensure tests pass before and after"
 
 For multi-step tasks, state a brief plan:
+
 ```
 1. [Step] → verify: [check]
 2. [Step] → verify: [check]
@@ -65,3 +70,54 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+## 5. Programming Principles and Workflow
+
+Use this section to integrate principles and workflow with no overlap and no gaps.
+
+### A. Programming Principles
+
+- `KISS`: Keep design and implementation simple.
+- `YAGNI`: Build only what is explicitly needed now.
+- `SOLID`: Apply SRP / OCP / LSP / ISP / DIP to keep changes maintainable.
+- `DRY`: Eliminate duplicated logic and repeated patterns.
+
+
+
+### B. Workflow
+
+`Phase 1: Understanding`
+- Analyze context and identify KISS/YAGNI/SOLID/DRY violations.
+- Output: Problem statement and explicit assumptions.
+
+`Phase 2: Planning`
+- Define goal and smallest viable approach.
+- Output: Step-by-step plan with verification points.
+
+`Phase 3: Execution`
+- Apply minimum-scope changes only; no unrelated refactors.
+- Output: Traceable edits.
+
+`Phase 4: Verification`
+- Run tests or perform manual checks to ensure goal achievement.
+- Output: Evidence of verification.
+
+`Phase 5: Reporting`
+- Summarize outcomes, benefits, and risks.
+- Output: Structured handoff information.
+
+### C. Fixed Output Contract
+
+`Phase Checklist`
+- `Understanding`: scope, assumptions, unknowns.
+- `Planning`: path and verification points.
+- `Execution`: change description.
+- `Verification`: evidence of success.
+- `Reporting`: conclusion and risks.
+
+`Final Report Template`
+- `Conclusion`: 
+- `Assumptions`: 
+- `Implementation Details`: 
+- `Risks`: 
+

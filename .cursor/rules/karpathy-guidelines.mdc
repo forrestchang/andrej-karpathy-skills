@@ -68,3 +68,47 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## 5. Programming Principles and Workflow
+
+### A. Programming Principles
+- `KISS`: Keep design and implementation simple.
+- `YAGNI`: Build only what is explicitly needed now.
+- `SOLID`: Apply SRP / OCP / LSP / ISP / DIP to keep changes maintainable.
+- `DRY`: Eliminate duplicated logic and repeated patterns.
+
+### B. Workflow
+`Phase 1: Understanding`
+- Analyze context and identify KISS/YAGNI/SOLID/DRY violations.
+- Output: Problem statement and explicit assumptions.
+
+`Phase 2: Planning`
+- Define goal and smallest viable approach.
+- Output: Step-by-step plan with verification points.
+
+`Phase 3: Execution`
+- Apply minimum-scope changes only; no unrelated refactors.
+- Output: Traceable edits.
+
+`Phase 4: Verification`
+- Run tests or perform manual checks to ensure goal achievement.
+- Output: Evidence of verification.
+
+`Phase 5: Reporting`
+- Summarize outcomes, benefits, and risks.
+- Output: Structured handoff information.
+
+### C. Fixed Output Contract
+`Phase Checklist`
+- `Understanding`: scope, assumptions, unknowns.
+- `Planning`: path and verification points.
+- `Execution`: change description.
+- `Verification`: evidence of success.
+- `Reporting`: conclusion and risks.
+
+`Final Report Template`
+- `Conclusion`: 
+- `Assumptions`: 
+- `Implementation Details`: 
+- `Risks`: 
+
