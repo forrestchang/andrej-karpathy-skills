@@ -18,11 +18,16 @@ This project includes a **Cursor project rule** so the Karpathy-inspired behavio
 
 If you want the same content as a reusable skill under `~/.cursor/skills`, use [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). You can copy or symlink it into your personal skills directory; use whatever layout you use for other skills.
 
-## Claude Code vs Cursor
+## Use the same skill with Codex
+
+This repo also includes Codex metadata in [`skills/karpathy-guidelines/agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml). Copy or symlink the whole [`skills/karpathy-guidelines`](skills/karpathy-guidelines) folder into `~/.codex/skills/karpathy-guidelines`, then restart Codex. The skill can then be invoked as `$karpathy-guidelines`.
+
+## Claude Code vs Cursor vs Codex
 
 - **Claude Code:** Install via the plugin marketplace and [`README.md`](README.md) instructions; the plugin exposes the skill from this repo. Per-project use can also rely on `CLAUDE.md`.
 - **Cursor:** Use the committed `.cursor/rules/` file as described above. Cursor does not read `.claude-plugin/` or `CLAUDE.md` by default.
+- **Codex:** Install the bundled skill into `~/.codex/skills`. Codex reads `agents/openai.yaml` for UI metadata and can invoke the skill explicitly as `$karpathy-guidelines` or implicitly when relevant.
 
 ## For contributors
 
-When you change the four principles, keep **[`CLAUDE.md`](CLAUDE.md)** and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well.
+When you change the four principles, keep **[`CLAUDE.md`](CLAUDE.md)** and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well, and keep **[`skills/karpathy-guidelines/agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml)** aligned for Codex.

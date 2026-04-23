@@ -1,10 +1,10 @@
-# 受 Karpathy 启发的 Claude Code 指南
+# 受 Karpathy 启发的编码智能体指南
 
 > 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
 >
 > 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+一组 `CLAUDE.md`、Cursor 规则和可复用技能，用于改善 Claude Code、Cursor 和 Codex 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
 
 [English](./README.md) | 简体中文
 
@@ -125,9 +125,26 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**选项 C：Codex 技能**
+
+在仓库根目录执行，将内置技能复制或软链接到 `~/.codex/skills`：
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/karpathy-guidelines ~/.codex/skills/
+```
+
+然后重启 Codex，让它重新加载新技能。之后你可以显式使用 `$karpathy-guidelines` 调用它，也可以让 Codex 在匹配任务时隐式加载。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
+
+## 在 Codex 中使用
+
+本仓库还提供了兼容 Codex 的技能定义，位于 [`skills/karpathy-guidelines`](skills/karpathy-guidelines)，并包含用于 Codex UI 元数据和调用行为的 [`agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml)。
+
+将该目录安装到 `~/.codex/skills` 后，这套指南就可以在不同项目中复用。如果你修改了共享技能文本，也请同步更新 Codex 元数据。
 
 ## 核心洞察
 

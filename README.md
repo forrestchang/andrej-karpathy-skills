@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Coding Agent Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A small set of `CLAUDE.md`, Cursor rules, and reusable skills to improve Claude Code, Cursor, and Codex behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -125,9 +125,26 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: Codex skill**
+
+From the repository root, copy or symlink the bundled skill into `~/.codex/skills`:
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/karpathy-guidelines ~/.codex/skills/
+```
+
+Then restart Codex to pick up the new skill. After that, you can invoke it explicitly with `$karpathy-guidelines`, or let Codex load it implicitly when the task fits.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+
+## Using with Codex
+
+This repository includes a Codex-compatible skill definition in [`skills/karpathy-guidelines`](skills/karpathy-guidelines), including [`agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml) for Codex UI metadata and invocation behavior.
+
+Install that folder into `~/.codex/skills` to make the guidelines available across projects. If you make changes to the shared skill text, keep the Codex metadata aligned as well.
 
 ## Key Insight
 

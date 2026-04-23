@@ -1,6 +1,6 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: "Apply Karpathy-style coding guardrails that reduce common LLM engineering mistakes. Use when writing, reviewing, debugging, or refactoring code: surface assumptions before acting, prefer the simplest viable change, keep edits surgical, and define verifiable success criteria before implementation."
 license: MIT
 ---
 
