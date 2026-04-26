@@ -20,7 +20,7 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Six principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -28,8 +28,10 @@ Four principles in one file that directly address these issues:
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| **Architecture & Boundaries** | Layer violations, god files, unclear ownership, leaky abstractions |
+| **Code-Level Discipline** | Bureaucratic names, narrating comments, type escapes, dependency creep |
 
-## The Four Principles in Detail
+## The Six Principles in Detail
 
 ### 1. Think Before Coding
 
@@ -95,6 +97,35 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
+
+### 5. Architecture & Boundaries
+
+**Enforce import direction, keep domain logic pure, and stop god files from growing.**
+
+This section adds structural guardrails around *where* code goes and *how* layers communicate:
+
+- **Layer rules** — Presentation, Orchestration, Domain, and Data layers with strict import direction. A lower layer importing a higher layer is a bug.
+- **Size budgets** — Over 400 lines is a smell; over 600 is a defect. Split before adding more.
+- **Types as contracts** — Make illegal states unrepresentable. Use discriminated unions over boolean clusters. Parse, don't merely validate, at every boundary.
+- **Ownership** — One concept has one owner module. Every state value has a named owner. Convenience copies start drift bugs.
+- **Effects at the edges** — Network, time, randomness, and filesystem stay outside the domain core. Domain code is deterministic and unit-testable without mocking.
+- **Where new code goes** — A prioritized checklist (domain -> schema -> boundary -> background -> UI -> cross-cutting) answers the "where does this file go?" question.
+- **Self-check before submitting** — A 12-item verification checklist covering layer boundaries, file sizes, nullable globals, boundary parsing, ownership, and more.
+
+### 6. Code-Level Discipline
+
+**Govern lines, functions, and files. Counter bureaucratic names, narrating comments, defensive catches, log noise, type escapes, floating promises, and dependency creep.**
+
+Section 5 governs structure. This section governs the code within that structure:
+
+- **Naming** — Avoid bureaucratic suffixes (`Manager`, `Helper`, `Service`). Name things for what they are or do. Booleans read as predicates.
+- **Comments** — Comment only what code cannot. Ban narrating comments, docstrings on trivial helpers, and assistant chatter in comments.
+- **Error handling** — Catch only what you can handle. Domain code throws; consumers handle. Ban empty catches and defensive try-blocks around code that cannot throw.
+- **Logging** — One configured library. Structured events, not narration. Levels mean what they say.
+- **Type hygiene** — Ban `as any`, `// @ts-ignore`, `Object`, and `{}` types. Fix the type rather than asserting past it.
+- **Async & promises** — Every promise is awaited, returned, or explicitly discarded. No bare `.then()` chains. No `await` inside `forEach`.
+- **Dependencies** — Adding a package needs justification. Default to the existing stack. No transitive utility packages for one helper.
+- **Database migrations** — Schema changes go through migration tooling. Shipped migrations are append-only. A schema change without a migration is a bug.
 
 ## Install
 
