@@ -1,0 +1,6 @@
+{
+  "name": "andrej-karpathy-skills",
+  "version": "0.1.0",
+  "type": "module",
+  "main": ".opencode/plugins/karpathy-guidelines.js"
+}
