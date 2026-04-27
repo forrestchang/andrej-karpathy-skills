@@ -1,4 +1,5 @@
 # Karpathy-Inspired Claude Code Guidelines
+Placing CLAUDE.md in your Documents folder makes these guidelines apply to local Claude Code sessions.
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
