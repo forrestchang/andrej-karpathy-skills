@@ -98,6 +98,8 @@ Strong success criteria let the LLM loop independently. Weak criteria ("make it 
 
 ## Install
 
+OpenCode-specific installation details live in [opencode/OPENCODE.md](./opencode/OPENCODE.md).
+
 **Option A: Claude Code Plugin (recommended)**
 
 From within Claude Code, first add the marketplace:

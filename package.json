@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "oc-plugin-karpathy-guidelines",
+  "version": "0.2.1",
+  "description": "OpenCode plugin that registers the karpathy-guidelines skill and injects it into new sessions.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./opencode/plugin/index.js",
+  "exports": {
+    ".": "./opencode/plugin/index.js",
+    "./server": {
+      "import": "./opencode/plugin/server.js",
+      "config": {
+        "enabled": true
+      }
+    }
+  },
+  "engines": {
+    "opencode": ">=1.3.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonillos/andrej-karpathy-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antonillos/andrej-karpathy-skills/issues"
+  },
+  "homepage": "https://github.com/antonillos/andrej-karpathy-skills#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "opencode",
+    "README.md",
+    "README.zh.md"
+  ],
+  "keywords": [
+    "opencode",
+    "plugin",
+    "karpathy",
+    "guidelines",
+    "llm"
+  ],
+  "peerDependencies": {
+    "@opencode-ai/plugin": "*"
+  }
+}
