@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Kiro
+
+This repository includes a committed Kiro steering file ([`.kiro/steering/karpathy-guardrails.md`](.kiro/steering/karpathy-guardrails.md)) with `inclusion: auto`, so the same guidelines apply automatically when you open the project in Kiro. See **[KIRO.md](KIRO.md)** for setup, using the steering file in other projects, and how this relates to Claude Code and Cursor.
+
 ## Key Insight
 
 From Andrej:
