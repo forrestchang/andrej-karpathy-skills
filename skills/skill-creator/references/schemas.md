@@ -223,8 +223,8 @@ Output from Benchmark mode. Located at `benchmarks/<timestamp>/benchmark.json`.
 ```json
 {
   "metadata": {
-    "skill_name": "pdf",
-    "skill_path": "/path/to/pdf",
+    "skill_name": "document-processing",
+    "skill_path": "/path/to/document-processing",
     "executor_model": "claude-sonnet-4-20250514",
     "analyzer_model": "most-capable-model",
     "timestamp": "2026-01-15T10:30:00Z",
