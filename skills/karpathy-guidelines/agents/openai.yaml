@@ -1,0 +1,10 @@
+# Codex UI metadata for the reusable karpathy-guidelines skill.
+# Keep this file lightweight; the behavioral instructions live in SKILL.md.
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Keep coding agents simple, surgical, and verified"
+  default_prompt: "Use $karpathy-guidelines to make this code change with clear assumptions, minimal scope, and verification."
+  brand_color: "#0F766E"
+
+policy:
+  allow_implicit_invocation: true
