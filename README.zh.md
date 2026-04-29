@@ -1,10 +1,10 @@
-# 受 Karpathy 启发的 Claude Code 指南
+# 受 Karpathy 启发的编码智能体指南
 
 > 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
 >
 > 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+一组用于改善编码智能体行为的指令和技能，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
 
 [English](./README.md) | 简体中文
 
@@ -98,7 +98,9 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 ## 安装
 
-**选项 A：Claude Code 插件（推荐）**
+### Claude
+
+**Claude Code 插件（推荐）**
 
 在 Claude Code 中，首先添加插件市场：
 ```
@@ -112,7 +114,7 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
 
-**选项 B：CLAUDE.md（按项目）**
+**CLAUDE.md（按项目）**
 
 新项目：
 ```bash
@@ -125,9 +127,29 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
-## 在 Cursor 中使用
+### Codex
 
-本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
+Codex 目前不能像 Claude Code 一样直接安装这个仓库作为插件。本仓库提供的是 Codex 原生的项目指令和可复用 skill：
+
+- [`AGENTS.md`](AGENTS.md)：Codex 项目级指令
+- [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)：可复用的 Codex skill
+- [`skills/karpathy-guidelines/agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml)：Codex skill UI 元数据
+
+如果只想在某个项目中使用，把 [`AGENTS.md`](AGENTS.md) 复制到项目根目录，或合并到已有的 `AGENTS.md`。
+
+如果你的 Codex 安装包含 skill installer，也可以把这个指南安装为可复用 skill：
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo forrestchang/andrej-karpathy-skills \
+  --path skills/karpathy-guidelines
+```
+
+安装后重启 Codex。详情请参见 **[CODEX.md](CODEX.md)**。
+
+### Cursor
+
+本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。要在其他项目中使用，把该文件复制到目标项目的 `.cursor/rules/` 目录。详情请参见 **[CURSOR.md](CURSOR.md)**。
 
 ## 核心洞察
 

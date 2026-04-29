@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Coding Agent Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A small set of agent instructions and skills to improve coding-agent behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -112,7 +112,27 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option B: Codex**
+
+This repo includes Codex-native integration:
+
+- [`AGENTS.md`](AGENTS.md) for project-level Codex instructions
+- [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) as a reusable Codex skill
+- [`skills/karpathy-guidelines/agents/openai.yaml`](skills/karpathy-guidelines/agents/openai.yaml) for Codex skill UI metadata
+
+If your Codex install includes the skill installer, install the skill directly from GitHub:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo forrestchang/andrej-karpathy-skills \
+  --path skills/karpathy-guidelines
+```
+
+Restart Codex after installing. For per-project behavior without a global skill, copy [`AGENTS.md`](AGENTS.md) into your project root or merge it with an existing `AGENTS.md`.
+
+See **[CODEX.md](CODEX.md)** for details.
+
+**Option C: CLAUDE.md (per-project)**
 
 New project:
 ```bash
