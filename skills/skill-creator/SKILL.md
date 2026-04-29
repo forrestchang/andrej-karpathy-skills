@@ -1,5 +1,5 @@
 ---
-name: skill-creator
+name: karpathy-guidelines-and-skill-creator
 description: Behavioral guidelines to reduce common LLM coding mistakes AND a complete system for creating, testing, and optimizing skills. Use this skill WHENEVER the user asks you to write, review, debug, refactor, or discuss code — or whenever you are about to generate any code yourself. Also use when the user wants to create a skill from scratch, edit or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy. Apply to every coding task including fixing bugs, adding features, creating new files, refactoring, code reviews, architecture discussions, writing tests, and skill development.
 ---
 
