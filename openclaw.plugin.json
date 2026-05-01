@@ -1,0 +1,12 @@
+{
+  "id": "karpathy-guidelines",
+  "name": "Karpathy Guidelines",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+  "skills": [
+    "./skills"
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false
+  }
+}
