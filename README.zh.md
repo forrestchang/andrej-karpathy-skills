@@ -1,10 +1,12 @@
-# 受 Karpathy 启发的 Claude Code 指南
+# 受 Karpathy 启发的编码智能体指南
 
 > 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
 >
 > 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+一组用于改善编码智能体行为的指南，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+
+这个 fork 是由 **PercivalLin** 改编的 **Codex App skill 版**。它基于 **forrestchang** 的原仓库 [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)，并在 [`skills/karpathy-guidelines`](skills/karpathy-guidelines) 中加入了 Codex 可直接发现和调用的 skill。
 
 [English](./README.md) | 简体中文
 
@@ -125,6 +127,44 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**选项 C：Codex App Skill**
+
+安装这个 fork 中的 Codex skill：
+```bash
+git clone https://github.com/PercivalLin/andrej-karpathy-skills.git
+cd andrej-karpathy-skills
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/karpathy-guidelines "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+如果你已经 clone 了这个仓库，只需要在仓库根目录运行复制步骤：
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/karpathy-guidelines "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+之后在 Codex 中用 `$karpathy-guidelines` 调用它。
+
+示例 prompt：
+
+```text
+使用 $karpathy-guidelines 帮我实现这个功能，保持改动尽量小，并完成验证。
+```
+
+```text
+使用 $karpathy-guidelines 审查这次 diff，重点看是否有过度设计、无关改动和缺少测试。
+```
+
+```text
+使用 $karpathy-guidelines，在重构这个模块前先说明假设和成功标准。
+```
+
+### 应该做成 Skill 还是 Plugin？
+
+如果目标是让 Codex App 直接使用，**skill** 是更合适的格式。Codex 会从 `~/.codex/skills` 发现这个目录，读取 `SKILL.md`，然后你就可以用 `$karpathy-guidelines` 调用它。
+
+**plugin** 更像是分发包装层，适合打包一个或多个 skills、MCP server、App 集成或额外元数据。这个仓库目前提供的是 Codex 兼容的 skill。以后如果需要 marketplace 式分发，再添加指向这个 skill 的 Codex plugin 包装即可。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
@@ -169,3 +209,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 ## 许可
 
 MIT
+
+## 来源与署名
+
+- 原仓库：[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
+- 原仓库作者：[forrestchang](https://github.com/forrestchang)
+- Codex App skill 改编：[PercivalLin](https://github.com/PercivalLin)
+- 灵感来源：[Andrej Karpathy 关于 LLM 编码陷阱的观察](https://x.com/karpathy/status/2015883857489522876)

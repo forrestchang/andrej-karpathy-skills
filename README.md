@@ -1,10 +1,12 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Coding Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Behavioral guidelines for coding agents, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+
+This fork is the **Codex App skill edition** adapted by **PercivalLin**. It is based on the original repository [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills) by **forrestchang**, and adds a Codex-compatible skill at [`skills/karpathy-guidelines`](skills/karpathy-guidelines).
 
 English | [简体中文](./README.zh.md)
 
@@ -125,6 +127,44 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: Codex App Skill**
+
+Install this fork's Codex skill locally:
+```bash
+git clone https://github.com/PercivalLin/andrej-karpathy-skills.git
+cd andrej-karpathy-skills
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/karpathy-guidelines "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+If you already cloned this repository, run only the copy step from the repository root:
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/karpathy-guidelines "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+Then invoke it in Codex with `$karpathy-guidelines`.
+
+Example prompts:
+
+```text
+Use $karpathy-guidelines while implementing this feature. Keep the change small and verify it.
+```
+
+```text
+Use $karpathy-guidelines to review this diff for overengineering, unrelated edits, and missing tests.
+```
+
+```text
+Use $karpathy-guidelines before refactoring this module. State assumptions and success criteria first.
+```
+
+### Codex Skill or Plugin?
+
+For direct Codex App use, a **skill** is the right format. Codex discovers the folder under `~/.codex/skills`, reads `SKILL.md`, and lets you invoke it with `$karpathy-guidelines`.
+
+A **plugin** is a packaging layer for distributing one or more skills, MCP servers, app integrations, or extra metadata. This repository currently ships the Codex-compatible skill directly. If marketplace-style distribution is needed later, the next step would be adding Codex plugin packaging that points to the existing skill.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
@@ -169,3 +209,10 @@ The goal is reducing costly mistakes on non-trivial work, not slowing down simpl
 ## License
 
 MIT
+
+## Attribution
+
+- Original repository: [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
+- Original repository author: [forrestchang](https://github.com/forrestchang)
+- Codex App skill adaptation: [PercivalLin](https://github.com/PercivalLin)
+- Inspired by: [Andrej Karpathy's observations on LLM coding pitfalls](https://x.com/karpathy/status/2015883857489522876)

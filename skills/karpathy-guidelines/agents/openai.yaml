@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Keep coding agents simple and surgical"
+  default_prompt: "Use $karpathy-guidelines while writing, reviewing, or refactoring code."
