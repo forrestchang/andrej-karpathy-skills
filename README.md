@@ -38,12 +38,12 @@ Choose the integration method that matches your AI coding assistant:
 ### Claude Code
 **Option A: Plugin (recommended)**
 ```bash
-/plugin marketplace add chius-dev/andrej-karpathy-skills
+/plugin marketplace add tamochii/andrej-karpathy-skills
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
 **Option B: Project File**
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/CLAUDE.md
 ```
 
 ### Cursor
@@ -54,33 +54,33 @@ See **[CURSOR.md](CURSOR.md)** for setup details.
 Download the SKILL.md into your project's `.opencode/skills` directory:
 ```bash
 mkdir -p .opencode/skills/karpathy-guidelines
-curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/.opencode/skills/karpathy-guidelines/SKILL.md
+curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 ### Hermes Agent (and general autonomous agents)
 Hermes Agent natively looks for `AGENTS.md` to define operational constraints. 
 ```bash
-curl -o AGENTS.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/AGENTS.md
+curl -o AGENTS.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/AGENTS.md
 ```
 
 ### VS Code Copilot (GitHub Copilot)
 You can provide guidelines to Copilot via a `.github/copilot-instructions.md` file (or appending to it):
 ```bash
 mkdir -p .github
-curl -o .github/copilot-instructions.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/agents/vscode-copilot/COPILOT.md
+curl -o .github/copilot-instructions.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/vscode-copilot/COPILOT.md
 ```
 
 ### Codex, OpenClaw, Gemini CLI
 For CLI-based agents, you can append the rules to your project's primary context file or drop them into their respective `.md` config files:
 ```bash
 # Codex
-curl -o CODEX.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/agents/codex/CODEX.md
+curl -o CODEX.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/codex/CODEX.md
 
 # OpenClaw
-curl -o OPENCLAW.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/agents/openclaw/OPENCLAW.md
+curl -o OPENCLAW.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/openclaw/OPENCLAW.md
 
 # Gemini CLI
-curl -o GEMINI.md https://raw.githubusercontent.com/chius-dev/andrej-karpathy-skills/main/agents/gemini-cli/GEMINI.md
+curl -o GEMINI.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/gemini-cli/GEMINI.md
 ```
 
 ---
