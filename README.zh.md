@@ -182,7 +182,3 @@ curl -o GEMINI.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-ski
 这些指南倾向于**谨慎而非速度**。对于琐碎的任务（简单的拼写错误修复、显而易见的一行修改），请自行判断 —— 并非每个改动都需要完整的严谨流程。
 
 目标是减少非琐碎工作中的代价高昂的错误，而不是拖慢简单任务。
-
-## 许可
-
-MIT
