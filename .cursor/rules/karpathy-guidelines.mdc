@@ -1,9 +1,9 @@
 ---
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, define verifiable success criteria, and keep documentation focused on decisions rather than changes.
 alwaysApply: true
 ---
 
-# Karpathy behavioral guidelines
+# Karpathy behavioral guidelines (extended)
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
@@ -57,6 +57,7 @@ Transform tasks into verifiable goals:
 - "Refactor X" → "Ensure tests pass before and after"
 
 For multi-step tasks, state a brief plan:
+
 ```
 1. [Step] → verify: [check]
 2. [Step] → verify: [check]
@@ -65,6 +66,32 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Document Decisions, Not Changes
+
+**Code shows what. Git log shows when. Docs explain why.**
+
+Before writing any documentation, ask: "Could a reader recover this from the code or git history?" If yes, don't write it.
+
+Update documentation only when:
+- A decision was made between real alternatives → new ADR in `docs/adr/NNNN-short-name.md`
+- A non-obvious constraint, edge case, or gotcha was discovered → append to `docs/gotchas.md`
+- Project structure, conventions, commands, or stack changed → update the relevant rule file
+- An external service requires non-obvious setup → `docs/external-services.md`
+
+Do NOT update documentation for:
+- Routine bug fixes or feature work — git log already records them.
+- Changes obvious from the diff ("added function X that does Y").
+- "Just in case" notes — stale docs are worse than missing docs.
+- Restating what's already in the code or commit message.
+
+ADR format (one decision per file):
+- **Context:** what problem and what constraints
+- **Decision:** what was chosen
+- **Alternatives:** what was rejected and why
+- **Consequences:** what this locks in or rules out for the future
+
+When in doubt, write a clear commit message instead of a doc.
+
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, clarifying questions come before implementation rather than after mistakes, and documentation grows slowly with high signal rather than rapidly with noise.
