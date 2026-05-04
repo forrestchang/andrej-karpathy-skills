@@ -59,7 +59,28 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## 5. Document Decisions, Not Changes
+
+**Code shows what. Docs explain why.**
+
+Update documentation only when:
+* A decision was made between real alternatives (record it in docs/adr/).
+* A non-obvious constraint or gotcha was discovered.
+* Project structure, conventions, or commands changed (update CLAUDE.md).
+
+Do NOT:
+* Write a changelog entry for every edit — that's what git log is for.
+* Document the obvious ("added function X that does Y" — the code already says this).
+* Update docs "just in case" — stale docs are worse than missing docs.
+
+Before updating any doc, ask: "Could a reader recover this from the code or git history?" If yes, don't write it.
+
+For ADRs use this format:
+- **Context:** what problem and constraints
+- **Decision:** what was chosen
+- **Alternatives:** what was rejected and why
+- **Consequences:** what this locks in or rules out
