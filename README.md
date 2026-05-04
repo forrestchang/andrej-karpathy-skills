@@ -54,7 +54,7 @@ See **[CURSOR.md](CURSOR.md)** for setup details.
 Download the SKILL.md into your project's `.opencode/skills` directory:
 ```bash
 mkdir -p .opencode/skills/karpathy-guidelines
-curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/skills/karpathy-guidelines/SKILL.md
+curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 ### Hermes Agent (and general autonomous agents)

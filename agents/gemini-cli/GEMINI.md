@@ -1,4 +1,4 @@
-# CLAUDE.md
+# Karpathy Guidelines for Gemini CLI
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
