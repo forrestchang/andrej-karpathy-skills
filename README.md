@@ -1,14 +1,17 @@
-# Karpathy-Inspired Coding Guidelines for AI Agents
+<p align="right">
+  English | <a href="./README.zh.md">简体中文</a>
+</p>
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) - an open-source platform for running and managing coding agents with reusable skills.
->
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
+<h1 align="center">Andrej Karpathy Skills</h1>
 
-A unified set of guidelines to improve the behavior of AI coding assistants, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls. 
+<p align="center">
+  A unified set of guidelines to improve the behavior of AI coding assistants, derived from Andrej Karpathy's observations.
+</p>
 
-Originally created for Claude Code, this repository has been expanded to support a wide ecosystem of AI tools including **Cursor, OpenCode, Codex, VS Code Copilot, Hermes Agent, OpenClaw, and Gemini CLI**.
-
-English | [简体中文](./README.zh.md)
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  <img alt="Support" src="https://img.shields.io/badge/Agents-Claude_|_Cursor_|_Copilot_|_Hermes-7A3FFF.svg">
+</p>
 
 ## The Problems
 

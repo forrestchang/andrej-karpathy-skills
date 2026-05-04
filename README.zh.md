@@ -1,12 +1,17 @@
-# 受 Karpathy 启发的 Claude Code 指南
+<p align="right">
+  <a href="./README.md">English</a> | 简体中文
+</p>
 
-> 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
->
-> 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
+<h1 align="center">Andrej Karpathy Skills</h1>
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+<p align="center">
+  一份受 Andrej Karpathy 启发编写的 AI 编程助手行为规范，让各种 Agent 变得更聪明、更克制。
+</p>
 
-[English](./README.md) | 简体中文
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  <img alt="Support" src="https://img.shields.io/badge/Agents-Claude_|_Cursor_|_Copilot_|_Hermes-7A3FFF.svg">
+</p>
 
 ## 问题所在
 
