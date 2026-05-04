@@ -34,6 +34,64 @@ Four principles that directly address these issues:
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
+## The Four Principles in Detail
+
+### 1. Think Before Coding
+**Don't assume. Don't hide confusion. Present tradeoffs.**
+
+LLMs often silently choose an interpretation and run with it. This principle forces explicit reasoning:
+- **State assumptions explicitly** - If unsure, ask instead of guessing
+- **Present interpretations** - When ambiguous, don't silently pick one
+- **Push back** - If there's a simpler way, say so
+- **Stop on confusion** - Point out what's unclear and demand clarification
+
+### 2. Simplicity First
+**Solve the problem with the least code. Don't over-speculate.**
+
+Combats the tendency to over-engineer:
+- Do not add unrequested features
+- Do not create abstractions for one-off code
+- Do not add unasked "flexibility" or "configurability"
+- Do not add error handling for impossible scenarios
+- If 200 lines can be written in 50, rewrite it
+
+**Test:** Would a senior engineer roll their eyes at the complexity? If yes, simplify.
+
+### 3. Surgical Changes
+**Touch only what must be touched. Clean up only your own messes.**
+
+When editing existing code:
+- Do not "improve" adjacent code, comments, or formatting
+- Do not refactor what isn't broken
+- Match existing style even if you prefer differently
+- If you notice unrelated dead code, mention it — do not delete it
+
+When your changes create orphans:
+- DO delete imports/variables/functions made useless by your change
+- DO NOT delete pre-existing dead code unless asked
+
+**Test:** Every changed line should directly trace back to the user's request.
+
+### 4. Goal-Driven Execution
+**Define success criteria. Loop to verify until met.**
+
+Turn imperative tasks into verifiable goals:
+
+| Don't do this... | Turn it into... |
+|------------------|-----------------|
+| "Add validation" | "Write tests for invalid inputs, then make them pass" |
+| "Fix the bug" | "Write a test that reproduces the bug, then make it pass" |
+| "Refactor X" | "Ensure tests pass before and after refactoring" |
+
+For multi-step tasks, state a short plan:
+```
+1. [Step] -> Verify: [Check]
+2. [Step] -> Verify: [Check]
+3. [Step] -> Verify: [Check]
+```
+
+Strong success criteria let the LLM run autonomous loops. Weak criteria ("make it work") require constant clarification.
+
 ## Installation and Usage by Agent
 
 Choose the integration method that matches your AI coding assistant:

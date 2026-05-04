@@ -101,47 +101,59 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 强有力的成功标准让 LLM 能够独立循环执行。弱标准（"让它工作"）需要不断澄清。
 
-## 安装
+## 各 Agent 的安装与使用
 
-**选项 A：Claude Code 插件（推荐）**
+选择与你正在使用的 AI 编程助手相匹配的接入方式：
 
-在 Claude Code 中，首先添加插件市场：
-```
+### Claude Code
+**选项 A：插件形式（推荐）**
+```bash
 /plugin marketplace add tamochii/andrej-karpathy-skills
-```
-
-然后安装插件：
-```
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
-
-这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
-
-**选项 B：CLAUDE.md（按项目）**
-
-新项目：
+**选项 B：项目文件形式**
 ```bash
 curl -o CLAUDE.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/CLAUDE.md
 ```
 
-已有项目（追加）：
+### Cursor
+本仓库包含一个已提交的 Cursor 项目规则，因此在 Cursor 中打开项目时指南会自动生效。
+详细设置请参见 **[CURSOR.md](CURSOR.md)**。
+
+### OpenCode
+将 SKILL.md 下载到你项目的 `.opencode/skills` 目录中：
 ```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+mkdir -p .opencode/skills/karpathy-guidelines
+curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
-## 在 Cursor 中使用
+### Hermes Agent (及通用自治 Agent)
+Hermes Agent 原生支持读取 `AGENTS.md` 来定义运行约束。
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/AGENTS.md
+```
 
-本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
+### VS Code Copilot (GitHub Copilot)
+你可以通过 `.github/copilot-instructions.md` 文件（或追加到该文件中）为 Copilot 提供指南：
+```bash
+mkdir -p .github
+curl -o .github/copilot-instructions.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/vscode-copilot/COPILOT.md
+```
 
-## 核心洞察
+### Codex, OpenClaw, Gemini CLI
+对于基于命令行的 Agent，你可以将规则追加到项目的主上下文文件中，或者放入它们各自的 `.md` 配置文件中：
+```bash
+# Codex
+curl -o CODEX.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/codex/CODEX.md
 
-来自 Andrej：
+# OpenClaw
+curl -o OPENCLAW.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/openclaw/OPENCLAW.md
 
-> "LLM 非常擅长循环执行直到达成特定目标……不要告诉它该做什么，给它成功标准，然后看着它完成。"
+# Gemini CLI
+curl -o GEMINI.md https://raw.githubusercontent.com/tamochii/andrej-karpathy-skills/main/agents/gemini-cli/GEMINI.md
+```
 
-"目标驱动执行"原则正是捕捉了这一点：将指令式指令转化为带有验证循环的声明式目标。
-
+---
 ## 如何判断它在起作用
 
 如果你看到以下情况，说明这些指南正在发挥作用：
