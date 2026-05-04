@@ -4,7 +4,7 @@
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A single `CODEX.md`, `CLAUDE.md`, `CURSOR.md`, and `AGENTS.md` set to improve coding agent behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -124,6 +124,18 @@ Existing project (append):
 echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
+
+## Using with Codex
+
+Use [`codex/CODEX.md`](codex/CODEX.md) for Codex-specific behavioral guidelines. For a fuller reusable Codex setup, copy these files into your Codex home or project root:
+
+- [`codex/CODEX.md`](codex/CODEX.md) - Codex behavioral guidelines
+- [`codex/AGENTS.md`](codex/AGENTS.md) - global Codex operating rules and working agreements
+- [`codex/PROJECT_LOCAL_AGENTS_EXAMPLE.md`](codex/PROJECT_LOCAL_AGENTS_EXAMPLE.md) - example project-local `AGENTS.md`
+- [`codex/CODING_PATTERNS_ANALYSIS.md`](codex/CODING_PATTERNS_ANALYSIS.md) - implementation pattern reference
+- [`codex/COMPACTION_TEMPLATE.md`](codex/COMPACTION_TEMPLATE.md) - compact summary and handoff template
+
+On Windows, the default global location is `C:\Users\HP\.codex\CODEX.md`.
 
 ## Using with Cursor
 
