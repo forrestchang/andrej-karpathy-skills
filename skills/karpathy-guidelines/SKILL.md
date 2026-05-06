@@ -10,6 +10,12 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## 0. Restate Ambiguity, Search Before Building
+
+When the user's request has any ambiguity, restate the requirement in your own words before acting.
+
+Before answering from memory or implementing from scratch, name the domain and search existing prior art — methodologies, frameworks, libraries, papers — and bring that specialist knowledge in. Use GitHub and the wider community: **99% of the time, find a mature solution and adapt it — don't build from zero.** Search package registries, official docs, and established repos first. Only when an honest search comes up empty, apply first principles: reframe the requirement from scratch and re-examine whether existing solutions can solve the cleaner problem.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**

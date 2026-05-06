@@ -20,16 +20,29 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Five principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
+| **Restate Ambiguity, Search Before Building** | Silent assumptions on ambiguous requests, reinventing what already exists |
 | **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
-## The Four Principles in Detail
+## The Five Principles in Detail
+
+### 0. Restate Ambiguity, Search Before Building
+
+**Restate when unclear. Search before reinventing.**
+
+LLMs often run with one interpretation of an ambiguous request and reimplement what already exists as a one-line library call. This principle forces a pause and a search:
+
+- **Restate the requirement** — When the request is ambiguous, echo it back in your own words before acting
+- **Name the domain** — State what kind of problem this is before solving
+- **Search prior art** — Methodologies, frameworks, libraries, papers. Cite specific names, not vague gestures
+- **Adapt, don't rebuild** — 99% of the time a mature solution exists; find it and adapt with the smallest possible delta
+- **First principles is a fallback** — Only when an honest search comes up empty: reframe the requirement, drop accidental constraints, then search again
 
 ### 1. Think Before Coding
 
