@@ -129,6 +129,15 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
 
+## 在 Antigravity 中使用
+
+本仓库将指南作为 Antigravity skill 提供 ([`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md))，Antigravity 激活时会自动应用这些指南。详情请参见 **[ANTIGRAVITY.md](ANTIGRAVITY.md)**，包括如何为单个工作区或全局所有工作区安装该 skill。
+
+| 范围 | 路径 |
+|------|------|
+| 工作区专用 | `<workspace-root>/.agents/skills/karpathy-guidelines/` |
+| 全局（所有工作区）| `~/.gemini/antigravity/skills/karpathy-guidelines/` |
+
 ## 核心洞察
 
 来自 Andrej：

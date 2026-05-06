@@ -129,6 +129,15 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Antigravity
+
+This repository includes the guidelines as an Antigravity skill ([`.agents/skills/karpathy-guidelines/SKILL.md`](.agents/skills/karpathy-guidelines/SKILL.md)) so they apply automatically when Antigravity is active. See **[ANTIGRAVITY.md](ANTIGRAVITY.md)** for setup details, including how to install the skill for a single workspace or globally across all workspaces.
+
+| Scope | Location |
+|-------|----------|
+| Workspace-specific | `<workspace-root>/.agents/skills/karpathy-guidelines/` |
+| Global (all workspaces) | `~/.gemini/antigravity/skills/karpathy-guidelines/` |
+
 ## Key Insight
 
 From Andrej:
