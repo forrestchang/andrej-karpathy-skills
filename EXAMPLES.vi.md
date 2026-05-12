@@ -16,7 +16,7 @@ Các ví dụ code thực tế minh họa bốn nguyên tắc. Mỗi ví dụ ch
 def export_users(format='json'):
     """Xuất tất cả người dùng ra file."""
     users = User.query.all()
-    
+
     if format == 'json':
         with open('users.json', 'w') as f:
             json.dump([u.to_dict() for u in users], f)
@@ -25,7 +25,7 @@ def export_users(format='json'):
             writer = csv.DictWriter(f, fieldnames=['id', 'email', 'name'])
             writer.writeheader()
             writer.writerows([u.to_dict() for u in users])
-    
+
     return f"Exported {len(users)} users"
 ```
 
@@ -116,14 +116,14 @@ class DiscountStrategy(ABC):
 class PercentageDiscount(DiscountStrategy):
     def __init__(self, percentage: float):
         self.percentage = percentage
-    
+
     def calculate(self, amount: float) -> float:
         return amount * (self.percentage / 100)
 
 class FixedDiscount(DiscountStrategy):
     def __init__(self, fixed_amount: float):
         self.fixed_amount = fixed_amount
-    
+
     def calculate(self, amount: float) -> float:
         return min(self.fixed_amount, amount)
 
@@ -136,7 +136,7 @@ class DiscountConfig:
 class DiscountCalculator:
     def __init__(self, config: DiscountConfig):
         self.config = config
-    
+
     def apply_discount(self, amount: float) -> float:
         if amount < self.config.min_purchase:
             return 0
@@ -171,37 +171,37 @@ class PreferenceManager:
         self.db = db
         self.cache = cache or InMemoryCache()
         self.validator = validator or DefaultValidator()
-    
-    def save(self, user_id: int, prefs: dict, 
-             merge: bool = True, 
+
+    def save(self, user_id: int, prefs: dict,
+             merge: bool = True,
              validate: bool = True,
              notify: bool = False) -> bool:
         """Lưu preferences với tùy chọn merge, validation, và notification."""
-        
+
         if validate:
             errors = self.validator.validate(prefs)
             if errors:
                 raise ValidationError(errors)
-        
+
         existing = self.get(user_id) if merge else {}
-        
+
         if merge:
             existing.update(prefs)
             prefs = existing
-        
+
         self.db.execute(
             "UPDATE users SET preferences = ? WHERE id = ?",
             (json.dumps(prefs), user_id)
         )
-        
+
         if self.cache:
             self.cache.set(f"prefs:{user_id}", prefs)
-        
+
         if notify:
             self.notify_preference_change(user_id, prefs)
-        
+
         return True
-    
+
     def notify_preference_change(self, user_id: int, prefs: dict):
         # Lại thêm 30 dòng nữa cho một tính năng không ai yêu cầu
         pass
@@ -236,16 +236,16 @@ def save_preferences(db, user_id: int, preferences: dict):
 -     if not user_data.get('email'):
 +     """Xác thực dữ liệu người dùng."""
 +     email = user_data.get('email', '').strip()
-+     
++
 +     # Xác thực email
 +     if not email:
           raise ValueError("Email required")
--     
+-
 -     # Basic email validation
 -     if '@' not in user_data['email']:
 +     if '@' not in email or '.' not in email.split('@')[1]:
           raise ValueError("Invalid email")
-      
+
 -     # Check username
 -     if not user_data.get('username'):
 +     # Xác thực username
@@ -256,7 +256,7 @@ def save_preferences(db, user_id: int, preferences: dict):
 +         raise ValueError("Username too short")
 +     if not username.isalnum():
 +         raise ValueError("Username must be alphanumeric")
-      
+
       return True
 ```
 
@@ -275,16 +275,16 @@ def save_preferences(db, user_id: int, preferences: dict):
 +     email = user_data.get('email', '')
 +     if not email or not email.strip():
           raise ValueError("Email required")
-      
+
       # Basic email validation
 -     if '@' not in user_data['email']:
 +     if '@' not in email:
           raise ValueError("Invalid email")
-      
+
       # Check username
       if not user_data.get('username'):
           raise ValueError("Username required")
-      
+
       return True
 ```
 
@@ -301,13 +301,13 @@ def save_preferences(db, user_id: int, preferences: dict):
 + def upload_file(file_path: str, destination: str) -> bool:
 +     """Upload file lên đích với logging."""
 +     logger.info(f"Uploading {file_path} to {destination}")
-+     
++
       try:
 -         with open(file_path, 'rb') as f:
 -             data = f.read()
--         
+-
 -         response = requests.post(destination, files={'file': data})
--         
+-
 -         if response.status_code == 200:
 -             return True
 -         else:
@@ -316,12 +316,12 @@ def save_preferences(db, user_id: int, preferences: dict):
 +             data = f.read()
 +         response = requests.post(destination, files={"file": data})
 +         success = response.status_code == 200
-+         
++
 +         if success:
 +             logger.info(f"Upload successful: {file_path}")
 +         else:
 +             logger.error(f"Upload failed: {file_path}, status={response.status_code}")
-+         
++
 +         return success
       except Exception as e:
 -         print(f"Error: {e}")
@@ -340,17 +340,17 @@ def save_preferences(db, user_id: int, preferences: dict):
 
 ```diff
 + import logging
-+ 
++
 + logger = logging.getLogger(__name__)
-+ 
++
   def upload_file(file_path, destination):
 +     logger.info(f'Starting upload: {file_path}')
       try:
           with open(file_path, 'rb') as f:
               data = f.read()
-          
+
           response = requests.post(destination, files={'file': data})
-          
+
           if response.status_code == 200:
 +             logger.info(f'Upload successful: {file_path}')
               return True
@@ -474,9 +474,9 @@ def test_sort_with_duplicate_scores():
         {'name': 'Bob', 'score': 100},
         {'name': 'Charlie', 'score': 90},
     ]
-    
+
     result = sort_scores(scores)
-    
+
     # Bug ở đây: thứ tự trở nên không xác định khi có phần tử trùng điểm
     # Chạy test này nhiều lần, kết quả phải nhất quán
     assert result[0]['score'] == 100
