@@ -6,7 +6,7 @@
 
 一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [한국어](./README.ko.md)
 
 ## 问题所在
 
