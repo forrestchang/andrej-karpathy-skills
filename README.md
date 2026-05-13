@@ -9,7 +9,7 @@
 
 Inspired by Andrej Karpathy's observations on common LLM coding failures.
 
-[English](./README.md) |[Vietnamese](./READMW.vn.md)| [简体中文](./README.zh.md)
+[English](./README.md) |[Vietnamese](./READMW.vi.md)| [简体中文](./README.zh.md)
 
 Supports:
 
