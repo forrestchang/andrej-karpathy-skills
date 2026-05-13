@@ -1,171 +1,277 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy++ (Think-Before-Code)
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
+> A rule set that helps coding AI agents think like real software engineers:
 >
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
+> - Don't guess
+> - Don't over-engineer
+> - Don't touch unrelated code
+> - Don't stop until success is verified
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Inspired by Andrej Karpathy's observations on common LLM coding failures.
 
-English | [简体中文](./README.zh.md)
+[English](./README.md) |[Vietnamese](./READMW.vn.md)| [简体中文](./README.zh.md)
 
-## The Problems
+Supports:
 
-From Andrej's post:
+- Claude Code
+- Gemini CLI
+- Cursor
+- Antigravity
+- Cline
+- Aider
+- Roo Code
+- Any coding agent
 
-> "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
+---
 
-> "They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."
+# The Problem
 
-> "They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."
+According to Andrej Karpathy:
 
-## The Solution
+> Models often make assumptions on behalf of users and continue coding without verification.
 
-Four principles in one file that directly address these issues:
+> They do not manage uncertainty, ask clarifying questions, or present tradeoffs.
 
-| Principle | Addresses |
-|-----------|-----------|
-| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
-| **Simplicity First** | Overcomplication, bloated abstractions |
-| **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
-| **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+> They tend to overcomplicate code and APIs.
 
-## The Four Principles in Detail
+> They sometimes modify or remove unrelated code they do not fully understand.
 
-### 1. Think Before Coding
+In real-world development, this leads to:
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+❌ bloated code  
+❌ unnecessary architecture  
+❌ dirty diffs  
+❌ hidden bugs  
+❌ painful code reviews  
+❌ wasted engineering time  
 
-LLMs often pick an interpretation silently and run with it. This principle forces explicit reasoning:
+---
 
-- **State assumptions explicitly** — If uncertain, ask rather than guess
-- **Present multiple interpretations** — Don't pick silently when ambiguity exists
-- **Push back when warranted** — If a simpler approach exists, say so
-- **Stop when confused** — Name what's unclear and ask for clarification
+# The Solution
 
-### 2. Simplicity First
+Karpathy++ solves these problems with four core principles:
 
-**Minimum code that solves the problem. Nothing speculative.**
+| Principle | Solves |
+|-----------|--------|
+| Think Before Coding | Wrong assumptions, ambiguity |
+| Simplicity First | Over-engineering |
+| Surgical Changes | Unrelated edits |
+| Goal-Driven Execution | Unverified fixes |
 
-Combat the tendency toward overengineering:
+---
 
-- No features beyond what was asked
-- No abstractions for single-use code
-- No "flexibility" or "configurability" that wasn't requested
-- No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
+# 1. Think Before Coding
 
-**The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
+## Never guess. Understand before implementation.
 
-### 3. Surgical Changes
+The AI must:
 
-**Touch only what you must. Clean up only your own mess.**
+✅ analyze requirements  
+✅ state assumptions explicitly  
+✅ identify ambiguity  
+✅ ask clarifying questions  
+✅ present alternatives  
+✅ explain tradeoffs  
 
-When editing existing code:
+Never:
 
-- Don't "improve" adjacent code, comments, or formatting
-- Don't refactor things that aren't broken
-- Match existing style, even if you'd do it differently
-- If you notice unrelated dead code, mention it — don't delete it
+❌ silently choose one interpretation  
+❌ pretend confidence when uncertain  
+❌ hallucinate APIs  
 
-When your changes create orphans:
+Example:
 
-- Remove imports/variables/functions that YOUR changes made unused
-- Don't remove pre-existing dead code unless asked
+Instead of:
 
-**The test:** Every changed line should trace directly to the user's request.
+"Ok, I'll use MySQL."
 
-### 4. Goal-Driven Execution
+Do:
 
-**Define success criteria. Loop until verified.**
+"There are three options:
 
-Transform imperative tasks into verifiable goals:
+1. SQLite
+2. MySQL
+3. File storage
 
-| Instead of... | Transform to... |
-|--------------|-----------------|
-| "Add validation" | "Write tests for invalid inputs, then make them pass" |
-| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
-| "Refactor X" | "Ensure tests pass before and after" |
+If this is a single server → SQLite is simpler.  
+If this is distributed → MySQL is better.
 
-For multi-step tasks, state a brief plan:
+Which direction do you want?"
 
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
+---
 
-Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
+# 2. Simplicity First
 
-## Install
+## Write the minimum code that solves the problem.
 
-**Option A: Claude Code Plugin (recommended)**
+The AI should prefer:
 
-From within Claude Code, first add the marketplace:
-```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
-```
+✅ fewer files  
+✅ fewer abstractions  
+✅ fewer dependencies  
+✅ standard libraries first  
 
-Then install the plugin:
-```
-/plugin install andrej-karpathy-skills@karpathy-skills
-```
+Never:
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
+❌ create patterns without need  
+❌ introduce single-use abstractions  
+❌ add future-proof features  
+❌ add configuration nobody asked for  
 
-**Option B: CLAUDE.md (per-project)**
+Principle:
 
-New project:
-```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
-```
+> If 50 lines solve it, don't write 500.
 
-Existing project (append):
-```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
-```
+Test:
 
-## Using with Cursor
+> Would a senior engineer call this overcomplicated?
 
-This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+If yes → simplify.
 
-## Key Insight
+---
 
-From Andrej:
+# 3. Surgical Changes
 
-> "LLMs are exceptionally good at looping until they meet specific goals... Don't tell it what to do, give it success criteria and watch it go."
+## Change only what must be changed.
 
-The "Goal-Driven Execution" principle captures this: transform imperative instructions into declarative goals with verification loops.
+The AI must:
 
-## How to Know It's Working
+✅ modify only relevant code  
+✅ preserve project style  
+✅ preserve naming conventions  
+✅ clean only what its own changes created  
 
-These guidelines are working if you see:
+Never:
 
-- **Fewer unnecessary changes in diffs** — Only requested changes appear
-- **Fewer rewrites due to overcomplication** — Code is simple the first time
-- **Clarifying questions come before implementation** — Not after mistakes
-- **Clean, minimal PRs** — No drive-by refactoring or "improvements"
+❌ refactor unrelated code  
+❌ reformat entire files  
+❌ rename unrelated variables  
+❌ remove existing comments  
+❌ delete old dead code unless requested  
 
-## Customization
+Test:
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
+> Every changed line must directly trace back to the user's request.
 
-For project-specific rules, add sections like:
+---
 
-```markdown
-## Project-Specific Guidelines
+# 4. Goal-Driven Execution
 
-- Use TypeScript strict mode
-- All API endpoints must have tests
-- Follow the existing error handling patterns in `src/utils/errors.ts`
-```
+## Don't just do tasks. Define success.
 
-## Tradeoff Note
+Instead of:
 
-These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
+"Fix the bug"
 
-The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
+Transform into:
 
-## License
+"Write a test that reproduces the bug → make it pass."
+
+Examples:
+
+| Instead of | Transform into |
+|------------|----------------|
+| Add validation | Write failing validation tests |
+| Fix bug | Reproduce with tests, then pass |
+| Refactor | Ensure tests pass before and after |
+
+Workflow:
+
+1. Define success criteria
+2. Define verification
+3. Implement
+4. Verify
+5. Repeat until success
+
+---
+
+# Debugging Rules
+
+Always debug using:
+
+1. Reproduce
+2. Isolate
+3. Hypothesize
+4. Verify
+5. Patch
+6. Regression test
+
+Never:
+
+❌ patch blindly  
+❌ fix by intuition only  
+
+---
+
+# Security Rules
+
+Never:
+
+❌ hardcode secrets  
+❌ expose credentials  
+❌ disable validation  
+❌ bypass authentication  
+❌ disable security checks  
+
+---
+
+# When Uncertain
+
+If confidence < 90%:
+
+Stop.
+
+Ask.
+
+Never hallucinate.
+
+---
+
+# How to Know It's Working
+
+You will notice:
+
+✅ AI asks before coding  
+✅ smaller diffs  
+✅ fewer rewrites  
+✅ less over-engineering  
+✅ cleaner pull requests  
+✅ easier debugging  
+
+---
+
+# Project-Specific Rules
+
+You can extend with domain rules:
+
+## Minecraft
+
+- Prefer Paper API
+- Never block main thread
+- Database operations must be async
+
+## Web
+
+- Validate all inputs
+- Never trust client-side data
+
+## Automation
+
+- No hardcoded screen coordinates
+- Retry + logging required
+
+---
+
+# Core Philosophy
+
+> Don't tell AI what to do.
+>
+> Tell AI what success looks like.
+
+That is where LLMs become powerful.
+
+---
+
+# License
 
 MIT
