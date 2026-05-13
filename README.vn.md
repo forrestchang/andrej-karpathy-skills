@@ -8,6 +8,7 @@
 > - Không dừng lại cho tới khi có kết quả kiểm chứng được
 
 Lấy cảm hứng từ những quan sát của Andrej Karpathy về các lỗi phổ biến khi LLM viết code.
+[English](./README.md) |[Vietnamese](./READMW.vn.md)| [简体中文](./README.zh.md)
 
 Hỗ trợ:
 
