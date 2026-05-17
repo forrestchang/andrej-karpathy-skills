@@ -4,9 +4,7 @@
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
-
-English | [简体中文](./README.zh.md)
+A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's January 2026 post on X](https://x.com/karpathy/status/2015883857489522876) documenting LLM coding pitfalls he observed during intensive agentic coding sessions.
 
 ## The Problems
 
