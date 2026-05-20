@@ -24,23 +24,35 @@ Four principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
-| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
+| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs, unresolved inconsistencies |
 | **Simplicity First** | Overcomplication, bloated abstractions |
-| **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
-| **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| **Surgical Changes** | Orthogonal edits, touching code you don't sufficiently understand |
+| **Goal-Driven Execution** | Unlock looping capability through verifiable success criteria |
 
 ## The Four Principles in Detail
 
 ### 1. Think Before Coding
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**Don't assume. Don't hide confusion. Surface tradeoffs. Recommend clearly.**
 
 LLMs often pick an interpretation silently and run with it. This principle forces explicit reasoning:
 
 - **State assumptions explicitly** — If uncertain, ask rather than guess
-- **Present multiple interpretations** — Don't pick silently when ambiguity exists
+- **Surface inconsistencies** — If the request contradicts existing code, prior requirements, or itself, name it explicitly. Don't silently pick a side
+- **Present tradeoffs with costs** — When multiple technical approaches exist (speed vs. simplicity, now vs. later), name them with rough costs — don't pick silently
 - **Push back when warranted** — If a simpler approach exists, say so
 - **Stop when confused** — Name what's unclear and ask for clarification
+
+**Recommend, don't just list:** When surfacing options, always mark your recommended choice with 1–2 sentences of reasoning — why it fits *this* specific context. Presenting a neutral menu pushes the decision burden back without the codebase context you have. Keep the door open: the user may have constraints you don't see.
+
+```
+Option A: [description] — [tradeoff]
+Option B: [description] — [tradeoff]
+
+→ Recommend: Option A. [reasoning given what you know about the codebase/goals.]
+
+Your call — happy to go with B if [condition that would change the recommendation].
+```
 
 ### 2. Simplicity First
 
@@ -52,7 +64,7 @@ Combat the tendency toward overengineering:
 - No abstractions for single-use code
 - No "flexibility" or "configurability" that wasn't requested
 - No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
+- If 500 lines could be 100, stop and rewrite it
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
@@ -72,11 +84,13 @@ When your changes create orphans:
 - Remove imports/variables/functions that YOUR changes made unused
 - Don't remove pre-existing dead code unless asked
 
+**Why:** Adjacent code that looks wrong or redundant often encodes constraints you don't see — a workaround, a performance tradeoff, an interface contract. Karpathy's exact phrase: LLMs change "code they don't sufficiently understand as side effects." If you don't know why it's there, don't touch it.
+
 **The test:** Every changed line should trace directly to the user's request.
 
 ### 4. Goal-Driven Execution
 
-**Define success criteria. Loop until verified.**
+**LLMs excel at looping until specific goals are met. The unlock: give verifiable criteria instead of vague instructions, then let execution run.**
 
 Transform imperative tasks into verifiable goals:
 

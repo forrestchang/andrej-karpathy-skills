@@ -1,6 +1,6 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Behavioral guidelines derived from Andrej Karpathy's observations on LLM coding pitfalls. Invoke at the start of ANY coding task — before writing a single line — and also when reviewing, refactoring, or responding to an ambiguous request. Prevents silent assumptions, overcomplication, collateral edits, and vague execution. Use even for "small" tasks; judgment failures happen most often when the task appears simple.
 license: MIT
 ---
 
@@ -12,13 +12,31 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 
 ## 1. Think Before Coding
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**Don't assume. Don't hide confusion. Surface tradeoffs. Recommend clearly.**
 
 Before implementing:
 - State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
+- If the request contradicts existing code, prior requirements, or itself — name it explicitly. Don't silently pick a side.
+- If multiple technical approaches exist with real tradeoffs (speed vs. simplicity, now vs. later), name them with rough costs — don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
+
+### Recommend, don't just list
+
+When you surface options, tradeoffs, or interpretations, always mark your recommended choice — don't leave the user staring at a neutral menu.
+
+Format:
+```
+Option A: [description] — [tradeoff]
+Option B: [description] — [tradeoff]
+
+→ Recommend: Option A. [1–2 sentence reasoning: why it fits this specific context, 
+  what makes it better given what you know about the codebase/constraints/goals.]
+
+Your call — happy to go with B if [condition that would change the recommendation].
+```
+
+Why this matters: presenting options without a recommendation pushes the decision burden back onto the user without the context you have from reading the code. A recommendation with reasoning is educational — it teaches the user the tradeoff, not just the menu. Still defer: you might be missing context the user has, so always leave the door open.
 
 ## 2. Simplicity First
 
@@ -28,7 +46,7 @@ Before implementing:
 - No abstractions for single-use code.
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- If you write 500 lines and it could be 100, stop and rewrite it.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
@@ -40,7 +58,9 @@ When editing existing code:
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
+- If you notice unrelated dead code, mention it — don't delete it.
+
+**Why:** Adjacent code that looks wrong or redundant often encodes constraints you don't see — a workaround, a performance tradeoff, an interface contract. Karpathy's original observation: LLMs change "code they don't sufficiently understand as side effects." If you don't know why it's there, don't touch it.
 
 When your changes create orphans:
 - Remove imports/variables/functions that YOUR changes made unused.
@@ -50,7 +70,7 @@ The test: Every changed line should trace directly to the user's request.
 
 ## 4. Goal-Driven Execution
 
-**Define success criteria. Loop until verified.**
+**LLMs excel at looping until specific goals are met. The unlock: give verifiable criteria instead of vague instructions, then let execution run.**
 
 Transform tasks into verifiable goals:
 - "Add validation" → "Write tests for invalid inputs, then make them pass"
