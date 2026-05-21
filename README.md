@@ -125,6 +125,18 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: [skillfile](https://github.com/eljulians/skillfile) (reproducible across tools)**
+
+If you want to pin this skill to an exact revision and reuse the same setup across Claude Code, Cursor, Codex, and other tools:
+
+```bash
+curl -fsSL https://github.com/eljulians/skillfile/releases/latest/download/install.sh | sh
+skillfile init
+skillfile add github skill multica-ai/andrej-karpathy-skills skills/karpathy-guidelines
+```
+
+Here, `skills/karpathy-guidelines` is the path to the skill directory inside this repo. `skillfile init` lets you choose where to install it, `skillfile add` installs it on the current machine, and future machines can reproduce the same setup with `skillfile install`. If you commit `Skillfile` and `Skillfile.lock`, teammates and future clones can reproduce the same setup too.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
