@@ -2,7 +2,7 @@
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-Codex reads this file as repository-level guidance when it works in this project. Keep it aligned with `CLAUDE.md`, `.cursor/rules/karpathy-guidelines.mdc`, and `skills/karpathy-guidelines/SKILL.md` when the four principles change.
+Codex reads this file as repository-level guidance when it works in this project. See OpenAI's AGENTS.md guide: https://developers.openai.com/codex/guides/agents-md. Keep this file aligned with `CLAUDE.md`, `.cursor/rules/karpathy-guidelines.mdc`, and `skills/karpathy-guidelines/SKILL.md` when the four principles change.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 

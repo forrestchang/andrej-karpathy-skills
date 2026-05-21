@@ -131,7 +131,7 @@ This repository includes a committed Cursor project rule ([`.cursor/rules/karpat
 
 ## Using with Codex
 
-This repository includes a root **[`AGENTS.md`](AGENTS.md)** file so Codex loads the same Karpathy-inspired behavioral guidelines as repository-level instructions. Codex discovers `AGENTS.md` from the Git root down to the current working directory, so opening Codex in this repo is enough for the guidance to apply.
+This repository includes a root **[`AGENTS.md`](AGENTS.md)** file so Codex loads the same Karpathy-inspired behavioral guidelines as repository-level instructions. Codex discovers `AGENTS.md` from the Git root down to the current working directory, so opening Codex in this repo is enough for the guidance to apply. See OpenAI's [AGENTS.md guide](https://developers.openai.com/codex/guides/agents-md) for details.
 
 ## Key Insight
 
