@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Codex
+
+This repository includes a root **[`AGENTS.md`](AGENTS.md)** file so Codex loads the same Karpathy-inspired behavioral guidelines as repository-level instructions. Codex discovers `AGENTS.md` from the Git root down to the current working directory, so opening Codex in this repo is enough for the guidance to apply.
+
 ## Key Insight
 
 From Andrej:
@@ -148,7 +152,7 @@ These guidelines are working if you see:
 
 ## Customization
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
+These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md`, `AGENTS.md`, or project rule file as appropriate for your coding agent.
 
 For project-specific rules, add sections like:
 
