@@ -125,6 +125,18 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**选项 C：[skillfile](https://github.com/eljulians/skillfile)（跨工具可复现）**
+
+如果你想把这个技能固定到精确版本，并在 Claude Code、Cursor、Codex 等工具之间复用同一套配置：
+
+```bash
+curl -fsSL https://github.com/eljulians/skillfile/releases/latest/download/install.sh | sh
+skillfile init
+skillfile add github skill multica-ai/andrej-karpathy-skills skills/karpathy-guidelines
+```
+
+这里的 `skills/karpathy-guidelines` 是这个仓库里技能目录的路径。`skillfile init` 用来选择安装到哪些工具，`skillfile add` 会在当前机器上完成安装；换到另一台机器时，只需要运行 `skillfile install` 就能复现同样的配置。如果你把 `Skillfile` 和 `Skillfile.lock` 提交到版本控制里，队友和未来的新克隆也能复现同样的配置。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
