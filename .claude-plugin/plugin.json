@@ -1,11 +1,14 @@
 {
   "name": "andrej-karpathy-skills",
-  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
+  "description": "Behavioral guidelines for coding agents: Karpathy-inspired simplicity, surgical changes, goal-driven execution, and a tool-using agent operating loop",
   "version": "1.0.0",
   "author": {
     "name": "forrestchang"
   },
   "license": "MIT",
   "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
-  "skills": ["./skills/karpathy-guidelines"]
+  "skills": [
+    "./skills/karpathy-guidelines",
+    "./skills/agent-operating-loop"
+  ]
 }

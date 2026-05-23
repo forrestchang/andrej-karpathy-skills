@@ -29,6 +29,8 @@ Four principles in one file that directly address these issues:
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
+The Claude Code plugin also includes an **Agent Operating Loop** skill for tool-using coding agents: restate the goal as success criteria, inspect context, make the smallest safe change, verify with relevant checks, and report only grounded results.
+
 ## The Four Principles in Detail
 
 ### 1. Think Before Coding

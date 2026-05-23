@@ -5,14 +5,14 @@
     "name": "forrestchang"
   },
   "metadata": {
-    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
+    "description": "Behavioral guidelines for coding agents: Karpathy-inspired simplicity, surgical changes, goal-driven execution, and a tool-using agent operating loop",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "andrej-karpathy-skills",
       "source": "./",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
+      "description": "Behavioral guidelines for coding agents: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution, and Agent Operating Loop",
       "version": "1.0.0",
       "author": {
         "name": "forrestchang"
