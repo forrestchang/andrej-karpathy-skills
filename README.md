@@ -125,9 +125,17 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**Option C: Codex project instructions**
+
+Copy [`AGENTS.md`](AGENTS.md) into a project root so Codex loads the guidelines as repository-level guidance. The reusable skill in [`skills/karpathy-guidelines`](skills/karpathy-guidelines) also includes Codex metadata for explicit `$karpathy-guidelines` use.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+
+## Using with Codex
+
+This repository includes a root **[`AGENTS.md`](AGENTS.md)** file so Codex loads the same Karpathy-inspired behavioral guidelines as repository-level instructions. See **[CODEX.md](CODEX.md)** for setup, using the reusable skill in other projects, and how this relates to Claude Code and Cursor.
 
 ## Key Insight
 
@@ -148,7 +156,7 @@ These guidelines are working if you see:
 
 ## Customization
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
+These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md`, `AGENTS.md`, or project rule file as appropriate for your coding agent.
 
 For project-specific rules, add sections like:
 

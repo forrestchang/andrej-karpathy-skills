@@ -125,9 +125,17 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+**选项 C：Codex 项目指令**
+
+将 [`AGENTS.md`](AGENTS.md) 复制到项目根目录，Codex 就会将这些指南作为仓库级指令加载。[`skills/karpathy-guidelines`](skills/karpathy-guidelines) 中的可复用技能也包含 Codex 元数据，可用于显式调用 `$karpathy-guidelines`。
+
 ## 在 Cursor 中使用
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
+
+## 在 Codex 中使用
+
+本仓库包含根目录 **[`AGENTS.md`](AGENTS.md)** 文件，因此 Codex 会将同一套受 Karpathy 启发的行为指南作为仓库级指令加载。详情请参见 **[CODEX.md](CODEX.md)**，包括如何在其他项目中使用可复用技能，以及它与 Claude Code 和 Cursor 的关系。
 
 ## 核心洞察
 
@@ -148,7 +156,7 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 ## 定制
 
-这些指南设计用于与项目特定指令合并。将它们添加到你现有的 `CLAUDE.md` 或创建一个新的。
+这些指南设计用于与项目特定指令合并。根据你的编码智能体，将它们添加到现有的 `CLAUDE.md`、`AGENTS.md` 或项目规则文件中。
 
 对于项目特定规则，添加如下章节：
 
