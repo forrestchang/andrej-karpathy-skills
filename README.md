@@ -160,6 +160,17 @@ For project-specific rules, add sections like:
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
 
+For high-stakes or domain-specific projects, add explicit safety boundaries:
+
+```markdown
+## Domain-Specific Guidelines
+
+- Do not process private, regulated, or sensitive data unless the task explicitly requires it.
+- Separate source facts, assumptions, and recommendations.
+- Preserve uncertainty when evidence is limited.
+- Ask for clarification before turning research summaries into operational advice.
+```
+
 ## Tradeoff Note
 
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
