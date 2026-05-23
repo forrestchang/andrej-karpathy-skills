@@ -33,36 +33,100 @@ Four principles that directly address these issues:
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 
-## Installation — OpenCode
+## Installation
 
-The skill is already included in this repository at `.opencode/skills/karpathy-guidelines/SKILL.md`. OpenCode auto-detects it.
+There are two levels of installation. **Global** makes the guidelines available in every project. **Project** scopes them to a single repository. Do both if you want the guidelines everywhere with per-project overrides.
 
-To use in **another project**:
+### Global Install
+
+The skill is auto-discovered by OpenCode from two locations. Pick one:
+
+**Option A — Global skills directory (recommended):**
+```bash
+mkdir -p ~/.config/opencode/skills/karpathy-guidelines
+curl -o ~/.config/opencode/skills/karpathy-guidelines/SKILL.md \
+  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+```
+
+**Option B — Agent skills directory (auto-discovered external skills):**
+```bash
+mkdir -p ~/.agents/skills/karpathy-guidelines
+curl -o ~/.agents/skills/karpathy-guidelines/SKILL.md \
+  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+```
+
+To also load the guidelines as default system instructions in every project, add to `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "instructions": ["~/AGENTS.md"]
+}
+```
+
+Then copy the instructions file:
 
 ```bash
-# Copy the skill into your project
-mkdir -p .opencode/skills/karpathy-guidelines
-curl -o .opencode/skills/karpathy-guidelines/SKILL.md https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+curl -o ~/AGENTS.md \
+  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+```
 
-# Copy the instructions file (loaded via AGENTS.md convention)
-curl -o AGENTS.md https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+### Project Install
+
+Each new project needs two files. The skill file makes the guidelines available as a loadable skill. The instructions file makes them active by default.
+
+```bash
+cd your-project
+
+# 1. Install the skill (auto-discovered by OpenCode)
+mkdir -p .opencode/skills/karpathy-guidelines
+curl -o .opencode/skills/karpathy-guidelines/SKILL.md \
+  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+
+# 2. Install the instructions (auto-loaded by OpenCode from project root)
+curl -o AGENTS.md \
+  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+```
+
+If you already have an `AGENTS.md` or prefer to use `opencode.json`, add the instructions path explicitly:
+
+```json
+{
+  "instructions": ["AGENTS.md"]
+}
+```
+
+### Verify
+
+OpenCode will log something like the following on startup:
+
+```
+Loaded skill: karpathy-guidelines
+Loaded instructions from AGENTS.md
 ```
 
 ## How to Know It's Working
 
 These guidelines are working if you see:
 
-- **Fewer unnecessary changes in diffs** - Only requested changes appear
-- **Fewer rewrites due to overcomplication** - Code is simple the first time
-- **Clarifying questions come before implementation** - Not after mistakes
-- **Clean, minimal PRs** - No drive-by refactoring or "improvements"
+- **Fewer unnecessary changes in diffs** — Only requested changes appear
+- **Fewer rewrites due to overcomplication** — Code is simple the first time
+- **Clarifying questions come before implementation** — Not after mistakes
+- **Clean, minimal PRs** — No drive-by refactoring or "improvements"
 
 ## Customization
 
-Merge with project-specific instructions by adding to `AGENTS.md` or project config.
+Merge with project-specific instructions by editing `AGENTS.md` or adding rules to your project's `opencode.json`:
+
+```markdown
+## Project-Specific Guidelines
+
+- Use TypeScript strict mode
+- All API endpoints must have tests
+- Follow the existing error handling patterns in `src/utils/errors.ts`
+```
 
 ## Tradeoff Note
 
-These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment - not every change needs the full rigor.
+These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
 
 The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
