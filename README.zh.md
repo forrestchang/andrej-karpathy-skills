@@ -45,14 +45,14 @@ OpenCode 会自动从以下两个位置发现技能，任选其一：
 ```bash
 mkdir -p ~/.config/opencode/skills/karpathy-guidelines
 curl -o ~/.config/opencode/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 **方式 B — Agent 技能目录（自动发现的外部技能）：**
 ```bash
 mkdir -p ~/.agents/skills/karpathy-guidelines
 curl -o ~/.agents/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 如果想在每个项目中默认加载指南作为系统指令，在 `~/.config/opencode/opencode.json` 中添加：
@@ -67,7 +67,7 @@ curl -o ~/.agents/skills/karpathy-guidelines/SKILL.md \
 
 ```bash
 curl -o ~/AGENTS.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/AGENTS.md
 ```
 
 ### 项目安装
@@ -80,11 +80,11 @@ cd your-project
 # 1. 安装技能（OpenCode 自动发现）
 mkdir -p .opencode/skills/karpathy-guidelines
 curl -o .opencode/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 
 # 2. 安装指令（OpenCode 从项目根目录自动加载）
 curl -o AGENTS.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/AGENTS.md
 ```
 
 如果你的项目已有 `AGENTS.md`，或更倾向于使用 `opencode.json`，可显式配置指令路径：

@@ -45,14 +45,14 @@ The skill is auto-discovered by OpenCode from two locations. Pick one:
 ```bash
 mkdir -p ~/.config/opencode/skills/karpathy-guidelines
 curl -o ~/.config/opencode/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 **Option B — Agent skills directory (auto-discovered external skills):**
 ```bash
 mkdir -p ~/.agents/skills/karpathy-guidelines
 curl -o ~/.agents/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 ```
 
 To also load the guidelines as default system instructions in every project, add to `~/.config/opencode/opencode.json`:
@@ -67,7 +67,7 @@ Then copy the instructions file:
 
 ```bash
 curl -o ~/AGENTS.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/AGENTS.md
 ```
 
 ### Project Install
@@ -80,11 +80,11 @@ cd your-project
 # 1. Install the skill (auto-discovered by OpenCode)
 mkdir -p .opencode/skills/karpathy-guidelines
 curl -o .opencode/skills/karpathy-guidelines/SKILL.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/.opencode/skills/karpathy-guidelines/SKILL.md
 
 # 2. Install the instructions (auto-loaded by OpenCode from project root)
 curl -o AGENTS.md \
-  https://raw.githubusercontent.com/chius-me/AK-skills-opencode/main/AGENTS.md
+  https://raw.githubusercontent.com/chius-me/andrej-karpathy-skills-opencode/main/AGENTS.md
 ```
 
 If you already have an `AGENTS.md` or prefer to use `opencode.json`, add the instructions path explicitly:
