@@ -112,7 +112,21 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option B: Codex Plugin**
+
+From within Codex, add the marketplace:
+```bash
+codex plugin marketplace add forrestchang/andrej-karpathy-skills
+```
+
+Then install the plugin:
+```bash
+codex plugin add andrej-karpathy-skills@karpathy-skills
+```
+
+This installs the Codex plugin from this repo so the reusable skill is available without copying files manually.
+
+**Option C: CLAUDE.md (per-project)**
 
 New project:
 ```bash
@@ -125,7 +139,7 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
-**Option C: Codex project instructions**
+**Option D: Codex project instructions**
 
 Copy [`AGENTS.md`](AGENTS.md) into a project root so Codex loads the guidelines as repository-level guidance. The reusable skill in [`skills/karpathy-guidelines`](skills/karpathy-guidelines) also includes Codex metadata for explicit `$karpathy-guidelines` use.
 

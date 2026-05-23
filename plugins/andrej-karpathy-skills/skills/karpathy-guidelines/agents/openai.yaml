@@ -1,0 +1,6 @@
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Keep coding agents simple, surgical, and verified"
+  default_prompt: "Use $karpathy-guidelines to make this code change with clear assumptions, minimal scope, and verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,20 @@
+{
+  "name": "karpathy-skills",
+  "interface": {
+    "displayName": "Karpathy Skills"
+  },
+  "plugins": [
+    {
+      "name": "andrej-karpathy-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/andrej-karpathy-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Coding"
+    }
+  ]
+}

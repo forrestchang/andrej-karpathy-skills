@@ -14,7 +14,14 @@ This project includes **Codex repository instructions** so the Karpathy-inspired
 
 **Reusable skill:** Copy or symlink [`skills/karpathy-guidelines`](skills/karpathy-guidelines) into your Codex skills directory if you want to invoke it explicitly as `$karpathy-guidelines`.
 
-**Codex plugin:** Plugin distribution is intentionally handled separately from this baseline Codex support so the project guidance, reusable skill, and plugin packaging can stay easy to review.
+**Codex plugin:** Add this repo as a Codex plugin marketplace:
+
+```bash
+codex plugin marketplace add forrestchang/andrej-karpathy-skills
+codex plugin add andrej-karpathy-skills@karpathy-skills
+```
+
+This exposes the plugin package under [`plugins/andrej-karpathy-skills`](plugins/andrej-karpathy-skills). Keep its skill copy aligned with the root [`skills/karpathy-guidelines`](skills/karpathy-guidelines) source when changing the four principles.
 
 ## Claude Code vs Codex vs Cursor
 
@@ -24,4 +31,4 @@ This project includes **Codex repository instructions** so the Karpathy-inspired
 
 ## For contributors
 
-When you change the four principles, keep **[`AGENTS.md`](AGENTS.md)**, **[`CLAUDE.md`](CLAUDE.md)**, **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)**, and **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** in sync.
+When you change the four principles, keep **[`AGENTS.md`](AGENTS.md)**, **[`CLAUDE.md`](CLAUDE.md)**, **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)**, **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)**, and the packaged Codex plugin skill in sync.

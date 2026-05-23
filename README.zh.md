@@ -112,7 +112,21 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
 
-**选项 B：CLAUDE.md（按项目）**
+**选项 B：Codex 插件**
+
+在 Codex 中添加插件市场：
+```bash
+codex plugin marketplace add forrestchang/andrej-karpathy-skills
+```
+
+然后安装插件：
+```bash
+codex plugin add andrej-karpathy-skills@karpathy-skills
+```
+
+这会安装本仓库中的 Codex 插件，让可复用技能无需手动复制文件即可使用。
+
+**选项 C：CLAUDE.md（按项目）**
 
 新项目：
 ```bash
@@ -125,7 +139,7 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
-**选项 C：Codex 项目指令**
+**选项 D：Codex 项目指令**
 
 将 [`AGENTS.md`](AGENTS.md) 复制到项目根目录，Codex 就会将这些指南作为仓库级指令加载。[`skills/karpathy-guidelines`](skills/karpathy-guidelines) 中的可复用技能也包含 Codex 元数据，可用于显式调用 `$karpathy-guidelines`。
 
