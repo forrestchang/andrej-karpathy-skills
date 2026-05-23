@@ -4,7 +4,7 @@ description: Behavioral guidelines to reduce common LLM coding mistakes. Use whe
 license: MIT
 ---
 
-# Karpathy Guidelines
+# Karpathy Guidelines for OpenCode
 
 Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
@@ -14,8 +14,8 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
+Before implementing or calling tools:
+- State your assumptions explicitly. If uncertain, ask using the `question` tool or directly in chat.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
@@ -36,7 +36,7 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 
 **Touch only what you must. Clean up only your own mess.**
 
-When editing existing code:
+When editing existing code (using `edit` or `write`):
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
@@ -52,16 +52,14 @@ The test: Every changed line should trace directly to the user's request.
 
 **Define success criteria. Loop until verified.**
 
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+Transform tasks into verifiable goals using `bash`:
+- "Add validation" -> "Write tests for invalid inputs, run them to see them fail, implement, then run them to see them pass"
+- "Fix the bug" -> "Write a test/script that reproduces it, then make it pass"
+- "Refactor X" -> "Run existing tests before and after"
 
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
+For multi-step tasks, use `todowrite` or state a brief plan:
+1. [Step] -> verify: [check command]
+2. [Step] -> verify: [check command]
+3. [Step] -> verify: [check command]
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.

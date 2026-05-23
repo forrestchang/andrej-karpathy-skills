@@ -1,4 +1,4 @@
-# Karpathy Guidelines for Hermes Agent and General Coding Agents
+# Karpathy Guidelines for OpenCode
 
 Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls.
 
@@ -9,7 +9,7 @@ Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing or calling tools:
-- State your assumptions explicitly. If uncertain, ask using the `clarify` tool (if available) or directly in chat.
+- State your assumptions explicitly. If uncertain, ask using the `question` tool or directly in chat.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
@@ -30,7 +30,7 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 
 **Touch only what you must. Clean up only your own mess.**
 
-When editing existing code (using `patch` or `execute_code`):
+When editing existing code (using `edit` or `write`):
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
@@ -46,12 +46,12 @@ The test: Every changed line should trace directly to the user's request.
 
 **Define success criteria. Loop until verified.**
 
-Transform tasks into verifiable goals using your `terminal` or `execute_code` tools:
+Transform tasks into verifiable goals using `bash`:
 - "Add validation" -> "Write tests for invalid inputs, run them to see them fail, implement, then run them to see them pass"
 - "Fix the bug" -> "Write a test/script that reproduces it, then make it pass"
 - "Refactor X" -> "Run existing tests before and after"
 
-For multi-step tasks, use the `todo` tool (if available) or state a brief plan:
+For multi-step tasks, use `todowrite` or state a brief plan:
 1. [Step] -> verify: [check command]
 2. [Step] -> verify: [check command]
 3. [Step] -> verify: [check command]
