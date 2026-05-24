@@ -1,0 +1,31 @@
+{
+  "name": "andrej-karpathy-skills",
+  "version": "1.0.0",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
+  "author": {
+    "name": "forrestchang"
+  },
+  "homepage": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "repository": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "license": "MIT",
+  "keywords": [
+    "guidelines",
+    "best-practices",
+    "coding",
+    "karpathy"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Karpathy Guidelines",
+    "shortDescription": "Keep coding agents simple, surgical, and verified",
+    "longDescription": "Use Karpathy-inspired coding guardrails to surface assumptions, avoid overengineering, keep diffs surgical, and verify results.",
+    "developerName": "forrestchang",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Use Karpathy Guidelines while writing, reviewing, or refactoring code"
+    ]
+  }
+}
