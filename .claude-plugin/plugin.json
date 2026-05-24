@@ -7,5 +7,5 @@
   },
   "license": "MIT",
   "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
-  "skills": ["./skills/karpathy-guidelines"]
+  "skills": ["./skills/karpathy-guidelines", "./skills/email-briefing-to-notion"]
 }
