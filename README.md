@@ -129,6 +129,23 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with VS Code GitHub Copilot
+
+Install as a Copilot plugin from the terminal:
+
+```bash
+copilot plugin marketplace add forrestchang/andrej-karpathy-skills
+copilot plugin install andrej-karpathy-skills@karpathy-skills
+```
+
+Once installed, invoke the skill in any Copilot Chat conversation:
+
+```
+/andrej-karpathy-skills:karpathy-guidelines
+```
+
+This makes the guidelines available across all your projects without copying files.
+
 ## Key Insight
 
 From Andrej:
