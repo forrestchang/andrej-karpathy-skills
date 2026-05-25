@@ -20,7 +20,7 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Four principles in one file, plus a five-step executable workflow that helps coding agents apply the principles during real development tasks:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -28,6 +28,18 @@ Four principles in one file that directly address these issues:
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+
+## Executable Workflow
+
+For non-trivial coding tasks, the guidelines tell the agent to follow this compact protocol:
+
+1. **Assumption Check** — state the intended outcome, scope, constraints, and success criteria before editing.
+2. **Minimal Plan** — give 2-5 concrete steps, each with a verification check.
+3. **Change Boundary** — name what will be touched and what nearby code will be left alone.
+4. **Simplicity Gate** — reject unrequested abstractions, frameworks, configuration, compatibility layers, or speculative features.
+5. **Verification Contract** — finish by reporting what ran, what passed, what was not verified, and any remaining risk.
+
+This keeps the guidance practical: enough structure to prevent costly mistakes, but lightweight enough for daily work.
 
 ## The Four Principles in Detail
 
@@ -145,6 +157,8 @@ These guidelines are working if you see:
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
+- **Scoped plans before edits** — Non-trivial work starts with assumptions, boundaries, and verification checks
+- **Evidence-based completion** — Final responses list what was verified and what risk remains
 
 ## Customization
 
