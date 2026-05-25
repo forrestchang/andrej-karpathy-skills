@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Gemini CLI
+
+This repository includes a `gemini-extension.json` so the same guidelines apply as a [Gemini CLI](https://github.com/google-gemini/gemini-cli) extension. See **[GEMINI.md](GEMINI.md)** for setup, using the extension in other projects, and how this relates to Claude Code and Cursor.
+
 ## Key Insight
 
 From Andrej:

@@ -1,0 +1,6 @@
+{
+  "name": "karpathy-guidelines",
+  "version": "1.0.0",
+  "description": "Andrej Karpathy's behavioral coding guidelines as a Gemini CLI skill",
+  "contextFileName": []
+}
