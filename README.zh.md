@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
 
+## 在 Gemini CLI 中使用
+
+本仓库包含 `gemini-extension.json`，可将相同的指南作为 [Gemini CLI](https://github.com/google-gemini/gemini-cli) 扩展应用。详情请参见 **[GEMINI.md](GEMINI.md)**，包括如何在其他项目中使用该扩展，以及它与 Claude Code 和 Cursor 的关系。
+
 ## 核心洞察
 
 来自 Andrej：
