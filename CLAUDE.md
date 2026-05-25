@@ -4,6 +4,24 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## Executable Workflow
+
+Use this workflow for non-trivial coding tasks:
+
+1. **Assumption Check** - State the intended outcome, relevant scope, constraints, and success criteria. If intent or scope is ambiguous, ask before editing.
+2. **Minimal Plan** - Give 2-5 concrete steps. Each step should include how it will be verified.
+3. **Change Boundary** - Name the files or behavior you expect to touch, and name nearby things you will leave alone.
+4. **Simplicity Gate** - Before coding, reject unrequested abstractions, frameworks, configuration, compatibility layers, or speculative features.
+5. **Verification Contract** - Finish by reporting what you ran, what passed, what was not verified, and any remaining risk.
+
+For trivial typo fixes or obvious one-line edits, keep this lightweight: preserve the spirit of the workflow without adding ceremony.
+
+## When to Ask vs Proceed
+
+Ask when the request has multiple plausible meanings, touches sensitive data, changes public APIs, risks data loss, or lacks success criteria.
+
+Proceed when the task is narrow, reversible, and the expected outcome is obvious from nearby code, tests, or documentation.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
@@ -59,6 +77,10 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+## Completion Response
+
+End with evidence, not confidence. Summarize the changed behavior, list verification commands and outcomes, and call out anything not tested.
 
 ---
 

@@ -495,6 +495,54 @@ def sort_scores(scores):
 
 ---
 
+## 5. Executable Workflow
+
+### Example 1: End-to-End Agent Response Shape
+
+**User Request:** "Fix the checkout bug where discount codes sometimes apply twice"
+
+**❌ What LLMs Do (Jump Straight to a Broad Rewrite)**
+
+```
+I'll refactor the checkout discount system and add a new DiscountEngine.
+
+[Changes checkout flow, coupon models, caching, and unrelated formatting]
+```
+
+**Problems:**
+- Assumes the root cause before reproducing the bug
+- Expands a narrow bug fix into a new abstraction
+- Touches several adjacent systems without a boundary
+- Claims the issue is fixed without showing verification
+
+**✅ What Should Happen (Executable Workflow)**
+
+```
+Assumption Check:
+I assume "apply twice" means the same discount code is counted twice in the final order total, not that two different valid discounts stack. I will first look for tests or code paths around checkout total calculation and discount application. If the product supports intentional stacking, I will preserve that behavior.
+
+Minimal Plan:
+1. Add or find a test that reproduces one discount code being applied twice.
+   Verify: The test fails before the fix.
+2. Patch the smallest checkout path that double-counts the same code.
+   Verify: The reproduction test passes.
+3. Run nearby checkout/discount tests.
+   Verify: Existing stacking or coupon behavior still passes.
+
+Change Boundary:
+I expect to touch checkout total calculation and its tests. I will not redesign coupon models, add a new discount engine, reformat unrelated files, or change public API behavior unless the reproduction proves that is necessary.
+
+Simplicity Gate:
+No new abstraction unless there are already multiple discount paths that need the same deduplication logic. Prefer one local guard or one existing helper over a new framework.
+
+Verification Contract:
+Final response should list the exact test command, whether the new regression test failed before and passed after, which related tests ran, and any untested paths such as external payment provider callbacks.
+```
+
+**Why this works:** The agent defines the target behavior, limits the blast radius, avoids speculative architecture, and makes completion depend on verification evidence.
+
+---
+
 ## Anti-Patterns Summary
 
 | Principle | Anti-Pattern | Fix |
