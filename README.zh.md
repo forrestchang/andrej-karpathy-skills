@@ -129,6 +129,23 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
 
+## 在 VS Code GitHub Copilot 中使用
+
+从终端安装为 Copilot 插件：
+
+```bash
+copilot plugin marketplace add forrestchang/andrej-karpathy-skills
+copilot plugin install andrej-karpathy-skills@karpathy-skills
+```
+
+安装完成后，在任何 Copilot Chat 对话中调用该技能：
+
+```
+/andrej-karpathy-skills:karpathy-guidelines
+```
+
+无需复制文件，即可在所有项目中使用这些指南。
+
 ## 核心洞察
 
 来自 Andrej：
