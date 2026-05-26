@@ -12,6 +12,8 @@ This project includes a **Cursor project rule** so the Karpathy-inspired behavio
 
 **Cursor (recommended):** Copy `.cursor/rules/karpathy-guidelines.mdc` into that project’s `.cursor/rules/` directory (create the folders if needed). Adjust or merge with existing rules as you like.
 
+**Codex:** Copy [`AGENTS.md`](AGENTS.md) and [`.codex/`](.codex/) into the project root. See [`docs/CODEX.md`](docs/CODEX.md) for the operating modes, artifacts, schemas, and repo-local skills.
+
 **Other tools:** If a stack only supports a root instruction file, copy [`CLAUDE.md`](CLAUDE.md) into that project instead (or merge its contents into your existing instructions).
 
 ## Optional: personal Agent Skills
@@ -25,4 +27,4 @@ If you want the same content as a reusable skill under `~/.cursor/skills`, use [
 
 ## For contributors
 
-When you change the four principles, keep **[`CLAUDE.md`](CLAUDE.md)** and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well.
+When you change the four principles, keep **[`AGENTS.md`](AGENTS.md)**, **[`CLAUDE.md`](CLAUDE.md)**, and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync where their scopes overlap. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well.

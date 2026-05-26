@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/multica-ai/andrej-karpathy-skills/.codex/schemas/review.schema.json",
+  "title": "Review Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["findings", "verificationGaps", "summary"],
+  "properties": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "file", "issue", "recommendation"],
+        "properties": {
+          "severity": { "enum": ["critical", "high", "medium", "low"] },
+          "file": { "type": "string", "minLength": 1 },
+          "issue": { "type": "string", "minLength": 1 },
+          "recommendation": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "verificationGaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "summary": { "type": "string", "minLength": 1 }
+  }
+}

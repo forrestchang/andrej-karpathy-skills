@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/multica-ai/andrej-karpathy-skills/.codex/schemas/plan.schema.json",
+  "title": "Codex Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["goal", "criticalFiles", "steps", "acceptanceCriteria", "testRecipe"],
+  "properties": {
+    "goal": { "type": "string", "minLength": 1 },
+    "criticalFiles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["change", "verification"],
+        "properties": {
+          "change": { "type": "string", "minLength": 1 },
+          "verification": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "testRecipe": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

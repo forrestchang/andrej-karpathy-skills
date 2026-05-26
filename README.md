@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Agent Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A compact guideline bundle for Codex, Claude Code, Cursor, and reusable skills, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -20,7 +20,7 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Four principles, plus a Codex operating layer, directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -28,6 +28,13 @@ Four principles in one file that directly address these issues:
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+
+For Codex, the repo also includes:
+
+- `AGENTS.md` - the root Codex operating manual
+- `.codex/templates/` - reusable plan, checklist, verification, and review artifacts
+- `.codex/schemas/` - machine-readable shapes for structured questions and records
+- `.codex/skills/` - small repo-local skills for verify, simplify, skillify, and batch workflows
 
 ## The Four Principles in Detail
 
@@ -98,7 +105,20 @@ Strong success criteria let the LLM loop independently. Weak criteria ("make it 
 
 ## Install
 
-**Option A: Claude Code Plugin (recommended)**
+**Option A: Codex project instructions**
+
+Copy or merge the Codex operating layer into a project:
+
+```bash
+cp AGENTS.md /path/to/project/AGENTS.md
+cp -R .codex /path/to/project/.codex
+```
+
+Then open the project with Codex. The root `AGENTS.md` tells Codex how to choose modes, use templates, ask structured questions, and verify substantial work.
+
+See **[docs/CODEX.md](docs/CODEX.md)** for repo layout, maintenance guidance, and synchronization notes.
+
+**Option B: Claude Code Plugin**
 
 From within Claude Code, first add the marketplace:
 ```
@@ -112,17 +132,17 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option C: CLAUDE.md (per-project)**
 
 New project:
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md
 ```
 
 Existing project (append):
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## Using with Cursor
@@ -145,6 +165,7 @@ These guidelines are working if you see:
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
+- **Codex artifacts show the work** — Plans, checklists, reviews, and verification records exist when the task needs them
 
 ## Customization
 
@@ -165,6 +186,16 @@ For project-specific rules, add sections like:
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
 
 The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
+
+## Contributor Notes
+
+When changing the core principles, check whether the same intent should be reflected in:
+
+- `AGENTS.md`
+- `CLAUDE.md`
+- `.cursor/rules/karpathy-guidelines.mdc`
+- `skills/karpathy-guidelines/SKILL.md`
+- `.codex/skills/*/SKILL.md`
 
 ## License
 

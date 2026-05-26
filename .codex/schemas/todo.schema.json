@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/multica-ai/andrej-karpathy-skills/.codex/schemas/todo.schema.json",
+  "title": "Codex Checklist",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task", "items", "verification"],
+  "properties": {
+    "task": { "type": "string", "minLength": 1 },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "status"],
+        "properties": {
+          "description": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["pending", "in_progress", "completed"] }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check", "result"],
+      "properties": {
+        "check": { "type": "string", "minLength": 1 },
+        "result": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
