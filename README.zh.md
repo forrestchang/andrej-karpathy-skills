@@ -1,10 +1,12 @@
-# 受 Karpathy 启发的 Claude Code 指南
+# 受 Karpathy 启发的编码智能体指南
 
 > 查看我的新项目 [Multica](https://github.com/multica-ai/multica) —— 一个用于运行和管理编码智能体的开源平台，支持可复用的技能。
 >
 > 在 X 上关注我：[https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-一个单一的 `CLAUDE.md` 文件，用于改善 Claude Code 的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+一组可复用的指南文件，用于改善 Claude Code、Amp 和 Cursor 中编码智能体的行为，源自 [Andrej Karpathy 的观察](https://x.com/karpathy/status/2015883857489522876) 关于 LLM 编码陷阱的总结。
+
+> **Disclaimer:** The repository is not an official Andrej Karpathy project and is not maintained by him. It is a community project inspired by Karpathy’s public observations and discussions about common LLM coding pitfalls and coding-agent behavior.
 
 [English](./README.md) | 简体中文
 
@@ -55,6 +57,8 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 - 如果 200 行代码可以写成 50 行，重写它
 
 **检验标准：** 资深工程师会觉得这过于复杂吗？如果是，简化。
+
+生成或修改代码后，执行一次简短的简化检查：删除本次改动引入的不必要抽象或推测性灵活性，只保留能保持行为不变且让 diff 更容易评审的简化。
 
 ### 3. 精准修改
 
@@ -124,6 +128,36 @@ curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy
 echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
+
+## 在 Amp 中使用
+
+Amp 会从 `AGENTS.md` 读取项目指令，并从 `.agents/skills/` 或 `~/.config/agents/skills/` 发现项目级或用户级技能。
+
+**选项 A：AGENTS.md（项目内始终生效的指南）**
+
+新项目：
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/AGENTS.md
+```
+
+已有项目（追加）：
+```bash
+echo "" >> AGENTS.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/AGENTS.md >> AGENTS.md
+```
+
+当你希望这些原则自动应用到该仓库中的每个 Amp 编码任务时，使用这个选项。
+
+**选项 B：Amp 技能（按需调用）**
+
+将现有技能定义安装到 Amp 的用户级技能目录：
+```bash
+mkdir -p ~/.config/agents/skills/karpathy-guidelines
+curl -o ~/.config/agents/skills/karpathy-guidelines/SKILL.md \
+  https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/skills/karpathy-guidelines/SKILL.md
+```
+
+当你希望针对某个任务、评审或简化流程显式调用这些指南时，使用这个选项。
 
 ## 在 Cursor 中使用
 

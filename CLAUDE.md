@@ -26,6 +26,11 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
+After generating or modifying code, run a brief simplification pass before finalizing:
+- Remove unnecessary abstractions, wrappers, dead code, or speculative flexibility introduced by the change.
+- Check whether the same behavior can be expressed with fewer concepts or less code.
+- Keep only simplifications that preserve the requested behavior and make the diff easier to review.
+
 ## 3. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**

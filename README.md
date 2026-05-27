@@ -1,10 +1,12 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Coding Agent Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A small set of reusable guidance files to improve coding-agent behavior in Claude Code, Amp, and Cursor, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+
+> **Disclaimer:** The repository is not an official Andrej Karpathy project and is not maintained by him. It is a community project inspired by Karpathy’s public observations and discussions about common LLM coding pitfalls and coding-agent behavior.
 
 English | [简体中文](./README.zh.md)
 
@@ -55,6 +57,8 @@ Combat the tendency toward overengineering:
 - If 200 lines could be 50, rewrite it
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
+
+After generating or modifying code, run a brief simplification pass: remove unnecessary abstractions or speculative flexibility introduced by the change, and keep only simplifications that preserve behavior and make the diff easier to review.
 
 ### 3. Surgical Changes
 
@@ -124,6 +128,36 @@ Existing project (append):
 echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
+
+## Using with Amp
+
+Amp reads project instructions from `AGENTS.md` and discovers user/project skills from `.agents/skills/` or `~/.config/agents/skills/`.
+
+**Option A: AGENTS.md (always-on project guidance)**
+
+New project:
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/AGENTS.md
+```
+
+Existing project (append):
+```bash
+echo "" >> AGENTS.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/AGENTS.md >> AGENTS.md
+```
+
+Use this option when you want the principles to apply automatically to every Amp coding task in that repository.
+
+**Option B: Amp skill (on-demand guidance)**
+
+Install the existing skill definition into Amp's user-wide skill directory:
+```bash
+mkdir -p ~/.config/agents/skills/karpathy-guidelines
+curl -o ~/.config/agents/skills/karpathy-guidelines/SKILL.md \
+  https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/skills/karpathy-guidelines/SKILL.md
+```
+
+Use this option when you want to invoke the guidelines explicitly for a task, review, or simplification pass.
 
 ## Using with Cursor
 
