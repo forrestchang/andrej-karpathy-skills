@@ -125,6 +125,12 @@ echo "" >> CLAUDE.md
 curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
+## Using with Codex
+
+This repository includes a root [`AGENTS.md`](AGENTS.md) file so Codex can read the same behavioral guidelines as project instructions.
+
+To use the same guidelines in another project, copy `AGENTS.md` into that project's root directory or merge its contents with your existing `AGENTS.md`.
+
 ## Using with Cursor
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
@@ -165,6 +171,10 @@ For project-specific rules, add sections like:
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
 
 The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
+
+## For Contributors
+
+When changing the four principles, keep [`CLAUDE.md`](CLAUDE.md), [`AGENTS.md`](AGENTS.md), [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc), and [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) in sync.
 
 ## License
 
