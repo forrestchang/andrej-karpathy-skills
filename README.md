@@ -1,10 +1,10 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Agent Coding Guidelines
 
 > Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
 >
 > Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+A reusable coding-agent skill, plus tool-specific instruction files, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
 
@@ -98,7 +98,22 @@ Strong success criteria let the LLM loop independently. Weak criteria ("make it 
 
 ## Install
 
-**Option A: Claude Code Plugin (recommended)**
+**Option A: CodeWhale Skill (recommended for CodeWhale)**
+
+Install from GitHub:
+```
+/skill install github:forrestchang/andrej-karpathy-skills
+```
+
+Then enable or inspect the skill:
+```
+/skill karpathy-guidelines
+/skills
+```
+
+CodeWhale discovers the committed skill directly from [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). No CodeWhale plugin wrapper is required. See **[CODEWHALE.md](CODEWHALE.md)** for trust and layout details.
+
+**Option B: Claude Code Plugin**
 
 From within Claude Code, first add the marketplace:
 ```
@@ -112,7 +127,7 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option C: CLAUDE.md (per-project)**
 
 New project:
 ```bash
