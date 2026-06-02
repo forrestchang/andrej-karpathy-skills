@@ -53,6 +53,8 @@ Combat the tendency toward overengineering:
 - No "flexibility" or "configurability" that wasn't requested
 - No error handling for impossible scenarios
 - If 200 lines could be 50, rewrite it
+- Exception: Do not sacrifice established patterns that improve long-term maintainability or testability just for immediate simplicity.
+- Exception: Never compromise security for simplicity. Security is a high priority and justifies necessary complexity within healthy limits.
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
@@ -64,7 +66,7 @@ When editing existing code:
 
 - Don't "improve" adjacent code, comments, or formatting
 - Don't refactor things that aren't broken
-- Match existing style, even if you'd do it differently
+- Match existing style, but if you notice bad habits or poor practices, point them out and ask before continuing them
 - If you notice unrelated dead code, mention it — don't delete it
 
 When your changes create orphans:
