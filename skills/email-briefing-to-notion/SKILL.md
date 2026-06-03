@@ -15,11 +15,19 @@ description: 매일 아침 Gmail 업무 이메일을 P1~P4로 분류·요약하�
 
 ---
 
+## 0. 실행 시 먼저 KST 날짜 확인
+
+get_current_korean_time를 실행하여 한국 날짜를 확인한다.
+검색 및 실행 기준은 'get_current_korean_time'기준으로 진행.
+
+확인되었으면 Step 1로 진행.
+
+---
+
 ## 1. 중복 확인
 
 Notion 상위 페이지 하위에 `today_` 제목 페이지가 이미 존재하면:
 - 새 페이지를 만들지 않는다
-- Gmail에서 `[Notion]` 레이블 미부착 이메일만 추가 수집
 - 기존 페이지 하단에 `--- 추가 브리핑 (HH:MM ) ---` 섹션으로 append
 - 전날 노션 페이지를 확인하여 이어지는 내용이 있으면 연관 표시를 한다.
 
@@ -179,22 +187,12 @@ P1 → P2 → P3 → P4 순으로 우선 처리하고, Notion 페이지 최상�
 ---
 
 @한이현
-🤖 자동 작성 by Claude Code
+🤖 자동 작성 by Claude Code, 오늘 날짜 및 시간 작성
 ```
 
 **규칙**
 - P1·P2가 0건이면 해당 섹션 전체 생략
 - 캘린더: Google Calendar MCP 사용 가능 시 조회, 불가 시 "캘린더 조회 불가" 표기
-
----
-
-## 6. Gmail [Notion] 레이블 부착
-
-Notion 페이지 생성 성공 후에만 실행.
-
-1. `list_labels`로 `[Notion]` 레이블 ID 확인 → `Label_2`
-2. P1·P2·P3·P4 이메일 각 message에 `label_message`로 `[Notion]` 부착
-3. ❌ 제외 이메일은 레이블 부착 안 함
 
 ---
 
