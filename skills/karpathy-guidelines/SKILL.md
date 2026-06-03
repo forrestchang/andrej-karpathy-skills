@@ -20,6 +20,9 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
+**In headless / non-interactive mode** (e.g. `claude -p`): asking is not possible.
+Instead: document assumptions inline, pick the most general interpretation, and proceed.
+
 ## 2. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
