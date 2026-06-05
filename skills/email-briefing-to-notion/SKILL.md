@@ -16,11 +16,11 @@ description: 매일 아침 Gmail 업무 이메일을 Gmail 라벨(쏠라딘 조�
 
 ## 0. 시간대 — KST 강제 적용
 
-루틴은 UTC 또는 미국 시간대로 실행될 수 있다. **모든 날짜·시간은 KST(UTC+9) 기준으로만 계산한다.**
+get_current_korean_time를 실행하여 한국 날짜를 확인한다.
+검색 및 실행 기준은 'get_current_korean_time'기준으로 진행.
 
-```
-today_     = get_current_korean_time() 또는 시스템 UTC 시각 + 9시간 → 해당 날짜
-yesterday_ = today_ - 1일
+확인되었으면 Step 0-1로 진행.
+
 ```
 
 | 시스템 UTC | ❌ 잘못된 날짜 | ✅ KST 날짜 (today_) |
