@@ -5,15 +5,15 @@
     "name": "forrestchang"
   },
   "metadata": {
-    "description": "Karpathy-inspired skills including karpathy-guidelines and karpathy-plan-review for coding discipline and multi-agent execution control",
-    "version": "1.1.0"
+    "description": "Karpathy-inspired skills including karpathy-guidelines and plan-review for coding discipline and multi-agent execution control",
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "andrej-karpathy-skills",
       "source": "./",
-      "description": "Includes karpathy-guidelines and karpathy-plan-review: coding discipline plus five-agent plan review with P0/P1/P2 convergence",
-      "version": "1.1.0",
+      "description": "Includes karpathy-guidelines and plan-review: coding discipline plus five-agent plan review with P0/P1/P2 convergence",
+      "version": "1.2.0",
       "author": {
         "name": "forrestchang"
       },
