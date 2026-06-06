@@ -2,7 +2,7 @@
 
 # Karpathy-Inspired Agent Skills
 
-Reusable Claude Code skills for safer coding, objective-aligned planning, and multi-agent execution control.
+Reusable Claude Code skills for safer coding, plan review, and multi-agent execution control.
 
 English | [简体中文](./README.zh.md)
 
@@ -10,7 +10,7 @@ English | [简体中文](./README.zh.md)
 
 ---
 
-This repository packages Karpathy-inspired agent behavior as installable Claude Code skills. It keeps the original coding discipline skill and adds an objective-aligned plan review skill for complex work that needs explicit goals, independent review, and permission-aware execution.
+This repository packages Karpathy-inspired agent behavior as installable Claude Code skills. It keeps the original coding discipline skill and adds a `karpathy-plan-review` skill for complex work that needs explicit goals, independent review, and permission-aware execution.
 
 > Inspired by [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on common LLM coding pitfalls.
 
@@ -19,7 +19,7 @@ This repository packages Karpathy-inspired agent behavior as installable Claude 
 | Skill | Use when | Core behavior |
 |---|---|---|
 | `karpathy-guidelines` | Writing, reviewing, or refactoring code | Think before coding, keep changes simple, edit surgically, define verifiable success criteria |
-| `objective-aligned-plan-review` | Reviewing or executing multi-step plans, handoffs, multi-file changes, ID/reference changes, or work with permission boundaries | Converts input into a task total goal, runs a five-agent plan/review loop, closes P0/P1/P2 risks, and executes only when aligned and permitted |
+| `karpathy-plan-review` | Reviewing or executing multi-step plans, handoffs, multi-file changes, ID/reference changes, or work with permission boundaries | Converts input into a task total goal, runs a five-agent plan/review loop, closes P0/P1/P2 risks, and executes only when aligned and permitted |
 
 ## Install
 
@@ -50,7 +50,7 @@ The original skill reduces common LLM coding mistakes through four principles:
 
 These guidelines are most useful for implementation work where the agent might otherwise overbuild, silently guess, or touch unrelated code.
 
-## `objective-aligned-plan-review`
+## `karpathy-plan-review`
 
 Use this skill before executing complex plans. Its core rule is that **the task total goal is the single source of truth**.
 

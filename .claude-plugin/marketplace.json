@@ -5,14 +5,14 @@
     "name": "forrestchang"
   },
   "metadata": {
-    "description": "Karpathy-inspired skills including karpathy-guidelines and objective-aligned-plan-review for coding discipline and multi-agent execution control",
+    "description": "Karpathy-inspired skills including karpathy-guidelines and karpathy-plan-review for coding discipline and multi-agent execution control",
     "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "andrej-karpathy-skills",
       "source": "./",
-      "description": "Includes karpathy-guidelines and objective-aligned-plan-review: coding discipline plus objective-aligned multi-agent plan review with P0/P1/P2 convergence",
+      "description": "Includes karpathy-guidelines and karpathy-plan-review: coding discipline plus five-agent plan review with P0/P1/P2 convergence",
       "version": "1.1.0",
       "author": {
         "name": "forrestchang"
@@ -23,11 +23,10 @@
         "coding",
         "karpathy",
         "plan-review",
-        "objective-alignment",
         "multi-agent",
         "p0-p1-p2",
         "superpowers",
-        "objective-aligned-plan-review"
+        "karpathy-plan-review"
       ],
       "category": "workflow"
     }

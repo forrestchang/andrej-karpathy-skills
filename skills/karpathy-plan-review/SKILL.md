@@ -1,9 +1,9 @@
 ---
-name: objective-aligned-plan-review
-description: Use when reviewing or executing plans, complex multi-step tasks, code or handoff reviews, plan mode, multi-file changes, ID/reference changes, or tasks that need objective-aligned risk review before execution.
+name: karpathy-plan-review
+description: Use when reviewing or executing plans, complex multi-step tasks, code or handoff reviews, plan mode, multi-file changes, ID/reference changes, or tasks that need plan review before execution.
 ---
 
-# Objective-Aligned Plan Review — Five-Agent Objective-Aligned Loop
+# Karpathy Plan Review — Five-Agent Objective-Aligned Loop
 
 Core principle: **the task total goal is the single source of truth**. Every agent receives the same task goal, success criteria, scope boundaries, and permission boundaries before doing any work. The skill runs a five-agent loop: Task Recognition Agent / 任务识别 Agent, Supervisor Agent / 监督 Agent, Plan Agent / 方案 Agent, Review Agent / 审查 Agent, and Execution Agent / 执行 Agent.
 

@@ -19,7 +19,7 @@
 | Skill | 适用场景 | 核心行为 |
 |---|---|---|
 | `karpathy-guidelines` | 编写、审查或重构代码 | 先思考再编码、保持简洁、精准修改、定义可验证成功标准 |
-| `objective-aligned-plan-review` | 审查或执行多步骤计划、handoff、多文件改动、ID/引用变更，或涉及权限边界的任务 | 将输入转成任务总目标，运行五 Agent 方案/审查闭环，闭合 P0/P1/P2 风险，并只在目标对齐且权限允许时执行 |
+| `karpathy-plan-review` | 审查或执行多步骤计划、handoff、多文件改动、ID/引用变更，或涉及权限边界的任务 | 将输入转成任务总目标，运行五 Agent 方案/审查闭环，闭合 P0/P1/P2 风险，并只在目标对齐且权限允许时执行 |
 
 ## 安装
 
@@ -50,7 +50,7 @@
 
 这个 skill 最适合实现类工作，防止 Agent 过度设计、默默猜测或碰无关代码。
 
-## `objective-aligned-plan-review`
+## `karpathy-plan-review`
 
 复杂计划执行前使用这个 skill。它的核心规则是：**任务总目标是唯一权威来源**。
 

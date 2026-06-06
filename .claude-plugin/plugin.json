@@ -1,6 +1,6 @@
 {
   "name": "andrej-karpathy-skills",
-  "description": "Karpathy-inspired agent skills for safer coding, objective-aligned plan review, and multi-agent execution control",
+  "description": "Karpathy-inspired agent skills for safer coding, plan review, and multi-agent execution control",
   "version": "1.1.0",
   "author": {
     "name": "forrestchang"
@@ -12,13 +12,13 @@
     "coding",
     "karpathy",
     "plan-review",
-    "objective-alignment",
     "multi-agent",
     "p0-p1-p2",
-    "superpowers"
+    "superpowers",
+    "karpathy-plan-review"
   ],
   "skills": [
     "./skills/karpathy-guidelines",
-    "./skills/objective-aligned-plan-review"
+    "./skills/karpathy-plan-review"
   ]
 }
