@@ -5,15 +5,15 @@
     "name": "forrestchang"
   },
   "metadata": {
-    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
-    "version": "1.0.0"
+    "description": "Karpathy-inspired skills including karpathy-guidelines and objective-aligned-plan-review for coding discipline and multi-agent execution control",
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "andrej-karpathy-skills",
       "source": "./",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
-      "version": "1.0.0",
+      "description": "Includes karpathy-guidelines and objective-aligned-plan-review: coding discipline plus objective-aligned multi-agent plan review with P0/P1/P2 convergence",
+      "version": "1.1.0",
       "author": {
         "name": "forrestchang"
       },
@@ -21,7 +21,13 @@
         "guidelines",
         "best-practices",
         "coding",
-        "karpathy"
+        "karpathy",
+        "plan-review",
+        "objective-alignment",
+        "multi-agent",
+        "p0-p1-p2",
+        "superpowers",
+        "objective-aligned-plan-review"
       ],
       "category": "workflow"
     }
