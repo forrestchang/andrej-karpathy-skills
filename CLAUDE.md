@@ -13,7 +13,12 @@ Before implementing:
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
+- State your complete plan of action before coding.
+- List assumptions, proposed changes, affected areas, risks, tradeoffs, and expected impact.
+- Obtain approval on the plan before making code changes. 
+- If not approved, ask for changes.
 
+  
 ## 2. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
