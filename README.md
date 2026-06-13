@@ -20,7 +20,7 @@ From Andrej's post:
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Five principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -28,8 +28,9 @@ Four principles in one file that directly address these issues:
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| **Context Optimization** | Context bloat, redundant reads, unfocused exploration |
 
-## The Four Principles in Detail
+## The Five Principles in Detail
 
 ### 1. Think Before Coding
 
@@ -95,6 +96,21 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
+
+### 5. Context Optimization
+
+**Read what you need, not everything. Keep the window lean.**
+
+Long, unfocused context degrades model attention and burns budget. Spend the window on signal:
+
+- **Map before you read** — list files, grep, or skim structure before opening anything in full
+- **Read in slices** — use offset/limit and targeted search; don't load a 2000-line file for a 20-line answer
+- **Breadth before depth** — sketch the whole task first, then go deep, and rebalance; don't mine one branch to bedrock while sibling areas stay unread
+- **Don't re-read** what you just wrote or already have in context — trust the last edit
+- **Keep raw output out** — summarize logs and large dumps, then discard them
+- **Delegate narrowly** — spawn a subagent only when it has tools or reach you lack, not just to "keep context clean"
+
+**The test:** Every file you open should change what you do next. If it won't, don't open it.
 
 ## Install
 

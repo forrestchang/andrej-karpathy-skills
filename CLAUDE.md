@@ -60,6 +60,19 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Context Optimization
+
+**Read what you need, not everything. Keep the window lean.**
+
+- Map before you read: list files, grep, or skim structure before opening anything in full.
+- Read in slices - use offset/limit and targeted search; don't load a 2000-line file for a 20-line answer.
+- Breadth before depth: sketch the whole task first, then go deep - and rebalance. Don't mine one branch to bedrock while sibling areas stay unread.
+- Don't re-read what you just wrote or already have in context. Trust the last edit.
+- Keep raw tool output (logs, large dumps) out of the window - summarize, extract, then discard.
+- Delegate to a subagent only when it has tools or reach you lack - not merely to "keep context clean."
+
+The test: Every file you open should change what you do next. If it won't, don't open it.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
