@@ -1,6 +1,6 @@
 # Examples
 
-Real-world code examples demonstrating the four principles. Each example shows what LLMs commonly do wrong and how to fix it.
+Real-world code examples demonstrating the principles. Each example shows what LLMs commonly do wrong and how to fix it.
 
 ---
 
@@ -492,6 +492,71 @@ def sort_scores(scores):
 
 # Verify: Test passes consistently
 ```
+
+---
+
+---
+
+## 5. Agent Split Strategy
+
+### Example: Implementing a new feature that spans backend and frontend
+
+**User Request:** "Add a user settings page with session management"
+
+**❌ What LLMs Do (Everything in One Pass)**
+
+```
+[Immediately starts writing code across all layers]
+
+Modified files:
+- packages/auth/src/sessions.ts          (+180 lines)
+- packages/auth/src/settings.ts          (+120 lines)
+- apps/api/src/routes/sessions.ts        (+90 lines)
+- apps/api/src/routes/settings.ts        (+110 lines)
+- apps/api/test/sessions.test.ts         (+220 lines)
+- apps/api/test/settings.test.ts         (+190 lines)
+- apps/web/src/pages/SettingsPage.tsx    (+300 lines)
+- apps/web/src/components/SessionList.tsx (+180 lines)
+
+Total: 1390 lines changed across 8 files in 3 packages
+```
+
+**Problems:**
+- Single diff is impossible to review coherently — reviewers lose context switching between domain logic, API, and UI
+- If the domain logic needs changes based on review, the UI work was done against the wrong contract
+- A bug in the migration blocks merging everything — including the unrelated UI
+- Rolling back requires reverting 8 files at once
+
+**✅ What Should Happen (Propose Split First)**
+
+```
+This task spans three independent layers. Proposed split:
+
+1. Domain logic (packages/auth)
+   - Session list query, revoke, bulk-revoke
+   - Settings read/write with env-lock support
+   Verify: unit tests pass, existing auth tests unchanged
+
+2. API routes (apps/api)
+   - GET /api/sessions, DELETE /api/sessions/:id
+   - PATCH /api/settings
+   Verify: integration tests pass against the domain from step 1
+
+3. Frontend UI (apps/web)
+   - SettingsPage, SessionList component
+   Verify: manual smoke — sessions list loads, revoke works
+
+Step 2 depends on step 1 being merged.
+Step 3 can start in parallel with step 2 once the API contract is agreed.
+
+Proceed with step 1?
+```
+
+**Why it works:**
+- Each PR is ~200–300 lines with a single reviewable concern
+- API contract is locked before UI is built — no rework
+- Domain logic can be reviewed and merged in hours; UI doesn't wait for that review cycle
+- A bug in step 1 doesn't block step 3 from being started
 
 ---
 
