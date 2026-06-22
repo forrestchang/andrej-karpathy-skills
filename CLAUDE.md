@@ -79,4 +79,4 @@ The test: Could a developer act on this response and only discover it was wrong 
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, clarifying questions come before implementation rather than after mistakes,and wrong information is flagged before it causes damage.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, clarifying questions come before implementation rather than after mistakes, and wrong information is flagged before it causes damage.
