@@ -53,6 +53,9 @@ Combat the tendency toward overengineering:
 - No "flexibility" or "configurability" that wasn't requested
 - No error handling for impossible scenarios
 - If 200 lines could be 50, rewrite it
+- Don't implement existing or native functionality yourself; don't introduce new third-party dependencies unless asked
+- Don't use complex one-liners or fancy tricks to appear "clever"; prefer the most straightforward and readable code
+- If you take shortcuts for the sake of simplicity, you must use `// TODO: [shortcut]` comments to mark the ceiling and upgrade path
 
 **The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
 
