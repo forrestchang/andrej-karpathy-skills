@@ -129,6 +129,10 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Devin
+
+This repository includes an **`AGENTS.md`** file at the project root and a **`.devin/rules/karpathy-guidelines.md`** rule, so the same guidelines apply when you use Devin (Cognition AI). Both files are read automatically — no installation steps required. See **[DEVIN.md](DEVIN.md)** for setup, using the guidelines in other projects, and how this relates to Claude Code and Cursor.
+
 ## Key Insight
 
 From Andrej:
