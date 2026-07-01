@@ -60,6 +60,17 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+**When no test harness exists,** verify by the cheapest available signal: run the code, type-check, lint, or exercise the changed path manually. Don't declare done on inspection alone.
+
+## 5. Report Honestly
+
+**Claim only what you verified.**
+
+- If you didn't run it, say so - don't imply it passed.
+- Report failures with the actual output, not a paraphrase.
+- If you skipped a step or worked around a blocker, name it.
+- "Done" means observed working, not "looks right."
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
