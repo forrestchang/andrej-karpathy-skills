@@ -1,0 +1,54 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['crop-records/**']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: crop-records
+    env:
+      # Supabase 專案網址與 anon 金鑰（anon 金鑰本來就會包進前端程式，屬公開資訊，
+      # 資料安全由資料庫的 Row Level Security 把關）
+      VITE_SUPABASE_URL: https://qvlsfudvhwjwrkgmxxgp.supabase.co
+      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2bHNmdWR2aHdqd3JrZ214eGdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNjU2MzEsImV4cCI6MjA5NTY0MTYzMX0.OSQ5RlIjf1r_d5_t1s5f6BZVd6BqsGUeGcSv2hUnDwI
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: crop-records/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Sync web assets to Android
+        run: npx cap sync android
+
+      - name: Build debug APK
+        run: cd android && ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: crop-records-apk
+          path: crop-records/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30

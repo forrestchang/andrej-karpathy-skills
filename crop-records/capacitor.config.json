@@ -1,0 +1,8 @@
+{
+  "appId": "tw.croprecords.app",
+  "appName": "農作物生產履歷",
+  "webDir": "dist",
+  "android": {
+    "allowMixedContent": false
+  }
+}

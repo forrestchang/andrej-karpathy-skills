@@ -1,0 +1,59 @@
+name: Deploy Web App (GitHub Pages)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['crop-records/**', '.github/workflows/deploy-pages.yml']
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    defaults:
+      run:
+        working-directory: crop-records
+    env:
+      BASE_PATH: /andrej-karpathy-skills/
+      # anon 金鑰屬公開資訊，資料安全由資料庫 Row Level Security 把關
+      VITE_SUPABASE_URL: https://qvlsfudvhwjwrkgmxxgp.supabase.co
+      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2bHNmdWR2aHdqd3JrZ214eGdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNjU2MzEsImV4cCI6MjA5NTY0MTYzMX0.OSQ5RlIjf1r_d5_t1s5f6BZVd6BqsGUeGcSv2hUnDwI
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: crop-records/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app
+        run: npm run build
+
+      - name: SPA fallback for client-side routing
+        run: cp dist/index.html dist/404.html
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: crop-records/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
