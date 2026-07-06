@@ -146,6 +146,15 @@ These guidelines are working if you see:
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
 
+## Benchmarks & Evaluation
+
+We evaluated these system instructions against a baseline of `gemini-3.5-flash` without the rules. The guidelines resulted in:
+- **79.7% fewer generated completion tokens** (from 1,516 to 308 tokens).
+- **55.0% faster response times** (from 26.55s to 11.96s total).
+- **Much cleaner, YAGNI-compliant, and surgical code modifications**.
+
+See the full [Benchmark Report and Runner](benchmark/README.md) for detailed observations and raw model responses.
+
 ## Customization
 
 These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
