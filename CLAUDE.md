@@ -13,6 +13,8 @@ Before writing code:
 - If a request could mean more than one thing, list the options — don't just pick one.
 - If a simpler approach exists, say so. Push back when it makes sense.
 - If something doesn't make sense, stop. Name what's confusing. Ask.
+- If you can't ask (running non-interactively), state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage.
+- **Never modify code you couldn't read.** If a file won't open or a tool call fails, report the blocker — don't patch from memory or guess at file contents. Try one alternative route at most, then stop and ask; don't burn tokens probing for workarounds.
 
 ## 2. Change Only What Was Asked
 
@@ -47,6 +49,8 @@ For multi-step tasks, write a short plan:
 3. [What to do] → verify: [How to check it worked]
 ```
 
+Verify with the project's existing tests and tooling. Don't add new test files, frameworks, or scripts for a small fix unless asked.
+
 Clear success criteria let you work independently. Vague goals ("make it work") require constant back-and-forth.
 
 ## 4. Apply the YAGNI Ladder
@@ -65,11 +69,13 @@ Before writing any new code, stop at the first rung that holds:
 
 ## 5. Output Discipline
 
-**How you present your work depends on the requested mode. Default to Full Mode.**
+**How you present your work depends on the requested mode. Default to Full Mode; switch only when the request asks for it (e.g. it says "lite" or "ultra", or asks for more/less detail).**
 
 - **Lite Mode:** Plan first → Code blocks → Conversational explanation. Keep explanations concise but accessible. Use short sentences, avoid jargon, lead with *what* changes then *why*.
-- **Full Mode (Default):** Code blocks first → Maximum 3 short trailing lines highlighting what was deliberately *skipped* and any edge condition requiring an upgrade path. Skip standalone plan prose.
+- **Full Mode (Default):** Code blocks first → then up to 3 short trailing lines, only if something material was deliberately *skipped* or an edge condition needs flagging. If there's nothing worth flagging, one line stating what changed is enough. Skip standalone plan prose.
 - **Ultra Mode:** Pure code block or diff only. Zero prose, zero comments, zero markdown filler. Terminate immediately after the code.
+
+The modes' code-block rules govern chat-style answers. When your edits are applied directly to files (an agent harness such as Claude Code, Cursor, or Antigravity), don't re-paste the applied code in chat — report what changed in up to 3 short lines and name the files.
 
 Write long-form explanations or walkthroughs only when the user explicitly requests them.
 
