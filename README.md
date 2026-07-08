@@ -96,6 +96,16 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+## Self-Check Additions
+
+Prose rules alone get rationalized past. The guidelines add three mechanisms that make each principle checkable in the moment:
+
+- **Rigor calibration table** — replaces "for trivial tasks, use judgment" with three explicit tiers (obvious one-liner / standard change / ambiguous or irreversible), so how much ceremony to apply is a decision, not a vibe.
+- **Concrete overcomplication smells** — a checklist under Simplicity First (needless `try/except`, single-implementation interfaces, config for constants, wrapper classes, stdlib reimplementation) that turns "would a senior engineer call this overcomplicated?" into pattern matches.
+- **Red-flags table** — names the rationalizing thought itself ("while I'm here...", "it should work now") and maps each one to the principle it's about to violate, catching drift mid-task instead of in review.
+
+Goal-Driven Execution is also hardened into an explicit loop: define the check → run it → implement → run it again → only then report. Claiming "done" without having run the check is banned.
+
 ## Install
 
 **Option A: Claude Code Plugin (recommended)**
