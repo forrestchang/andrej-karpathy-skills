@@ -129,6 +129,36 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with OpenCode
+
+OpenCode reads instructions from `AGENTS.md` — either per project (in the project root) or globally (`~/.config/opencode/AGENTS.md`).
+
+**Per-project AGENTS.md**
+
+New project:
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+```
+
+Existing project (append):
+```bash
+echo "" >> AGENTS.md
+curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> AGENTS.md
+```
+
+**Global AGENTS.md (all projects)**
+
+New global config:
+```bash
+curl --create-dirs -o ~/.config/opencode/AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+```
+
+Existing global config (append):
+```bash
+echo "" >> ~/.config/opencode/AGENTS.md
+curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> ~/.config/opencode/AGENTS.md
+```
+
 ## Key Insight
 
 From Andrej:
