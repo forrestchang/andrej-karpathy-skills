@@ -129,6 +129,36 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 本仓库包含一个已提交的 Cursor 项目规则 ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc))，因此在 Cursor 中打开项目时同样适用这些指南。详情请参见 **[CURSOR.md](CURSOR.md)**，包括如何在其他项目中使用该规则，以及它与 Claude Code 的关系。
 
+## 在 OpenCode 中使用
+
+OpenCode 从 `AGENTS.md` 文件读取指南——可以放在项目根目录（按项目），也可以放在全局配置（`~/.config/opencode/AGENTS.md`）。
+
+**按项目 AGENTS.md**
+
+新项目：
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+```
+
+已有项目（追加）：
+```bash
+echo "" >> AGENTS.md
+curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> AGENTS.md
+```
+
+**全局 AGENTS.md（所有项目）**
+
+新全局配置：
+```bash
+curl --create-dirs -o ~/.config/opencode/AGENTS.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+```
+
+已有全局配置（追加）：
+```bash
+echo "" >> ~/.config/opencode/AGENTS.md
+curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> ~/.config/opencode/AGENTS.md
+```
+
 ## 核心洞察
 
 来自 Andrej：
