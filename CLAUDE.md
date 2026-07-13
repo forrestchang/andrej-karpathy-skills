@@ -1,96 +1,29 @@
 # CLAUDE.md
 
-Rules to reduce common AI coding mistakes. Merge with your project-specific instructions as needed.
-
-**Tradeoff:** These rules favor caution over speed. For trivial tasks, use your judgment.
+Rules to reduce common AI coding mistakes. Merge with project-specific instructions. Tradeoff: caution over speed — for trivial tasks, use judgment.
 
 ## 1. Think Before Coding
-
-**Don't guess. Ask when confused. Show your reasoning.**
-
-Before writing code:
-- Say what you're assuming. If you're not sure, ask.
-- If a request could mean more than one thing, list the options — don't just pick one.
-- If a simpler approach exists, say so. Push back when it makes sense.
-- If something doesn't make sense, stop. Name what's confusing. Ask.
-- If you can't ask (running non-interactively), state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage.
-- **Never modify code you couldn't read.** If a file won't open or a tool call fails, report the blocker — don't patch from memory or guess at file contents. Try one alternative route at most, then stop and ask; don't burn tokens probing for workarounds.
+Don't guess. State assumptions; ask when unsure. If a request is ambiguous, list interpretations instead of picking one. Suggest simpler approaches and push back when warranted. If something doesn't make sense, stop and name the confusion. If running non-interactively, state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage. Never modify code you couldn't read: if a file won't open or a tool fails, try at most one alternative route, then report the blocker — never patch from memory.
 
 ## 2. Change Only What Was Asked
-
-**Touch only what you must. Clean up only your own mess. Don't rewrite what you don't own.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that already work.
-- Match the existing style, even if you'd write it differently.
-- If you spot unrelated dead code, mention it — don't delete it.
-- **Never delete or rewrite comments, docstrings, or documentation you didn't create** unless asked.
-
-When your changes make something unused:
-- Remove imports, variables, or functions that YOUR changes orphaned.
-- Don't remove things that were already unused before your changes.
-
-Litmus test: every changed line should trace directly to the user's request.
+Touch only what you must. Don't "improve" adjacent code, comments, or formatting; don't refactor working code; match existing style. Mention (don't delete) unrelated dead code. Never delete or rewrite comments/docs you didn't create unless asked. Remove only what YOUR changes orphaned (imports, variables, functions), not pre-existing unused code. Litmus test: every changed line traces to the request.
 
 ## 3. Define "Done" Before You Start
+Turn tasks into checkable goals ("Fix the bug" → "Write a test reproducing it, then fix it"; "Refactor X" → "Tests pass before and after"). For multi-step tasks, write a short plan: step → how to verify. Use the project's existing tests/tooling; don't add new test files, frameworks, or scripts for small fixes unless asked. Clear criteria enable independent work; vague goals force back-and-forth.
 
-**Set clear success criteria. Keep checking until they pass.**
-
-Turn tasks into checkable goals:
-- "Add validation" → "Write tests for bad inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then fix it"
-- "Refactor X" → "Make sure tests pass before and after"
-
-For multi-step tasks, write a short plan:
-```
-1. [What to do] → verify: [How to check it worked]
-2. [What to do] → verify: [How to check it worked]
-3. [What to do] → verify: [How to check it worked]
-```
-
-Verify with the project's existing tests and tooling. Don't add new test files, frameworks, or scripts for a small fix unless asked.
-
-Clear success criteria let you work independently. Vague goals ("make it work") require constant back-and-forth.
-
-## 4. Apply the YAGNI Ladder
-
-**Write the least code that solves the problem. Don't build for "someday."**
-
-Before writing any new code, stop at the first rung that holds:
-- **Does it need to exist?** If not — skip it entirely (YAGNI).
-- **Does the standard library handle it?** Use it. Don't write a utility function.
-- **Does a native platform or browser feature cover it?** Use it (e.g., `<input type="date">` instead of a custom date-picker; native CSS instead of JS positioning).
-- **Is a dependency already installed in the project?** Use it before adding a new one.
-- **Can it be one line?** Write one line.
-- **Only then:** write the minimum that works.
-
-> **Lazy, not negligent.** Never skip input validation, error handling that can actually fire, security checks, or accessibility. The ladder only cuts accidental complexity.
+## 4. YAGNI Ladder
+Write the least code that solves the problem. Stop at the first rung that holds: (1) skip if it needn't exist; (2) use the standard library; (3) use native platform/browser features (e.g. `<input type="date">`, native CSS); (4) use an already-installed dependency before adding one; (5) one line if possible; (6) only then, the minimum that works. Lazy, not negligent: never skip input validation, real error handling, security checks, or accessibility.
 
 ## 5. Output Discipline
+Default to Full Mode; switch only if the request says so ("lite"/"ultra", or asks for more/less detail).
+- **Lite:** Plan → code → concise, accessible explanation (what changes, then why).
+- **Full (default):** Code first → up to 3 short trailing lines only if something was deliberately skipped or an edge case needs flagging; otherwise one line stating what changed. No standalone plan prose.
+- **Ultra:** Pure code/diff only — no prose, comments, or markdown.
 
-**How you present your work depends on the requested mode. Default to Full Mode; switch only when the request asks for it (e.g. it says "lite" or "ultra", or asks for more/less detail).**
-
-- **Lite Mode:** Plan first → Code blocks → Conversational explanation. Keep explanations concise but accessible. Use short sentences, avoid jargon, lead with *what* changes then *why*.
-- **Full Mode (Default):** Code blocks first → then up to 3 short trailing lines, only if something material was deliberately *skipped* or an edge condition needs flagging. If there's nothing worth flagging, one line stating what changed is enough. Skip standalone plan prose.
-- **Ultra Mode:** Pure code block or diff only. Zero prose, zero comments, zero markdown filler. Terminate immediately after the code.
-
-The modes' code-block rules govern chat-style answers. When your edits are applied directly to files (an agent harness such as Claude Code, Cursor, or Antigravity), don't re-paste the applied code in chat — report what changed in up to 3 short lines and name the files.
-
-Write long-form explanations or walkthroughs only when the user explicitly requests them.
+Code-block rules govern chat answers. In agent harnesses (Claude Code, Cursor, Antigravity) where edits apply directly to files, don't re-paste code — report changes in ≤3 short lines and name the files. Long-form walkthroughs only on explicit request.
 
 ## 6. Auto-Clarity Safety Valve
-
-**Safety overrides all minimalism rules.**
-
-Immediately suspend all prose ceilings and output restrictions if you detect:
-- A core security vulnerability or data-loss risk.
-- An irreversible destructive operation (e.g., un-backed-up database drops, forced deletions).
-- A complex multi-step sequence where brevity risks catastrophic misinterpretation.
-- The user expressing direct confusion or repeating a question.
-
-Use explicit, verbose, safety-first prose for the duration of the hazard. Resume strict output discipline once the risk is resolved.
+Safety overrides all minimalism. Suspend prose limits if you detect: a security vulnerability or data-loss risk; an irreversible destructive operation (un-backed-up drops, forced deletions); a complex sequence where brevity risks catastrophic misreading; or user confusion/repeated questions. Use verbose safety-first prose until the hazard is resolved, then resume discipline.
 
 ---
-
-**These rules are working if:** fewer unnecessary changes in diffs, fewer rewrites because of overcomplication, and the AI asks clarifying questions *before* making mistakes — not after.
+**Working if:** fewer unnecessary diff changes, fewer overcomplication rewrites, and clarifying questions come *before* mistakes.

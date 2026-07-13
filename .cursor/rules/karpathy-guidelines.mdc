@@ -5,96 +5,38 @@ alwaysApply: true
 
 # Karpathy behavioral guidelines
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions. Tradeoff: bias toward caution over speed — for trivial tasks, use judgment.
 
 ## 1. Think Before Coding
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-- If you can't ask (running non-interactively), state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage.
-- **Never modify code you couldn't read.** If a file won't open or a tool call fails, report the blocker — don't patch from memory or guess at file contents. Try one alternative route at most, then stop and ask; don't burn tokens probing for workarounds.
+Don't assume. State your assumptions explicitly; ask when uncertain. If multiple interpretations exist, present them — don't pick silently. Suggest simpler approaches and push back when warranted. If something is unclear, stop and name the confusion. If you can't ask (running non-interactively), state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage. Never modify code you couldn't read: if a file won't open or a tool call fails, try at most one alternative route, then report the blocker — never patch from memory.
 
 ## 2. Surgical Changes
 
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
+Touch only what you must. Don't "improve" adjacent code, comments, or formatting; don't refactor things that aren't broken; match existing style, even if you'd do it differently. If you notice unrelated dead code, mention it — don't delete it. Remove only what YOUR changes made unused (imports, variables, functions), not pre-existing dead code. The test: every changed line should trace directly to the user's request.
 
 ## 3. Goal-Driven Execution
 
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Verify with the project's existing tests and tooling. Don't add new test files, frameworks, or scripts for a small fix unless asked.
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+Transform tasks into verifiable goals ("Fix the bug" → "Write a test that reproduces it, then make it pass"; "Refactor X" → "Ensure tests pass before and after"). For multi-step tasks, state a brief plan: step → verify: check. Use the project's existing tests and tooling; don't add new test files, frameworks, or scripts for a small fix unless asked. Strong success criteria let you loop independently; weak criteria ("make it work") require constant clarification.
 
 ## 4. Apply the YAGNI Ladder
 
-**Minimum code that solves the problem. Nothing speculative.**
-
-Before writing any new code, stop at the first rung that holds:
-- **Does it need to exist?** If not — skip it entirely (YAGNI).
-- **Does the standard library handle it?** Use it. Don't write a utility function.
-- **Does a native platform or browser feature cover it?** Use it (e.g., `<input type="date">` instead of a custom date-picker; native CSS instead of JS positioning).
-- **Is a dependency already installed in the project?** Use it before adding a new one.
-- **Can it be one line?** Write one line.
-- **Only then:** write the minimum that works.
-
-> **Lazy, not negligent.** Never skip input validation, error handling that can actually fire, security checks, or accessibility. The ladder only cuts accidental complexity.
+Minimum code that solves the problem — nothing speculative. Stop at the first rung that holds: (1) skip if it needn't exist; (2) use the standard library; (3) use native platform/browser features (e.g. `<input type="date">`, native CSS); (4) use an already-installed dependency before adding one; (5) one line if possible; (6) only then, the minimum that works. Lazy, not negligent: never skip input validation, real error handling, security checks, or accessibility.
 
 ## 5. Output Discipline
 
-**How you present your work depends on the requested mode. Default to Full Mode; switch only when the request asks for it (e.g. it says "lite" or "ultra", or asks for more/less detail).**
+Default to Full Mode; switch only if the request says so ("lite"/"ultra", or asks for more/less detail).
 
-- **Lite Mode:** Plan first → Code blocks → Conversational explanation. Keep explanations concise but accessible. Use short sentences, avoid jargon, lead with *what* changes then *why*.
-- **Full Mode (Default):** Code blocks first → then up to 3 short trailing lines, only if something material was deliberately *skipped* or an edge condition needs flagging. If there's nothing worth flagging, one line stating what changed is enough. Skip standalone plan prose.
-- **Ultra Mode:** Pure code block or diff only. Zero prose, zero comments, zero markdown filler. Terminate immediately after the code.
+- **Lite:** Plan → code → concise, accessible explanation (what changes, then why).
+- **Full (default):** Code first → up to 3 short trailing lines only if something was deliberately skipped or an edge case needs flagging; otherwise one line stating what changed. No standalone plan prose.
+- **Ultra:** Pure code/diff only — no prose, comments, or markdown.
 
-The modes' code-block rules govern chat-style answers. When your edits are applied directly to files (agent mode), don't re-paste the applied code in chat — report what changed in up to 3 short lines and name the files.
-
-Write long-form explanations or walkthroughs only when the user explicitly requests them.
+Code-block rules govern chat answers. In agent mode, where edits apply directly to files, don't re-paste code — report changes in ≤3 short lines and name the files. Long-form walkthroughs only on explicit request.
 
 ## 6. Auto-Clarity Safety Valve
 
-**Safety overrides all minimalism rules.**
-
-Immediately suspend all prose ceilings and output restrictions if you detect:
-- A core security vulnerability or data-loss risk.
-- An irreversible destructive operation (e.g., un-backed-up database drops, forced deletions).
-- A complex multi-step sequence where brevity risks catastrophic misinterpretation.
-- The user expressing direct confusion or repeating a question.
-
-Use explicit, verbose, safety-first prose for the duration of the hazard. Resume strict output discipline once the risk is resolved.
+Safety overrides all minimalism. Suspend prose limits if you detect: a security vulnerability or data-loss risk; an irreversible destructive operation (un-backed-up drops, forced deletions); a complex sequence where brevity risks catastrophic misreading; or user confusion/repeated questions. Use verbose safety-first prose until the hazard is resolved, then resume discipline.
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**Working if:** fewer unnecessary diff changes, fewer overcomplication rewrites, and clarifying questions come before mistakes.
