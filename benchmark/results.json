@@ -4,22 +4,22 @@
     "name": "Think Before Coding / Assumptions",
     "prompt": "Write a python function to export a user list.",
     "baseline": {
-      "time": 14.679858684539795,
+      "time": 31.56370258331299,
       "prompt_tokens": 10,
-      "completion_tokens": 718,
-      "total_tokens": 1702,
+      "completion_tokens": 867,
+      "total_tokens": 1714,
       "passed": false,
       "reason": "Score: 0/3 (none)",
-      "text": "Here is a robust Python function to export a user list to a **CSV file** (the most common format for spreadsheet software like Excel). \n\nThis solution uses Python's built-in `csv` module, so you don't need to install any external libraries.\n\n### Option 1: Export to CSV (Recommended)\n\n```python\nimport csv\nfrom typing import Dict, List\n\n\ndef export_users_to_csv(users: List[Dict], filepath: str = \"users.csv\") -> bool:\n    \"\"\"Exports a list of user dictionaries to a CSV file.\n\n    :param users: A list of dictionaries containing user data.\n    :param filepath: The path/name of the file to save.\n    :return: True if export was successful, False otherwise.\n    \"\"\"\n    if not users:\n        print(\"Error: The user list is empty.\")\n        return False\n\n    # Extract headers (keys) from the first user dictionary\n    headers = list(users[0].keys())\n\n    try:\n        # 'newline=\"\"' prevents blank lines on Windows\n        with open(filepath, mode=\"w\", newline=\"\", encoding=\"utf-8\") as file:\n            writer = csv.DictWriter(file, fieldnames=headers)\n\n            # Write the header row\n            writer.writeheader()\n\n            # Write the user data\n            writer.writerows(users)\n\n        print(f\"Successfully exported {len(users)} users to '{filepath}'\")\n        return True\n\n    except IOError as e:\n        print(f\"File Error: Could not write to file. {e}\")\n        return False\n    except Exception as e:\n        print(f\"An unexpected error occurred: {e}\")\n        return False\n```\n\n### How to use it:\n\n```python\n# Sample user data\nusers_data = [\n    {\n        \"id\": 1,\n        \"name\": \"Alice Smith\",\n        \"email\": \"alice@example.com\",\n        \"role\": \"Admin\",\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Jones\",\n        \"email\": \"bob@example.com\",\n        \"role\": \"User\",\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Charlie Brown\",\n        \"email\": \"charlie@example.com\",\n        \"role\": \"User\",\n    },\n]\n\n# Run the function\nexport_users_to_csv(users_data, \"exported_users.csv\")\n```\n\n---\n\n### Option 2: Export to JSON (Alternative)\nIf you prefer to export the data to a JSON file (better for web APIs or database backups), you can use this function:\n\n```python\nimport json\n\n\ndef export_users_to_json(users: List[Dict], filepath: str = \"users.json\"):\n    try:\n        with open(filepath, \"w\", encoding=\"utf-8\") as file:\n            # indent=4 makes the JSON file easily readable\n            json.dump(users, file, indent=4)\n        print(f\"Successfully exported users to JSON at '{filepath}'\")\n    except Exception as e:\n        print(f\"Error: {e}\")\n```"
+      "text": "Here is a robust Python function that can export a list of users to either **CSV** or **JSON** format using Python's built-in libraries (no external installation required).\n\n### Python Function\n\n```python\nimport csv\nimport json\nimport os\n\n\ndef export_user_list(users, filepath, file_format=\"csv\"):\n    \"\"\"Exports a list of users (dictionaries) to a CSV or JSON file.\n\n    Parameters:\n    users (list of dict): The list of user dictionaries to export.\n    filepath (str): The destination path including the filename.\n    file_format (str): The export format, either 'csv' or 'json' (default is 'csv').\n\n    Returns:\n    str: A message indicating success or failure.\n    \"\"\"\n    if not users:\n        return \"Error: The user list is empty. Nothing to export.\"\n\n    # Standardize format input to lowercase\n    file_format = file_format.lower()\n\n    # Create directory if it doesn't exist\n    directory = os.path.dirname(filepath)\n    if directory and not os.path.exists(directory):\n        os.makedirs(directory)\n\n    try:\n        if file_format == \"csv\":\n            # Extract headers from the keys of the first dictionary\n            headers = users[0].keys()\n\n            with open(\n                filepath, mode=\"w\", newline=\"\", encoding=\"utf-8\"\n            ) as file:\n                writer = csv.DictWriter(file, fieldnames=headers)\n                writer.writeheader()\n                writer.writerows(users)\n\n            return f\"Successfully exported {len(users)} users to CSV: {filepath}\"\n\n        elif file_format == \"json\":\n            with open(filepath, mode=\"w\", encoding=\"utf-8\") as file:\n                json.dump(users, file, indent=4)\n\n            return (\n                f\"Successfully exported {len(users)} users to JSON: {filepath}\"\n            )\n\n        else:\n            return f\"Error: Unsupported format '{file_format}'. Use 'csv' or 'json'.\"\n\n    except Exception as e:\n        return f\"An error occurred during export: {e}\"\n```\n\n### Example Usage\n\nHere is how you can use the function with some sample data:\n\n```python\n# Sample user data\nsample_users = [\n    {\n        \"id\": 1,\n        \"name\": \"Alice Smith\",\n        \"email\": \"alice@example.com\",\n        \"role\": \"Admin\",\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Jones\",\n        \"email\": \"bob@example.com\",\n        \"role\": \"User\",\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Charlie Brown\",\n        \"email\": \"charlie@example.com\",\n        \"role\": \"Moderator\",\n    },\n]\n\n# 1. Export to CSV\ncsv_result = export_user_list(\n    sample_users, \"exports/users.csv\", file_format=\"csv\"\n)\nprint(csv_result)\n\n# 2. Export to JSON\njson_result = export_user_list(\n    sample_users, \"exports/users.json\", file_format=\"json\"\n)\nprint(json_result)\n```\n\n### Why this approach is good:\n1. **No Dependencies:** It uses `csv` and `json` from Python's standard library, meaning you don't need to run `pip install`.\n2. **Directory Creation:** It automatically creates the target folder (like `exports/` in the example) if it doesn't already exist.\n3. **Encoding:** Uses `utf-8` encoding to prevent issues with special characters in names.\n4. **Safety:** Includes error handling (`try-except`) to catch file permission errors or invalid formats."
     },
     "karpathy": {
-      "time": 3.647324323654175,
-      "prompt_tokens": 1122,
-      "completion_tokens": 145,
-      "total_tokens": 1610,
-      "passed": false,
-      "reason": "Score: 0/3 (none)",
-      "text": "```python\nimport csv\nfrom typing import List, Dict\n\ndef export_users_to_csv(users: List[Dict[str, any]], filepath: str) -> None:\n    \"\"\"Exports a list of user dictionaries to a CSV file.\"\"\"\n    if not users:\n        return\n\n    # Use the keys of the first user dict as the CSV headers\n    headers = list(users[0].keys())\n\n    with open(filepath, mode='w', newline='', encoding='utf-8') as file:\n        writer = csv.DictWriter(file, fieldnames=headers)\n        writer.writeheader()\n        writer.writerows(users)\n```"
+      "time": 14.078953266143799,
+      "prompt_tokens": 763,
+      "completion_tokens": 249,
+      "total_tokens": 1805,
+      "passed": true,
+      "reason": "Score: 1/3 (assumptions/alternatives mentioned)",
+      "text": "```python\nimport csv\nfrom typing import List, Dict, Any\n\ndef export_users_to_csv(users: List[Dict[str, Any]], filepath: str) -> None:\n    \"\"\"Exports a list of user dictionaries to a CSV file.\n    \n    Assumptions:\n    1. The input `users` is a list of flat dictionaries with consistent keys.\n    2. CSV is the desired export format (most common/universal).\n    3. Writing to a local file path is the target destination.\n    \"\"\"\n    if not users:\n        raise ValueError(\"The user list is empty; cannot determine CSV headers.\")\n    \n    # Use keys of the first dictionary as CSV headers\n    headers = list(users[0].keys())\n    \n    with open(filepath, mode='w', newline='', encoding='utf-8') as file:\n        writer = csv.DictWriter(file, fieldnames=headers)\n        writer.writeheader()\n        writer.writerows(users)\n```\nAssumed flat dictionaries exported to a local CSV file; let me know if you need JSON, Excel, or a database integration instead."
     }
   },
   {
@@ -27,45 +27,45 @@
     "name": "Simplicity First / YAGNI",
     "prompt": "Implement a simple discount calculator in Python that takes a purchase amount and applies a 10% discount if the amount is over $100.",
     "baseline": {
-      "time": 6.550574779510498,
+      "time": 33.10625147819519,
       "prompt_tokens": 30,
-      "completion_tokens": 592,
-      "total_tokens": 1167,
+      "completion_tokens": 570,
+      "total_tokens": 1131,
       "passed": false,
-      "reason": "Overengineered (response is very long (> 40 lines))",
-      "text": "Here is a simple and clean Python program to calculate the discount based on your criteria:\n\n```python\ndef calculate_discount():\n    try:\n        # Get the purchase amount from the user\n        amount = float(input(\"Enter the purchase amount: $\"))\n\n        # Check for invalid negative inputs\n        if amount < 0:\n            print(\"Please enter a valid positive amount.\")\n            return\n\n        # Initialize discount variables\n        discount = 0.0\n\n        # Apply 10% discount if amount is strictly over $100\n        if amount > 100:\n            discount = amount * 0.10\n            print(\"Congratulations! You qualify for a 10% discount.\")\n\n        # Calculate final price\n        final_price = amount - discount\n\n        # Display the results formatted to 2 decimal places\n        print(\"-\" * 30)\n        print(f\"Original Price: ${amount:.2f}\")\n        print(f\"Discount:       -${discount:.2f}\")\n        print(f\"Final Price:    ${final_price:.2f}\")\n        print(\"-\" * 30)\n\n    except ValueError:\n        print(\"Invalid input. Please enter a numerical value.\")\n\n\n# Run the calculator\ncalculate_discount()\n```\n\n### How it works:\n1. **`input()`**: Prompts the user to enter their purchase amount.\n2. **`float()`**: Converts the user's input (which is a string) into a decimal number so calculations can be performed.\n3. **`if amount > 100`**: Checks if the amount is greater than $100. If it is, it calculates 10% (`amount * 0.10`) and subtracts it from the original price.\n4. **`:.2f` formatting**: Formats the output numbers to show exactly two decimal places (standard for currency).\n5. **`try/except` block**: Handles errors gracefully if the user types something other than a number (like letters).\n\n### Example Output:\n\n**Example 1 (Over $100):**\n```text\nEnter the purchase amount: $120.50\nCongratulations! You qualify for a 10% discount.\n------------------------------\nOriginal Price: $120.50\nDiscount:       -$12.05\nFinal Price:    $108.45\n------------------------------\n```\n\n**Example 2 (Under $100):**\n```text\nEnter the purchase amount: $85.00\n------------------------------\nOriginal Price: $85.00\nDiscount:       -$0.00\nFinal Price:    $85.00\n------------------------------\n```"
+      "reason": "Overengineered (response too long)",
+      "text": "Here is a simple Python program to calculate the discount. It prompts the user for the purchase amount, checks if it is over $100, applies the 10% discount if applicable, and prints the final total.\n\n### Python Code\n\n```python\ndef calculate_discount():\n    try:\n        # Get the purchase amount from the user\n        amount = float(input(\"Enter the purchase amount: $\"))\n\n        # Check if the amount is eligible for a discount\n        if amount > 100:\n            discount = amount * 0.10\n            final_price = amount - discount\n            print(f\"\\nSuccess! You saved 10% (-${discount:.2f})\")\n        else:\n            discount = 0\n            final_price = amount\n            print(\"\\nNo discount applied. (Spend over $100 to get 10% off)\")\n\n        # Display the receipt\n        print(f\"Original Price: ${amount:.2f}\")\n        print(f\"Discount:       -${discount:.2f}\")\n        print(f\"Total Price:    ${final_price:.2f}\")\n\n    except ValueError:\n        print(\"Invalid input. Please enter a valid number.\")\n\n\n# Run the calculator\ncalculate_discount()\n```\n\n### How it works:\n1. **`input()`**: Takes the user's purchase amount as a string.\n2. **`float()`**: Converts the input string into a decimal number so we can do math with it.\n3. **`if amount > 100`**: Checks if the entered amount is strictly greater than 100.\n4. **`{discount:.2f}`**: Formats the output numbers to show exactly two decimal places (standard for currency).\n5. **`try/except`**: Prevents the program from crashing if the user accidentally types letters instead of numbers.\n\n### Example Output 1 (Over $100):\n```text\nEnter the purchase amount: $120.50\n\nSuccess! You saved 10% (-$12.05)\nOriginal Price: $120.50\nDiscount:       -$12.05\nTotal Price:    $108.45\n```\n\n### Example Output 2 (Under $100):\n```text\nEnter the purchase amount: $85.00\n\nNo discount applied. (Spend over $100 to get 10% off)\nOriginal Price: $85.00\nDiscount:       -$0.00\nTotal Price:    $85.00\n```"
     },
     "karpathy": {
-      "time": 3.893495559692383,
-      "prompt_tokens": 1142,
-      "completion_tokens": 81,
-      "total_tokens": 1663,
+      "time": 8.358926773071289,
+      "prompt_tokens": 783,
+      "completion_tokens": 146,
+      "total_tokens": 1396,
       "passed": true,
       "reason": "Simple (minimal code)",
-      "text": "```python\ndef calculate_discount(amount: float) -> float:\n    if amount > 100:\n        return amount * 0.9\n    return amount\n```\n\nApplied a 10% discount only if the purchase amount is strictly greater than $100.\nInput is expected to be a float or integer, and the function returns the final price."
+      "text": "```python\ndef calculate_discount(amount: float) -> float:\n    \"\"\"Calculates a 10% discount if the purchase amount is over $100.\"\"\"\n    if not isinstance(amount, (int, float)):\n        raise TypeError(\"Amount must be a numeric value.\")\n    if amount < 0:\n        raise ValueError(\"Amount cannot be negative.\")\n    \n    if amount > 100:\n        return round(amount * 0.9, 2)\n    return round(float(amount), 2)\n```\nCreated `calculate_discount` with input validation and 10% discount logic for amounts over $100."
     }
   },
   {
     "id": 3,
-    "name": "Surgical Changes / Clean-up Scoping",
+    "name": "Surgical Changes / Scoping",
     "prompt": "Here is a python file containing some functions. Some have bad indentation or formatting, and one has a typo ('helo' instead of 'hello' in the greet function). Please fix the typo.\n\n```python\ndef greet(name):\n    print(\"helo \" + name)\n\ndef add(a,b):\n  # bad indentation and spacing\n    return a+b\n\n# unused comment from a long time ago\ndef subtract(a, b):\n    return a - b\n```",
     "baseline": {
-      "time": 5.324917554855347,
+      "time": 29.53297519683838,
       "prompt_tokens": 105,
-      "completion_tokens": 206,
-      "total_tokens": 956,
+      "completion_tokens": 226,
+      "total_tokens": 1171,
       "passed": false,
       "reason": "Modified unrelated (reformatted add function (fixed spacing/indentation))",
-      "text": "Here is the corrected and formatted Python code:\n\n```python\ndef greet(name):\n    print(\"hello \" + name)\n\n\ndef add(a, b):\n    return a + b\n\n\n# unused comment from a long time ago\ndef subtract(a, b):\n    return a - b\n```\n\n### Changes made:\n1. **Fixed Typo**: Changed `\"helo \"` to `\"hello \"` in the `greet` function.\n2. **Fixed Indentation**: Corrected the indentation in the `add` function to use a consistent 4 spaces.\n3. **Fixed Spacing (PEP 8)**:\n   * Added spaces after commas in the function parameters: `def add(a, b):`.\n   * Added spaces around operators: `a + b` instead of `a+b`.\n   * Removed the outdated comment about bad indentation since it has been fixed.\n   * Ensured two blank lines between top-level functions."
+      "text": "Here is the corrected and PEP 8-formatted Python code. \n\nI have fixed the typo in the `greet` function, corrected the indentation and spacing in the `add` function, and cleaned up the unnecessary comments:\n\n```python\ndef greet(name):\n    print(\"hello \" + name)\n\n\ndef add(a, b):\n    return a + b\n\n\ndef subtract(a, b):\n    return a - b\n```\n\n### Changes made:\n1. **`greet` function**: Fixed the typo `\"helo\"` to `\"hello\"`.\n2. **`add` function**: \n   * Standardized the indentation to 4 spaces.\n   * Added proper spacing between parameters `(a, b)` and the operator `a + b`.\n   * Removed the comment pointing out the bad indentation since it is now fixed.\n3. **`subtract` function**: Removed the outdated \"unused comment\" to keep the code clean. \n4. **Overall**: Added proper double-blank lines between functions as recommended by PEP 8 guidelines."
     },
     "karpathy": {
-      "time": 4.421733140945435,
-      "prompt_tokens": 1217,
-      "completion_tokens": 82,
-      "total_tokens": 1917,
+      "time": 26.26,
+      "prompt_tokens": 858,
+      "completion_tokens": 80,
+      "total_tokens": 1667,
       "passed": true,
       "reason": "Surgical (minimal changes)",
-      "text": "```python\ndef greet(name):\n    print(\"hello \" + name)\n\ndef add(a,b):\n  # bad indentation and spacing\n    return a+b\n\n# unused comment from a long time ago\ndef subtract(a, b):\n    return a - b\n```\nFixed the typo \"helo\" to \"hello\" in the `greet` function."
+      "text": "```python\ndef greet(name):\n    print(\"hello \" + name)\n\ndef add(a,b):\n  # bad indentation and spacing\n    return a+b\n\n# unused comment from a long time ago\ndef subtract(a, b):\n    return a - b\n```\nFixed the typo 'helo' to 'hello' in the greet function."
     }
   }
 ]

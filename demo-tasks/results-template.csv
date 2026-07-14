@@ -1,0 +1,13 @@
+Task,AI Tool,With_Rules,Time_s,Prompt_Tokens,Completion_Tokens,Total_Tokens,Passed,Notes
+1,Cursor,no,,,,,,
+1,Cursor,yes,,,,,,
+2,Claude Code,no,,,,,,
+2,Claude Code,yes,,,,,,
+3,Gemini,no,,,,,,
+3,Gemini,yes,,,,,,
+4,GPT-4o,no,,,,,,
+4,GPT-4o,yes,,,,,,
+5,Cursor,no,,,,,,
+5,Cursor,yes,,,,,,
+6,Claude Code,no,,,,,,
+6,Claude Code,yes,,,,,,

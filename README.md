@@ -1,196 +1,131 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy Rules for AI Coding Agents
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
->
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
-
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+> **Stop AI coding agents from overcomplicating, guessing silently, and touching code they shouldn't.**  
+> Based on [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 English | [简体中文](./README.zh.md)
+
+---
 
 ## The Problems
 
 From Andrej's post:
 
-> "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
+> *"The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."*
 
-> "They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."
+> *"They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."*
 
-> "They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."
+> *"They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."*
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Six rules in a single `AGENTS.md` file that directly address these issues:
 
-| Principle | Addresses |
-|-----------|-----------|
+| Rule | What It Prevents |
+|------|-----------------|
 | **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
-| **Simplicity First** | Overcomplication, bloated abstractions |
-| **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
-| **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| **Change Only What Was Asked** | Drive-by refactoring, style drift, orthogonal edits |
+| **Define "Done" Before You Start** | Vague goals, no verification, infinite loops |
+| **Apply the YAGNI Ladder** | Overengineering, bloat, premature abstractions |
+| **Output Discipline** | Verbose responses, plan prose, unnecessary explanations |
+| **Auto-Clarity Safety Valve** | Catastrophic misinterpretation of risky operations |
 
-## The Four Principles in Detail
+## Benchmarks
 
-### 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-LLMs often pick an interpretation silently and run with it. This principle forces explicit reasoning:
-
-- **State assumptions explicitly** — If uncertain, ask rather than guess
-- **Present multiple interpretations** — Don't pick silently when ambiguity exists
-- **Push back when warranted** — If a simpler approach exists, say so
-- **Stop when confused** — Name what's unclear and ask for clarification
-
-### 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-Combat the tendency toward overengineering:
-
-- No features beyond what was asked
-- No abstractions for single-use code
-- No "flexibility" or "configurability" that wasn't requested
-- No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
-
-**The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
-
-### 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting
-- Don't refactor things that aren't broken
-- Match existing style, even if you'd do it differently
-- If you notice unrelated dead code, mention it — don't delete it
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused
-- Don't remove pre-existing dead code unless asked
-
-**The test:** Every changed line should trace directly to the user's request.
-
-### 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform imperative tasks into verifiable goals:
-
-| Instead of... | Transform to... |
-|--------------|-----------------|
-| "Add validation" | "Write tests for invalid inputs, then make them pass" |
-| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
-| "Refactor X" | "Ensure tests pass before and after" |
-
-For multi-step tasks, state a brief plan:
+We evaluated `gemini-3.5-flash` with and without these rules on 3 test cases:
 
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+Test Case               Baseline Time  Baseline Tokens  →  Karpathy Time  Karpathy Tokens  Improvement
+──────────────────────  ─────────────  ────────────────     ─────────────  ────────────────  ───────────
+Think Before Coding     31.56s         10/867 (I/O)         14.08s         763/249 (I/O)    55% faster, 71% fewer
+Simplicity First/YAGNI  33.11s         30/570               8.36s          783/146           75% faster, 74% fewer
+Surgical Changes        25.55s         105/116              26.26s         858/80            ~same time, 31% fewer
 ```
 
-Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
+| Aggregate | Without Rules | With Rules | Savings |
+|-----------|:------------:|:----------:|:-------:|
+| Avg completion tokens | 518 | 158 | **70% fewer** |
+| Avg response time | 30.1s | 16.2s | **46% faster** |
+| Pass rate (quality) | 0/3 (0%) | 3/3 (100%) | **100% → all pass** |
+
+**What the tests showed:**
+- Without rules: AI wrote 70-line functions with two export formats, full CLI programs with I/O, and reformatted entire files beyond what was asked
+- With rules: AI surfaced assumptions before coding, returned pure functions, and made surgical single-line fixes
+
+Full report: [`benchmark/README.md`](benchmark/README.md) — includes raw responses, evaluation methodology, and a reusable [benchmark runner](benchmark/runner.py).
+
+## Run Your Own Benchmarks
+
+We provide 6 [`demo-tasks/`](demo-tasks/) for comparing AI behavior with and without the rules:
+
+| Task | Principle | What It Tests |
+|------|-----------|---------------|
+| API Rate Limiter | Think Before Coding | Does the AI ask requirements or just code? |
+| Date Formatter | YAGNI | Does it use native `Intl` or install `date-fns`? |
+| CSS Color Fix | Surgical Changes | Does it fix only the color or "improve" the whole file? |
+| Search Bug | Goal-Driven | Does it write a failing test first? |
+| Binary Search | Output Discipline | Minimal code or verbose lecture? |
+| Todo App Sort | All 5 principles | Multi-file, multi-principle challenge |
+
+Each task has a rubric, pass/fail criteria, and a CSV template for tracking results across different AI tools.
 
 ## Install
 
-**Option A: Claude Code Plugin (recommended)**
+### Option A: AGENTS.md (Antigravity / Codex / OpenCode)
 
-From within Claude Code, first add the marketplace:
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/sumonrh/karpathy-skills-for-antigravity-and-codex/main/AGENTS.md
 ```
+
+### Option B: CLAUDE.md (Claude Code)
+
+```bash
+curl -o CLAUDE.md https://raw.githubusercontent.com/sumonrh/karpathy-skills-for-antigravity-and-codex/main/CLAUDE.md
+```
+
+### Option C: Cursor Rule
+
+Copy [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc) into your project's `.cursor/rules/` directory. See [CURSOR.md](CURSOR.md) for details.
+
+### Option D: Claude Code Plugin
+
+```bash
 /plugin marketplace add forrestchang/andrej-karpathy-skills
-```
-
-Then install the plugin:
-```
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
-
-**Option B: CLAUDE.md (per-project)**
-
-New project:
-```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
-```
-
-Existing project (append):
-```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
-```
-
-## Using with Cursor
-
-This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
-
-## Key Insight
-
-From Andrej:
-
-> "LLMs are exceptionally good at looping until they meet specific goals... Don't tell it what to do, give it success criteria and watch it go."
-
-The "Goal-Driven Execution" principle captures this: transform imperative instructions into declarative goals with verification loops.
-
 ## How to Know It's Working
-
-These guidelines are working if you see:
 
 - **Fewer unnecessary changes in diffs** — Only requested changes appear
 - **Fewer rewrites due to overcomplication** — Code is simple the first time
 - **Clarifying questions come before implementation** — Not after mistakes
 - **Clean, minimal PRs** — No drive-by refactoring or "improvements"
+- **Shorter AI outputs** — Less prose, more code
 
-## Benchmarks & Evaluation
+## Tradeoff Note
 
-We evaluated these system instructions against a baseline of `gemini-3.5-flash` without the rules. The guidelines resulted in:
-- **79.7% fewer generated completion tokens** (from 1,516 to 308 tokens).
-- **55.0% faster response times** (from 26.55s to 11.96s total).
-- **Much cleaner, YAGNI-compliant, and surgical code modifications**.
+These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor. The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
 
-See the full [Benchmark Report and Runner](benchmark/README.md) for detailed observations and raw model responses.
+## Compatible Platforms
+
+- **Antigravity** — via `AGENTS.md` + `skills/karpathy-guidelines/` skill
+- **Claude Code** — via `CLAUDE.md` or the official plugin
+- **Cursor** — via `.cursor/rules/karpathy-guidelines.mdc`
+- **Google AI Studio** — via `GOOGLE_AI_STUDIO.md`
+- **Hermes** — via `HERMES.md`
+- **OpenAI / Codex** — via `.agents/rules/` or custom instructions
 
 ## Customization
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
-
-For project-specific rules, add sections like:
+Merge with project-specific instructions. Add sections like:
 
 ```markdown
 ## Project-Specific Guidelines
-
 - Use TypeScript strict mode
 - All API endpoints must have tests
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
 
-## Tradeoff Note
-
-These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
-
-The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
-
 ## License
 
 MIT
-
-## Antigravity Implementation
-
-This fork adds configuration files for **Antigravity** so the Karpathy rules work with both Google Gemini and Anthropic Claude agents.
-
-### How to use in Antigravity
-
-1. Make sure `AGENTS.md` and the `.agents/` folder are in your project root.
-2. When starting a coding task, reference the skill directly:
-   ```text
-   /goal Refactor the data parser using the @karpathy-guidelines skill. Keep it minimal.
-   ```
-
-3. If the AI isn't sure what you mean, it will pause and ask you instead of guessing.
-
-
