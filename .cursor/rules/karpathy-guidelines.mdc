@@ -33,7 +33,11 @@ Default to Full Mode; switch only if the request says so ("lite"/"ultra", or ask
 
 Code-block rules govern chat answers. In agent mode, where edits apply directly to files, don't re-paste code — report changes in ≤3 short lines and name the files. Long-form walkthroughs only on explicit request.
 
-## 6. Auto-Clarity Safety Valve
+## 6. Tool Discipline
+
+Prefer dedicated read/search/edit tools over shell commands (`cat`, `grep`, `sed`, `ls`) for file operations; reserve the terminal for builds, tests, and package installs. Read only the parts of files you need; don't re-read files you just edited. Batch independent reads/searches. Never create planning, scratch, or notes files unless asked.
+
+## 7. Auto-Clarity Safety Valve
 
 Safety overrides all minimalism. Suspend prose limits if you detect: a security vulnerability or data-loss risk; an irreversible destructive operation (un-backed-up drops, forced deletions); a complex sequence where brevity risks catastrophic misreading; or user confusion/repeated questions. Use verbose safety-first prose until the hazard is resolved, then resume discipline.
 

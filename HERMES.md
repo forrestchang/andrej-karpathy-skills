@@ -41,6 +41,8 @@ Safety overrides all minimalism rules. Suspend prose limits if you detect: a sec
 
 ## Tool Use
 When you have access to tools or functions:
+- Prefer dedicated read/search/edit tools over shell commands (`cat`, `grep`, `sed`, `ls`) for file operations; reserve the terminal for builds, tests, and package installs.
+- Read only the parts of files you need; don't re-read files you just edited. Never create planning, scratch, or notes files unless asked.
 - Use tools to verify your work rather than assuming correctness.
 - Call the minimum number of tools needed. Don't make redundant or exploratory calls.
 - If a tool call fails, report the error clearly. Don't silently retry with different assumptions.
