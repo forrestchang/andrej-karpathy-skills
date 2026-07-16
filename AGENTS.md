@@ -1,28 +1,23 @@
 # Karpathy Rules for AI Coding Agents
-These rules reduce common AI coding mistakes. Merge with project-specific instructions. Tradeoff: caution over speed — for trivial tasks, use judgment.
+Merge with project rules; use judgment for trivial tasks.
 
 ## 1. Think Before Coding
-Don't guess. State assumptions before writing any code; ask the user when unsure. If a request could mean more than one thing, list the options — don't just pick one. Suggest simpler approaches and push back when it makes sense. If something doesn't make sense, stop and ask — use `/grill-me` if available. If you can't ask (running non-interactively), state your assumption, take the most conservative reading, and proceed — or stop without editing if every reading risks damage. Never modify code you couldn't read: if a file won't open or a tool call fails, try at most one alternative route, then report the blocker — never patch from memory.
+Do not guess. Ask when ambiguity affects correctness; otherwise state the conservative assumption. Surface contradictions, tradeoffs, and simpler options. Never edit unread code: try one alternate read, then report the blocker.
 
 ## 2. Change Only What Was Asked
-Touch only what you must. Match the existing code style exactly — indentation, quotes, casing, syntax. Don't "improve" or refactor adjacent code, comments, or formatting that isn't broken. Never delete or rewrite comments, docstrings, or documentation you didn't create unless asked. If your changes make something unused, remove it — don't remove things that were already unused before your changes.
+Every changed line must serve the request. Preserve adjacent code, comments, formatting, and APIs; match local style. Remove only items your change makes unused. Mention unrelated issues without fixing them.
 
 ## 3. Define "Done" Before You Start
-Turn vague tasks into concrete, checkable goals before writing code. For multi-step work, write a short plan: step → how to verify. Keep running checks until everything passes. Use the project's existing tests and tooling; don't add new test files, frameworks, or scripts for a small fix unless asked.
+Define observable success before editing. For multi-step work, pair each step with a check. Use existing tests and tools; reproduce bugs when practical and validate after editing. Add no infrastructure for a small fix.
 
-## 4. Apply the YAGNI Ladder
-Write the least code that solves the problem. Stop at the first rung that holds: (1) skip if it needn't exist; (2) use the standard library; (3) use native platform/browser features (e.g. `<input type="date">`, native CSS); (4) use an already-installed dependency before adding one; (5) one line if possible; (6) only then, the minimum that works. Lazy, not negligent: never skip input validation, real error handling, security checks, or accessibility.
+## 4. YAGNI
+Write the least code that works. Prefer: nothing new, standard library, native features, installed dependencies, then minimal custom code. Avoid speculative or single-use abstractions. Keep required validation, error handling, security, and accessibility.
 
 ## 5. Output Discipline
-Default to Full Mode; switch only if the request says so ("lite"/"ultra", or asks for more/less detail).
-- **Lite:** Plan → code → concise, accessible explanation (what changes, then why).
-- **Full (default):** Code first → up to 3 short trailing lines only if something was deliberately skipped or an edge case needs flagging; otherwise one line stating what changed. No standalone plan prose.
-- **Ultra:** Pure code/diff only — no prose, comments, or markdown.
-
-Code-block rules govern chat answers. In agent harnesses (Claude Code, Codex, Cursor, or Antigravity) where edits apply directly to files, don't re-paste code — report changes in ≤3 short lines and name the files. Long-form walkthroughs only on explicit request.
+Be concise. Editing agents apply changes instead of reprinting them, then report files, validation, and caveats in at most three lines. Explain more only when asked or safety requires it.
 
 ## 6. Tool Discipline
-Prefer dedicated read/search/edit tools over shell commands (`cat`, `grep`, `sed`, `ls`) for file operations; reserve the terminal for builds, tests, and package installs. Read only the parts of files you need; don't re-read files you just edited. Batch independent reads/searches. Never create planning, scratch, or notes files unless asked.
+Use file tools for reading, searching, and editing; use the terminal for builds, tests, and installs. Read only relevant ranges, batch independent reads, and do not reread successful edits. Create no scratch files unless asked.
 
-## 7. Auto-Clarity Safety Valve
-Safety overrides all minimalism. Suspend prose limits if you detect: a security vulnerability or data-loss risk; an irreversible destructive operation (un-backed-up drops, forced deletions); a complex sequence where brevity risks catastrophic misreading; or user confusion/repeated questions. Use verbose safety-first prose until the hazard is resolved, then resume discipline.
+## 7. Safety Override
+Safety overrides brevity. Explain security, data-loss, irreversible-action, or dangerous-ambiguity risks before proceeding.

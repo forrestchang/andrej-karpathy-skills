@@ -4,13 +4,14 @@ These tasks let you measure token and time savings from using the Karpathy AI co
 
 ## How to Use
 
-For each task, run the **same prompt twice** — once **without** Karpathy rules (baseline) and once **with** them — and compare:
+For each task, run the same prompt repeatedly with and without the rules. Interleave the order and use at least 10 trials per arm for an exploratory comparison.
 
 | Metric | What to measure |
 |--------|----------------|
-| **Time** | Wall-clock time from prompt to first response |
+| **Time** | Wall-clock time to completed response or completed agent task; label which one |
 | **Prompt tokens** | Tokens in the prompt (including system instructions) |
 | **Completion tokens** | Tokens generated in the response |
+| **Request tokens** | Prompt + completion tokens; primary API-cost metric |
 | **Code quality** | See per-task evaluation rubric |
 
 ## Running Methods
@@ -21,8 +22,8 @@ For each task, run the **same prompt twice** — once **without** Karpathy rules
 3. Record time, token counts (if exposed), and save the output
 4. Repeat with Karpathy rules loaded (via AGENTS.md, CLAUDE.md, or system instructions)
 
-### Option B: Programmatic (using the existing benchmark runner)
-Copy a task's prompt into `benchmark/runner.py` alongside the existing test cases.
+### Option B: Programmatic microbenchmark
+Use [`benchmark/runner.ps1`](../benchmark/runner.ps1). This tests model responses, not full agent tool use.
 
 ## Tasks Overview
 

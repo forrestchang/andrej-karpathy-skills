@@ -19,7 +19,7 @@ From Andrej's post:
 
 ## The Solution
 
-Six rules in a single `AGENTS.md` file that directly address these issues:
+Seven compact rules, available as platform-specific instruction files and an adaptive skill, directly address these issues:
 
 | Rule | What It Prevents |
 |------|-----------------|
@@ -28,31 +28,14 @@ Six rules in a single `AGENTS.md` file that directly address these issues:
 | **Define "Done" Before You Start** | Vague goals, no verification, infinite loops |
 | **Apply the YAGNI Ladder** | Overengineering, bloat, premature abstractions |
 | **Output Discipline** | Verbose responses, plan prose, unnecessary explanations |
-| **Auto-Clarity Safety Valve** | Catastrophic misinterpretation of risky operations |
+| **Tool Discipline** | Redundant reads, unnecessary shell use, scratch-file churn |
+| **Safety Override** | Catastrophic misinterpretation of risky operations |
 
 ## Benchmarks
 
-We evaluated `gemini-3.5-flash` with and without these rules on 3 test cases:
+An audit found that always loading the full rules improved synthetic-task quality but increased token usage. A repeated `gpt-5.3-codex` benchmark confirmed the regression: **+203.6% visible request tokens** and **+34.6% median latency**, despite pass rate improving from 66.7% to 100%.
 
-```
-Test Case               Baseline Time  Baseline Tokens  →  Karpathy Time  Karpathy Tokens  Improvement
-──────────────────────  ─────────────  ────────────────     ─────────────  ────────────────  ───────────
-Think Before Coding     31.56s         10/867 (I/O)         14.08s         763/249 (I/O)    55% faster, 71% fewer
-Simplicity First/YAGNI  33.11s         30/570               8.36s          783/146           75% faster, 74% fewer
-Surgical Changes        25.55s         105/116              26.26s         858/80            ~same time, 31% fewer
-```
-
-| Aggregate | Without Rules | With Rules | Savings |
-|-----------|:------------:|:----------:|:-------:|
-| Avg completion tokens | 518 | 158 | **70% fewer** |
-| Avg response time | 30.1s | 16.2s | **46% faster** |
-| Pass rate (quality) | 0/3 (0%) | 3/3 (100%) | **100% → all pass** |
-
-**What the tests showed:**
-- Without rules: AI wrote 70-line functions with two export formats, full CLI programs with I/O, and reformatted entire files beyond what was asked
-- With rules: AI surfaced assumptions before coding, returned pure functions, and made surgical single-line fixes
-
-Full report: [`benchmark/README.md`](benchmark/README.md) — includes raw responses, evaluation methodology, and a reusable [benchmark runner](benchmark/runner.py).
+The optimized skill now loads guardrails only when relevant and stops after one concise clarification on underspecified tasks. Across 30 calls it achieved **45.1% fewer visible request tokens**, **12.5% lower median latency**, and **100% pass rate**; the paired bootstrap 95% interval for token change was -64.6% to -16.4%. This is an instruction microbenchmark, not a full repository-editing agent benchmark. See the [benchmark report](benchmark/README.md), [analyzer](benchmark/analyze.py), and [raw results](benchmark/results-openai-optimized-v2.json) for methodology and limitations.
 
 ## Run Your Own Benchmarks
 
@@ -65,7 +48,7 @@ We provide 6 [`demo-tasks/`](demo-tasks/) for comparing AI behavior with and wit
 | CSS Color Fix | Surgical Changes | Does it fix only the color or "improve" the whole file? |
 | Search Bug | Goal-Driven | Does it write a failing test first? |
 | Binary Search | Output Discipline | Minimal code or verbose lecture? |
-| Todo App Sort | All 5 principles | Multi-file, multi-principle challenge |
+| Todo App Sort | Multiple rules | Multi-file, multi-principle challenge |
 
 Each task has a rubric, pass/fail criteria, and a CSV template for tracking results across different AI tools.
 
@@ -93,6 +76,10 @@ Copy [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines
 /plugin marketplace add forrestchang/andrej-karpathy-skills
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
+
+### Option E: Google AI Studio / Hermes
+
+Copy the system-instruction body from [GOOGLE_AI_STUDIO.md](GOOGLE_AI_STUDIO.md) or [HERMES.md](HERMES.md) into the corresponding platform.
 
 ## How to Know It's Working
 
