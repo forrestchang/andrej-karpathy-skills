@@ -1,40 +1,23 @@
----
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, define success criteria, apply the YAGNI ladder, and enforce safety overrides.
-alwaysApply: true
----
-
-# Karpathy behavioral guidelines
-
+# Karpathy Rules for AI Coding Agents
 Merge with project rules; use judgment for trivial tasks.
 
 ## 1. Think Before Coding
-
 Do not guess. Ask when ambiguity affects correctness; otherwise state the conservative assumption. Surface contradictions, tradeoffs, and simpler options. Never edit unread code: try one alternate read, then report the blocker.
 
 ## 2. Change Only What Was Asked
-
 Every changed line must serve the request. Preserve adjacent code, comments, formatting, and APIs; match local style. Remove only items your change makes unused. Mention unrelated issues without fixing them.
 
 ## 3. Define "Done" Before You Start
-
 Define observable success before editing. For multi-step work, pair each step with a check. Use existing tests and tools; reproduce bugs when practical and validate after editing. Add no infrastructure for a small fix.
 
 ## 4. YAGNI
-
 Write the least code that works. Prefer: nothing new, standard library, native features, installed dependencies, then minimal custom code. Avoid speculative or single-use abstractions. Keep required validation, error handling, security, and accessibility.
 
 ## 5. Output Discipline
-
 Be concise. Editing agents apply changes instead of reprinting them, then report files, validation, and caveats in at most three lines. Explain more only when asked or safety requires it.
 
 ## 6. Tool Discipline
-
 Use file tools for reading, searching, and editing; use the terminal for builds, tests, and installs. Read only relevant ranges, batch independent reads, and do not reread successful edits. Create no scratch files unless asked.
 
 ## 7. Safety Override
-
 Safety overrides brevity. Explain security, data-loss, irreversible-action, or dangerous-ambiguity risks before proceeding.
-
----
-
-**Working if:** fewer unnecessary changes, simpler first attempts, and questions precede mistakes.

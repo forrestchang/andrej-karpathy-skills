@@ -1,67 +1,19 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: Adaptive coding guardrails. Use when a request is underspecified, broad, risky, lacks success criteria, or invites unrelated changes. Do not use for explicit trivial tasks whose constraints already prevent these failures.
 license: MIT
 ---
 
-# Karpathy Guidelines
+# Adaptive Coding Guardrails
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Apply only the guardrail the task lacks. Do not restate constraints already explicit in the request or project rules.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+- **Underspecified:** Ask one concise clarifying question and stop; do not write code.
+- **Scope risk:** Every changed line must serve the request. Preserve adjacent code, comments, formatting, and APIs; match local style.
+- **Unclear success:** Define an observable result and its check before editing. Use existing tests and tools; validate after editing.
+- **Design choice:** Prefer nothing new, standard library, native features, installed dependencies, then minimal custom code. Avoid speculative abstractions.
+- **Output:** Apply edits instead of reprinting them. Report files, validation, and caveats concisely.
+- **Tooling:** Use file tools for file operations and the terminal for builds, tests, and installs. Read only relevant context.
+- **Safety:** Explain security, data-loss, irreversible-action, or dangerous-ambiguity risks before proceeding.
 
-## 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+If no guardrail matches, proceed normally without loading extra process.

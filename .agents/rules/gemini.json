@@ -1,0 +1,7 @@
+{
+  "model_provider": "google",
+  "system_prompt_append": "Follow the rules in AGENTS.md. Before writing code, list your steps and how you'll check each one works. Write plans in plain language that anyone can read.",
+  "sandbox_hooks": {
+    "pre_write_check": "Before changing any file, confirm the change traces directly to what the user asked for and matches the existing code style."
+  }
+}

@@ -1,6 +1,6 @@
 # Examples
 
-Real-world code examples demonstrating the four principles. Each example shows what LLMs commonly do wrong and how to fix it.
+Real-world code examples showing the five rules in action. Each example shows what AI agents commonly do wrong and how to fix it.
 
 ---
 
@@ -497,26 +497,19 @@ def sort_scores(scores):
 
 ## Anti-Patterns Summary
 
-| Principle | Anti-Pattern | Fix |
-|-----------|-------------|-----|
-| Think Before Coding | Silently assumes file format, fields, scope | List assumptions explicitly, ask for clarification |
-| Simplicity First | Strategy pattern for single discount calculation | One function until complexity is actually needed |
-| Surgical Changes | Reformats quotes, adds type hints while fixing bug | Only change lines that fix the reported issue |
-| Goal-Driven | "I'll review and improve the code" | "Write test for bug X → make it pass → verify no regressions" |
+| Rule | What Goes Wrong | What To Do Instead |
+|------|----------------|--------------------|
+| Think Before Coding | Silently guesses file format, fields, scope | List your assumptions, ask the user to confirm |
+| Keep It Simple | Builds a strategy pattern for one discount calculation | Write one function — add complexity only when actually needed |
+| Change Only What Was Asked | Reformats quotes, adds type hints while fixing a bug | Only change the lines that fix the reported issue |
+| Define "Done" First | "I'll review and improve the code" | "Write a test for bug X → make it pass → check nothing else broke" |
 
 ## Key Insight
 
-The "overcomplicated" examples aren't obviously wrong—they follow design patterns and best practices. The problem is **timing**: they add complexity before it's needed, which:
+The "overcomplicated" examples aren't obviously wrong — they use real design patterns. The problem is **timing**: they add complexity before anyone needs it.
 
-- Makes code harder to understand
-- Introduces more bugs
-- Takes longer to implement
-- Harder to test
+Extra complexity = harder to read, more bugs, slower to build, harder to test.
 
-The "simple" versions are:
-- Easier to understand
-- Faster to implement
-- Easier to test
-- Can be refactored later when complexity is actually needed
+The simple versions can always be refactored later *when the need actually shows up*.
 
-**Good code is code that solves today's problem simply, not tomorrow's problem prematurely.**
+**Good code solves today's problem simply — not tomorrow's problem prematurely.**

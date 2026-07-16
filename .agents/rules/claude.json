@@ -1,0 +1,7 @@
+{
+  "model_provider": "anthropic",
+  "system_prompt_append": "Follow the rules in AGENTS.md. Only change what was asked. Match the existing code style. Keep it simple. Write plans that non-technical people can read.",
+  "validation_loop": {
+    "enforce_test_before_fix": true
+  }
+}

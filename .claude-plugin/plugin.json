@@ -1,6 +1,6 @@
 {
   "name": "andrej-karpathy-skills",
-  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls, enhanced with Ponytail YAGNI ladder and Caveman safety overrides",
   "version": "1.0.0",
   "author": {
     "name": "forrestchang"

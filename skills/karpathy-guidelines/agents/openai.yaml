@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Keep coding agents cautious and minimal"
+  default_prompt: "Use $karpathy-guidelines to keep this coding task simple, scoped, and verified."

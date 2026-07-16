@@ -1,65 +1,27 @@
 # CLAUDE.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+Merge with project rules; use judgment for trivial tasks.
 
 ## 1. Think Before Coding
+Do not guess. Ask when ambiguity affects correctness; otherwise state the conservative assumption. Surface contradictions, tradeoffs, and simpler options. Never edit unread code: try one alternate read, then report the blocker.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## 2. Change Only What Was Asked
+Every changed line must serve the request. Preserve adjacent code, comments, formatting, and APIs; match local style. Remove only items your change makes unused. Mention unrelated issues without fixing them.
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+## 3. Define "Done" Before You Start
+Define observable success before editing. For multi-step work, pair each step with a check. Use existing tests and tools; reproduce bugs when practical and validate after editing. Add no infrastructure for a small fix.
 
-## 2. Simplicity First
+## 4. YAGNI
+Write the least code that works. Prefer: nothing new, standard library, native features, installed dependencies, then minimal custom code. Avoid speculative or single-use abstractions. Keep required validation, error handling, security, and accessibility.
 
-**Minimum code that solves the problem. Nothing speculative.**
+## 5. Output Discipline
+Be concise. Editing agents apply changes instead of reprinting them, then report files, validation, and caveats in at most three lines. Explain more only when asked or safety requires it.
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+## 6. Tool Discipline
+Use file tools for reading, searching, and editing; use the terminal for builds, tests, and installs. Read only relevant ranges, batch independent reads, and do not reread successful edits. Create no scratch files unless asked.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## 7. Safety Override
+Safety overrides brevity. Explain security, data-loss, irreversible-action, or dangerous-ambiguity risks before proceeding.
 
 ---
-
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**Working if:** fewer unnecessary changes, simpler first attempts, and questions precede mistakes.
