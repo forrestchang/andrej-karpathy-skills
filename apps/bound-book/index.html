@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bound Book — A&amp;D Record</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- First-run disclaimer -->
+  <div id="disclaimer" class="modal hidden">
+    <div class="modal-card">
+      <h2>Before you start</h2>
+      <p>This tool keeps your Acquisition &amp; Disposition record as a tamper-evident,
+         hash-linked log — <strong>your electronic system of record</strong> (ATF variance
+         on file). Nothing is edited in place; corrections are logged.</p>
+      <p><strong>Back up regularly.</strong> Use <em>Integrity → Download full backup</em>
+         to keep a current copy — that copy is your continuity and your surrender copy.</p>
+      <p>This is not legal advice. Confirm ATF requirements (27 CFR Part 478) and any
+         state rules for your situation.</p>
+      <label class="check"><input type="checkbox" id="disclaimer-ack" /> I understand.</label>
+      <button id="disclaimer-ok" disabled>Continue</button>
+    </div>
+  </div>
+
+  <header class="topbar no-print">
+    <div class="brand">Bound Book <span class="tag">budget</span></div>
+    <nav>
+      <button data-view="acquire" class="active">Acquire</button>
+      <button data-view="dispose">Dispose</button>
+      <button data-view="ledger">Ledger</button>
+      <button data-view="export">Export / Print</button>
+      <button data-view="integrity">Integrity</button>
+      <button data-view="profile">Licensee</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ACQUIRE -->
+    <section id="view-acquire" class="view">
+      <h1>Log an acquisition</h1>
+      <p class="hint">Record a firearm coming in. All fields are required by ATF; source
+        needs either a name + address, or an FFL number.</p>
+      <form id="acquire-form" class="grid">
+        <label>Date received<input name="dateReceived" type="date" required /></label>
+        <label>Manufacturer / Importer<input name="mfrImporter" required /></label>
+        <label>Model<input name="model" required /></label>
+        <label>Serial number<input name="serial" required /></label>
+        <label>Type<input name="type" placeholder="Pistol, Rifle, Receiver…" required /></label>
+        <label>Caliber / Gauge<input name="caliber" required /></label>
+        <fieldset class="span2">
+          <legend>Source</legend>
+          <label>Name<input name="sourceName" /></label>
+          <label>Address<input name="sourceAddress" /></label>
+          <label>or FFL #<input name="sourceFfl" placeholder="if from a licensee" /></label>
+        </fieldset>
+        <div class="errors span2" id="acquire-errors"></div>
+        <button type="submit" class="span2">Add acquisition</button>
+      </form>
+    </section>
+
+    <!-- DISPOSE -->
+    <section id="view-dispose" class="view hidden">
+      <h1>Log a disposition</h1>
+      <p class="hint">Pick an open firearm, then record where it went.</p>
+      <label class="pick">Open firearm
+        <select id="dispose-select"></select>
+      </label>
+      <form id="dispose-form" class="grid">
+        <label>Date of disposition<input name="date" type="date" required /></label>
+        <label>4473 / transfer reference<input name="formSerial" required /></label>
+        <fieldset class="span2">
+          <legend>Buyer / Transferee</legend>
+          <label>Name<input name="buyerName" /></label>
+          <label>Address<input name="buyerAddress" /></label>
+          <label>or FFL #<input name="buyerFfl" /></label>
+        </fieldset>
+        <label class="span2">Eligibility documentation
+          <input name="eligibilityNote" placeholder="e.g. 4473 + NICS proceed on file, binder A" required />
+        </label>
+        <div class="errors span2" id="dispose-errors"></div>
+        <button type="submit" class="span2">Record disposition</button>
+      </form>
+    </section>
+
+    <!-- LEDGER -->
+    <section id="view-ledger" class="view hidden">
+      <h1>Ledger</h1>
+      <input id="ledger-search" class="no-print" placeholder="Search serial, model, name, FFL…" />
+      <div id="ledger-table"></div>
+    </section>
+
+    <!-- EXPORT -->
+    <section id="view-export" class="view hidden">
+      <h1>Export &amp; print</h1>
+      <p class="hint">The printout / PDF is your official bound book. The CSV is your backup.</p>
+      <div class="actions no-print">
+        <button id="btn-print">Print / Save as PDF</button>
+        <button id="btn-csv">Download CSV backup</button>
+      </div>
+      <div id="print-ledger"></div>
+    </section>
+
+    <!-- INTEGRITY -->
+    <section id="view-integrity" class="view hidden">
+      <h1>Record integrity</h1>
+      <p class="hint">Every action is an entry in an append-only, hash-linked log.
+        Editing or removing anything after the fact breaks the chain and is flagged here.</p>
+      <div id="integrity-status"></div>
+      <p class="hint" style="margin-top:1rem">This log is your electronic system of record (ATF variance on file).
+        Keep a current backup — it is your continuity copy and your surrender copy if the license ends.</p>
+      <div class="actions no-print">
+        <button id="btn-backup">Download full backup (.json)</button>
+        <label class="restore-btn">Restore from backup…
+          <input type="file" id="restore-input" accept="application/json,.json" hidden />
+        </label>
+      </div>
+      <div id="restore-msg"></div>
+      <div id="integrity-log"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="view-profile" class="view hidden">
+      <h1>Licensee details</h1>
+      <p class="hint">Used as the header on your printed ledger.</p>
+      <form id="profile-form" class="grid">
+        <label>Licensee / Business name<input name="name" /></label>
+        <label>FFL number<input name="ffl" /></label>
+        <label class="span2">Premises address<input name="address" /></label>
+        <button type="submit" class="span2">Save</button>
+        <span id="profile-saved" class="saved span2"></span>
+      </form>
+    </section>
+  </main>
+
+  <!-- Correction modal (append-only; original values are never erased) -->
+  <div id="correct-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>Log a correction</h2>
+      <p class="hint" id="correct-target"></p>
+      <form id="correct-form" class="grid">
+        <label class="span2">Field
+          <select name="field" id="correct-field"></select>
+        </label>
+        <label class="span2">Corrected value<input name="newValue" required /></label>
+        <label class="span2">Reason<input name="reason" placeholder="e.g. transcription error" required /></label>
+        <div class="errors span2" id="correct-errors"></div>
+        <div class="actions span2">
+          <button type="submit">Save correction</button>
+          <button type="button" id="correct-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="core.js"></script>
+  <script src="integrity.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
