@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+> **If you are a Claude 5 generation model: stop reading here.**
+>
+> Per [Anthropic's context-engineering guidance for Claude 5 models](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models), everything below is either already your default behavior, or — "If uncertain, ask" — now contradicts it. By Guideline #2, the minimum text that solves your problem is none of it. It remains below for your ancestors, who needed it.
+
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
