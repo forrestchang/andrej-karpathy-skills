@@ -6,6 +6,7 @@
   var LOG_KEY = 'boundbook.log.v1';
   var PROFILE_KEY = 'boundbook.profile.v1';
   var DISCLAIMER_KEY = 'boundbook.disclaimer.v1';
+  var BACKUP_KEY = 'boundbook.lastbackup.v1';
 
   // --- persistence (append-only event log; the ledger is a projection) ---
   function loadLog() {
@@ -13,6 +14,11 @@
     catch (e) { return []; }
   }
   function saveLog() { localStorage.setItem(LOG_KEY, JSON.stringify(log)); }
+  function loadLastBackup() {
+    try { return JSON.parse(localStorage.getItem(BACKUP_KEY)) || null; }
+    catch (e) { return null; }
+  }
+  function saveLastBackup(marker) { localStorage.setItem(BACKUP_KEY, JSON.stringify(marker)); }
   function loadProfile() {
     try { return JSON.parse(localStorage.getItem(PROFILE_KEY)) || {}; }
     catch (e) { return {}; }
@@ -34,6 +40,7 @@
     return 'e' + Date.now() + Math.floor(Math.random() * 1e6);
   }
   function nowIso() { return new Date().toISOString(); }
+  function shortDate(iso) { return String(iso || '').replace('T', ' ').replace(/\..*/, ''); }
   function formData(form) {
     var o = {};
     new FormData(form).forEach(function (v, k) { o[k] = String(v).trim(); });
@@ -268,6 +275,18 @@
     if (e.type === 'correct') return 'Corrected ' + esc(e.payload.field) + ' → ' + esc(e.payload.newValue) + ' (' + esc(e.payload.reason) + ')';
     return esc(e.type);
   }
+  function backupBanner() {
+    var s = INT.backupStatus(log, lastBackup);
+    if (s.upToDate) {
+      var when = s.lastBackupAt ? ' (last backup ' + esc(shortDate(s.lastBackupAt)) + ')' : '';
+      return '<div class="backup-ok">&#10003; All changes backed up' + when + '.</div>';
+    }
+    var noun = s.pending === 1 ? 'change has' : 'changes have';
+    var lead = s.neverBackedUp
+      ? 'No backup yet — '
+      : (esc(s.pending) + ' ' + noun + ' been recorded since your last backup' + (s.lastBackupAt ? ' (' + esc(shortDate(s.lastBackupAt)) + ')' : '') + '. ');
+    return '<div class="backup-warn">&#9888; ' + lead + 'Download a backup so this record survives loss of this device.</div>';
+  }
   function renderIntegrity() {
     var res = INT.verifyChain(log);
     var statusEl = document.getElementById('integrity-status');
@@ -276,9 +295,10 @@
       document.getElementById('integrity-log').innerHTML = '';
       return;
     }
-    statusEl.innerHTML = res.ok
+    statusEl.innerHTML = (res.ok
       ? '<div class="chain-ok">&#10003; Chain verified — ' + res.count + ' entr' + (res.count === 1 ? 'y' : 'ies') + ', no gaps, nothing altered.</div>'
-      : '<div class="chain-bad">&#10007; Integrity check FAILED. ' + esc(res.reason) + '</div>';
+      : '<div class="chain-bad">&#10007; Integrity check FAILED. ' + esc(res.reason) + '</div>')
+      + backupBanner();
 
     var rows = log.map(function (e) {
       var broken = !res.ok && e.seq >= res.brokenAt;
@@ -295,8 +315,11 @@
   }
 
   // --- backup / restore (continuity of the legal record) ---
+  var lastBackup = loadLastBackup();
+
   document.getElementById('btn-backup').addEventListener('click', function () {
-    var backup = INT.makeBackup(log, nowIso());
+    var at = nowIso();
+    var backup = INT.makeBackup(log, at);
     var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
@@ -304,6 +327,10 @@
     a.download = 'bound-book-backup.json';
     a.click();
     URL.revokeObjectURL(url);
+    // Mark everything currently recorded as backed up.
+    lastBackup = { seq: INT.headSeq(log), at: at };
+    saveLastBackup(lastBackup);
+    renderIntegrity();
   });
 
   var restoreInput = document.getElementById('restore-input');
@@ -326,6 +353,10 @@
       log = res.log;
       saveLog();
       entries = INT.project(log);
+      // The restored data matches a backup file that exists on disk, so it is
+      // current as of this restore.
+      lastBackup = { seq: INT.headSeq(log), at: nowIso() };
+      saveLastBackup(lastBackup);
       restoreInput.value = '';
       msg.innerHTML = '<div class="chain-ok">Restored ' + res.log.length + ' entries. Chain verified.</div>';
       renderIntegrity();

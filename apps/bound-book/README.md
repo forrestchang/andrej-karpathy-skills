@@ -48,6 +48,12 @@ and the surrender copy**. Use **Integrity → Download full backup (.json)**
 regularly. Restore verifies the chain on import and **refuses a tampered or
 corrupt backup** rather than loading it.
 
+The Integrity screen also tracks your last backup: it shows a warning whenever
+entries have been recorded since — *"N changes have been recorded since your
+last backup"* — and clears to *"All changes backed up"* once you download a
+current copy. This is a local nudge only; it does not store backups for you or
+replace keeping an offsite copy.
+
 > Not legal advice. Requirements summarized from 27 CFR Part 478. Confirm
 > current ATF rules and any state requirements for your situation before
 > relying on this.

@@ -188,6 +188,27 @@
     return { ok: true, log: data.log };
   }
 
+  // The seq of the last event, or 0 for an empty log. Used as the backup marker.
+  function headSeq(log) {
+    return log.length ? log[log.length - 1].seq : 0;
+  }
+
+  // How current the last backup is. `lastBackup` is the stored marker
+  // { seq, at } from the most recent Download, or null if never backed up.
+  // `pending` counts events recorded since that backup — any of them would be
+  // lost if this machine were lost, so a non-zero count is a continuity risk.
+  function backupStatus(log, lastBackup) {
+    var head = headSeq(log);
+    var backedSeq = lastBackup ? lastBackup.seq : 0;
+    var pending = Math.max(0, head - backedSeq);
+    return {
+      pending: pending,
+      upToDate: pending === 0,
+      neverBackedUp: !lastBackup && head > 0,
+      lastBackupAt: lastBackup ? lastBackup.at : null
+    };
+  }
+
   return {
     GENESIS: GENESIS,
     sha256: sha256,
@@ -197,6 +218,8 @@
     verifyChain: verifyChain,
     project: project,
     makeBackup: makeBackup,
-    parseBackup: parseBackup
+    parseBackup: parseBackup,
+    headSeq: headSeq,
+    backupStatus: backupStatus
   };
 });

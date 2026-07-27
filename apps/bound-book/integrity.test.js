@@ -108,6 +108,40 @@ test('parseBackup accepts an empty but valid backup', () => {
   assert.equal(res.log.length, 0);
 });
 
+test('backupStatus: empty log is up to date', () => {
+  const s = I.backupStatus([], null);
+  assert.equal(s.upToDate, true);
+  assert.equal(s.pending, 0);
+  assert.equal(s.neverBackedUp, false);
+});
+
+test('backupStatus: never backed up flags all events pending', () => {
+  const log = buildLog(); // 3 events
+  const s = I.backupStatus(log, null);
+  assert.equal(s.upToDate, false);
+  assert.equal(s.pending, 3);
+  assert.equal(s.neverBackedUp, true);
+});
+
+test('backupStatus: up to date right after a backup', () => {
+  const log = buildLog();
+  const marker = { seq: I.headSeq(log), at: '2026-07-27T00:00:00Z' };
+  const s = I.backupStatus(log, marker);
+  assert.equal(s.upToDate, true);
+  assert.equal(s.pending, 0);
+  assert.equal(s.lastBackupAt, '2026-07-27T00:00:00Z');
+});
+
+test('backupStatus: new events after a backup become pending', () => {
+  let log = buildLog();
+  const marker = { seq: I.headSeq(log), at: '2026-07-27T00:00:00Z' };
+  log = I.appendEvent(log, 'correct', { entryId: 'e1', field: 'acquisition.model', newValue: 'M2', reason: 'x' }, '2026-07-27T01:00:00Z');
+  const s = I.backupStatus(log, marker);
+  assert.equal(s.pending, 1);
+  assert.equal(s.upToDate, false);
+  assert.equal(s.neverBackedUp, false);
+});
+
 test('project applies corrections from the log', () => {
   let log = buildLog();
   log = I.appendEvent(log, 'correct', {

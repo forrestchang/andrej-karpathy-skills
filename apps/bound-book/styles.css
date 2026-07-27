@@ -118,6 +118,8 @@ th { background: #efefec; }
 #integrity-log { margin-top: 1rem; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: var(--muted); }
 tr.row-bad td { background: #fbe9ec; }
+.backup-ok { margin-top: 0.6rem; color: var(--accent); font-size: 0.9rem; }
+.backup-warn { margin-top: 0.6rem; background: #fdf3e3; color: #8a5a00; border: 1px solid #f0d9a8; padding: 0.6rem 0.8rem; border-radius: 6px; font-weight: 600; }
 .restore-btn { background: none; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; }
 #restore-msg { margin-top: 0.7rem; }
 #restore-msg:empty { margin-top: 0; }
