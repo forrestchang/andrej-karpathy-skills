@@ -54,6 +54,14 @@ last backup"* — and clears to *"All changes backed up"* once you download a
 current copy. This is a local nudge only; it does not store backups for you or
 replace keeping an offsite copy.
 
+**Backup cadence (policy).** In *Licensee → Backup policy* you can set a
+required backup interval in days. When your record is otherwise fully backed up
+but the last backup is older than that interval, the Integrity screen reminds
+you — *"Your last backup is N days old (policy: every M days)"* — to download a
+fresh copy and store it offsite. Set the interval to whatever your variance
+requires; `0` turns the time-based reminder off. **Moving a copy offsite is a
+manual step this local-first app cannot do for you.**
+
 > Not legal advice. Requirements summarized from 27 CFR Part 478. Confirm
 > current ATF rules and any state requirements for your situation before
 > relying on this.

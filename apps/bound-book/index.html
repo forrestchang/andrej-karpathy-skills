@@ -127,6 +127,13 @@
         <label>Licensee / Business name<input name="name" /></label>
         <label>FFL number<input name="ffl" /></label>
         <label class="span2">Premises address<input name="address" /></label>
+        <fieldset class="span2">
+          <legend>Backup policy</legend>
+          <label>Remind me to back up every (days)
+            <input name="backupIntervalDays" type="number" min="0" step="1" placeholder="30" />
+          </label>
+          <p class="hint span2" style="margin:0.3rem 0 0">Set this to your variance's required backup cadence. 0 turns the time-based reminder off. Moving a copy offsite is still a manual step this app can't do for you.</p>
+        </fieldset>
         <button type="submit" class="span2">Save</button>
         <span id="profile-saved" class="saved span2"></span>
       </form>

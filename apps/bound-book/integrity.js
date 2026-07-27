@@ -209,6 +209,19 @@
     };
   }
 
+  // Time-based backup policy. Given the last-backup marker { seq, at }, the
+  // current time, and the licensee's required interval (days), report whether a
+  // fresh backup is due by the calendar — the complement to the change-based
+  // check in backupStatus(). Deterministic: the caller passes `nowIso`.
+  var DAY_MS = 86400000;
+  function backupOverdue(lastBackup, nowIso, intervalDays) {
+    if (!lastBackup || !lastBackup.at || !(intervalDays > 0)) {
+      return { overdue: false, ageDays: null };
+    }
+    var ageDays = Math.floor((new Date(nowIso).getTime() - new Date(lastBackup.at).getTime()) / DAY_MS);
+    return { overdue: ageDays >= intervalDays, ageDays: ageDays };
+  }
+
   return {
     GENESIS: GENESIS,
     sha256: sha256,
@@ -220,6 +233,7 @@
     makeBackup: makeBackup,
     parseBackup: parseBackup,
     headSeq: headSeq,
-    backupStatus: backupStatus
+    backupStatus: backupStatus,
+    backupOverdue: backupOverdue
   };
 });

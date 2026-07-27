@@ -142,6 +142,26 @@ test('backupStatus: new events after a backup become pending', () => {
   assert.equal(s.neverBackedUp, false);
 });
 
+test('backupOverdue: no marker or no interval is never overdue', () => {
+  assert.deepEqual(I.backupOverdue(null, '2026-07-27T00:00:00Z', 30), { overdue: false, ageDays: null });
+  assert.deepEqual(I.backupOverdue({ seq: 1, at: '2026-07-01T00:00:00Z' }, '2026-07-27T00:00:00Z', 0), { overdue: false, ageDays: null });
+});
+
+test('backupOverdue: within interval is not overdue', () => {
+  const r = I.backupOverdue({ seq: 1, at: '2026-07-20T00:00:00Z' }, '2026-07-27T00:00:00Z', 30);
+  assert.equal(r.overdue, false);
+  assert.equal(r.ageDays, 7);
+});
+
+test('backupOverdue: at/after interval is overdue', () => {
+  const exactly = I.backupOverdue({ seq: 1, at: '2026-06-27T00:00:00Z' }, '2026-07-27T00:00:00Z', 30);
+  assert.equal(exactly.overdue, true);
+  assert.equal(exactly.ageDays, 30);
+  const past = I.backupOverdue({ seq: 1, at: '2026-05-01T00:00:00Z' }, '2026-07-27T00:00:00Z', 30);
+  assert.equal(past.overdue, true);
+  assert.ok(past.ageDays > 30);
+});
+
 test('project applies corrections from the log', () => {
   let log = buildLog();
   log = I.appendEvent(log, 'correct', {

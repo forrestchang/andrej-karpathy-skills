@@ -277,15 +277,22 @@
   }
   function backupBanner() {
     var s = INT.backupStatus(log, lastBackup);
-    if (s.upToDate) {
-      var when = s.lastBackupAt ? ' (last backup ' + esc(shortDate(s.lastBackupAt)) + ')' : '';
-      return '<div class="backup-ok">&#10003; All changes backed up' + when + '.</div>';
+    // Priority 1: unsaved changes are the most urgent — data would be lost.
+    if (!s.upToDate) {
+      var noun = s.pending === 1 ? 'change has' : 'changes have';
+      var lead = s.neverBackedUp
+        ? 'No backup yet — '
+        : (esc(s.pending) + ' ' + noun + ' been recorded since your last backup' + (s.lastBackupAt ? ' (' + esc(shortDate(s.lastBackupAt)) + ')' : '') + '. ');
+      return '<div class="backup-warn">&#9888; ' + lead + 'Download a backup so this record survives loss of this device.</div>';
     }
-    var noun = s.pending === 1 ? 'change has' : 'changes have';
-    var lead = s.neverBackedUp
-      ? 'No backup yet — '
-      : (esc(s.pending) + ' ' + noun + ' been recorded since your last backup' + (s.lastBackupAt ? ' (' + esc(shortDate(s.lastBackupAt)) + ')' : '') + '. ');
-    return '<div class="backup-warn">&#9888; ' + lead + 'Download a backup so this record survives loss of this device.</div>';
+    // Priority 2: fully backed up, but the calendar cadence is due (policy).
+    var interval = parseInt(loadProfile().backupIntervalDays, 10) || 0;
+    var due = INT.backupOverdue(lastBackup, nowIso(), interval);
+    if (due.overdue) {
+      return '<div class="backup-warn">&#9888; Your last backup is ' + esc(due.ageDays) + ' days old (policy: every ' + esc(interval) + ' days). Download a fresh copy and store it offsite.</div>';
+    }
+    var when = s.lastBackupAt ? ' (last backup ' + esc(shortDate(s.lastBackupAt)) + ')' : '';
+    return '<div class="backup-ok">&#10003; All changes backed up' + when + '.</div>';
   }
   function renderIntegrity() {
     var res = INT.verifyChain(log);
@@ -368,7 +375,7 @@
   (function initProfile() {
     var form = document.getElementById('profile-form');
     var p = loadProfile();
-    ['name', 'ffl', 'address'].forEach(function (k) { if (form[k]) form[k].value = p[k] || ''; });
+    ['name', 'ffl', 'address', 'backupIntervalDays'].forEach(function (k) { if (form[k]) form[k].value = p[k] || ''; });
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       saveProfile(formData(this));
