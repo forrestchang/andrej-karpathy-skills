@@ -1,0 +1,51 @@
+name: Sync check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  principles-in-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the four principles are identical across all copies
+        run: |
+          python3 - <<'PY'
+          import sys, pathlib
+
+          FILES = [
+              "CLAUDE.md",
+              ".cursor/rules/karpathy-guidelines.mdc",
+              "skills/karpathy-guidelines/SKILL.md",
+          ]
+          START = "## 1. Think Before Coding"
+
+          def extract(path):
+              text = pathlib.Path(path).read_text()
+              if START not in text:
+                  print(f"::error file={path}::missing section '{START}'")
+                  sys.exit(1)
+              body = text.split(START, 1)[1]
+              body = body.split("\n---", 1)[0]  # drop the trailing footer, if any
+              return (START + body).strip()
+
+          reference_path = FILES[0]
+          reference = extract(reference_path)
+
+          failed = False
+          for path in FILES[1:]:
+              if extract(path) != reference:
+                  print(
+                      f"::error file={path}::principle text differs from "
+                      f"{reference_path}. Update all copies together "
+                      f"(see CURSOR.md)."
+                  )
+                  failed = True
+
+          if failed:
+              sys.exit(1)
+          print(f"All {len(FILES)} copies of the principle text are in sync.")
+          PY
