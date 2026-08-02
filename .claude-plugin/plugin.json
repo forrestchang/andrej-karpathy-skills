@@ -1,22 +1,11 @@
 {
   "name": "andrej-karpathy-skills",
-  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls; plus a frontend UI design skill",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
   "version": "1.0.0",
   "author": {
     "name": "forrestchang"
   },
   "license": "MIT",
-  "keywords": [
-    "best-practices",
-    "coding",
-    "design",
-    "frontend",
-    "guidelines",
-    "karpathy",
-    "ui"
-  ],
-  "skills": [
-    "./skills/karpathy-guidelines",
-    "./skills/frontend"
-  ]
+  "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
+  "skills": ["./skills/karpathy-guidelines"]
 }

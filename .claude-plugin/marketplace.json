@@ -12,19 +12,16 @@
     {
       "name": "andrej-karpathy-skills",
       "source": "./",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution; includes frontend design skill",
+      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
       "version": "1.0.0",
       "author": {
         "name": "forrestchang"
       },
       "keywords": [
+        "guidelines",
         "best-practices",
         "coding",
-        "design",
-        "frontend",
-        "guidelines",
-        "karpathy",
-        "ui"
+        "karpathy"
       ],
       "category": "workflow"
     }

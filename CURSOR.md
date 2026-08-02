@@ -18,8 +18,6 @@ This project includes a **Cursor project rule** so the Karpathy-inspired behavio
 
 If you want the same content as a reusable skill under `~/.cursor/skills`, use [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). You can copy or symlink it into your personal skills directory; use whatever layout you use for other skills.
 
-For UI work, also see [`skills/frontend/SKILL.md`](skills/frontend/SKILL.md) (frontend design craft).
-
 ## Claude Code vs Cursor
 
 - **Claude Code:** Install via the plugin marketplace and [`README.md`](README.md) instructions; the plugin exposes the skill from this repo. Per-project use can also rely on `CLAUDE.md`.
