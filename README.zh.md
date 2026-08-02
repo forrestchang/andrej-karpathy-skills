@@ -8,6 +8,13 @@
 
 [English](./README.md) | 简体中文
 
+## 技能（Skills）
+
+| Skill | 用途 |
+|-------|------|
+| [`karpathy-guidelines`](./skills/karpathy-guidelines) | 编码行为准则：先思考、保持简单、外科手术式改动、目标驱动 |
+| [`frontend`](./skills/frontend) | 高质量前端 UI 设计与落地（反 AI 审美套娃） |
+
 ## 问题所在
 
 来自 Andrej 的推文：
