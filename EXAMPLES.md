@@ -453,12 +453,12 @@ Start with step 1?
 
 ### Example 3: Test-First Verification
 
-**User Request:** "The sorting breaks when there are duplicate scores"
+**User Request:** "The sorting breaks when there are duplicate scores — tied scores should be ordered alphabetically by name"
 
 **❌ What LLMs Do (Fix Without Reproducing)**
 
 ```python
-# Immediately changes sort logic without confirming the bug
+# Immediately changes sort logic without first reproducing the bug
 def sort_scores(scores):
     return sorted(scores, key=lambda x: (-x['score'], x['name']))
 ```
@@ -466,31 +466,37 @@ def sort_scores(scores):
 **✅ What Should Happen (Reproduce First)**
 
 ```python
+# Existing implementation sorts by score descending.
+# Python's stable sort preserves input order when scores are tied.
+def sort_scores(scores):
+    return sorted(scores, key=lambda x: -x['score'])
+
 # 1. First, write a test that reproduces the issue
 def test_sort_with_duplicate_scores():
-    """Test sorting when multiple items have same score."""
+    """Test alphabetical ordering when multiple items have the same score."""
     scores = [
-        {'name': 'Alice', 'score': 100},
         {'name': 'Bob', 'score': 100},
+        {'name': 'Alice', 'score': 100},
         {'name': 'Charlie', 'score': 90},
     ]
-    
+
     result = sort_scores(scores)
-    
-    # The bug: order is non-deterministic for duplicates
-    # Run this test multiple times, it should be consistent
-    assert result[0]['score'] == 100
-    assert result[1]['score'] == 100
-    assert result[2]['score'] == 90
 
-# Verify: Run test 10 times → fails with inconsistent ordering
+    # Expected behavior: ties are ordered alphabetically by name
+    assert [item['name'] for item in result] == [
+        'Alice',
+        'Bob',
+        'Charlie',
+    ]
 
-# 2. Now fix with stable sort
+# Verify: Test fails → result is Bob, Alice, Charlie
+
+# 2. Now fix the tie ordering
 def sort_scores(scores):
     """Sort by score descending, then name ascending for ties."""
     return sorted(scores, key=lambda x: (-x['score'], x['name']))
 
-# Verify: Test passes consistently
+# Verify: The same test now passes
 ```
 
 ---
