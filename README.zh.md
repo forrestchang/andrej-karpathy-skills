@@ -160,6 +160,8 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 - 遵循 `src/utils/errors.ts` 中现有的错误处理模式
 ```
 
+这四个原则在真实生产仓库中被采纳为强制规则后演化成了什么——缺失的一个维度、三处需要收紧的表述，以及促成它们的真实案例——参见 [IN-PRACTICE.md](IN-PRACTICE.md)。
+
 ## 权衡说明
 
 这些指南倾向于**谨慎而非速度**。对于琐碎的任务（简单的拼写错误修复、显而易见的一行修改），请自行判断 —— 并非每个改动都需要完整的严谨流程。
