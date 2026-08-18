@@ -160,6 +160,8 @@ For project-specific rules, add sections like:
 - Follow the existing error handling patterns in `src/utils/errors.ts`
 ```
 
+For a worked example of what these four principles turned into after being adopted as mandatory rules in a production repository — one missing dimension, three sharpenings, and the incidents behind each — see [IN-PRACTICE.md](IN-PRACTICE.md).
+
 ## Tradeoff Note
 
 These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
