@@ -1,0 +1,14 @@
+# dsh-skill-andrej-karpathy bundle patch
+# 
+# This patch inserts the skill-filesystem provider with customSkillDirs
+# pointing to this bundle's skills/ directory.
+
+- insert:
+    - id: skill-filesystem-andrej-karpathy
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      config:
+        providerName: filesystem-andrej-karpathy
+        includeDefaultRoots: false
+        customSkillDirs:
+          - !!js require('path').join(require('path').dirname(require.resolve('dsh-skill-andrej-karpathy/package.json')), 'skills')
+        watch: true
