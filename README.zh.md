@@ -112,7 +112,21 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
 
-**选项 B：CLAUDE.md（按项目）**
+**选项 B：DeepSeek Harness (DSH) 插件**
+
+安装为 DSH skill bundle：
+
+```bash
+# 通过 npm
+dsh plugin --profile web add dsh-skill-andrej-karpathy
+
+# 或通过 GitHub
+dsh plugin --profile web add "github:multica-ai/andrej-karpathy-skills#main&path:/dsh-bundle"
+```
+
+安装后重启 DSH web，`andrej-karpathy-coding-guidelines` skill 将在所有会话中可用。
+
+**选项 C：CLAUDE.md（按项目）**
 
 新项目：
 ```bash

@@ -112,7 +112,21 @@ Then install the plugin:
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
 
-**Option B: CLAUDE.md (per-project)**
+**Option B: DeepSeek Harness (DSH) Plugin**
+
+Install as a DSH skill bundle:
+
+```bash
+# Via npm
+dsh plugin --profile web add dsh-skill-andrej-karpathy
+
+# Or via GitHub
+dsh plugin --profile web add "github:multica-ai/andrej-karpathy-skills#main&path:/dsh-bundle"
+```
+
+After installation, restart DSH web. The `andrej-karpathy-coding-guidelines` skill will be available in all sessions.
+
+**Option C: CLAUDE.md (per-project)**
 
 New project:
 ```bash
