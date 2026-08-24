@@ -1,170 +1,215 @@
-# Karpathy-Inspired Claude Code Guidelines
+# Karpathy-Inspired Coding Agent Guidelines
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
->
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
+Portable behavioral guidelines for coding agents, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) about common LLM coding failures.
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Use the same four principles in **Claude Code**, **OpenAI Codex**, **Cursor**, or any agent that supports project instructions or Agent Skills.
 
-English | [简体中文](./README.zh.md)
+English | [简体中文](README.zh.md)
 
-## The Problems
+> Also see [Multica](https://github.com/multica-ai/multica), an open-source platform for running coding agents with reusable skills.
 
-From Andrej's post:
+## Why This Exists
 
-> "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
+Coding agents are capable, but they often fail in predictable ways: they silently assume, overengineer, modify unrelated code, and declare success without proving the result.
 
-> "They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."
+This repository turns those failure modes into four concrete working agreements:
 
-> "They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."
+| Principle | Working agreement | Prevents |
+| --- | --- | --- |
+| **Think Before Coding** | Surface assumptions, ambiguity, and tradeoffs before editing | Confident work based on the wrong interpretation |
+| **Simplicity First** | Write the minimum code that solves the current problem | Speculative features and premature abstractions |
+| **Surgical Changes** | Touch only lines that directly serve the request | Drive-by refactors and noisy diffs |
+| **Goal-Driven Execution** | Define success criteria and verify them | Vague implementation and untested completion claims |
 
-## The Solution
+The complete guidelines live in tool-native formats so you can adopt them without translating the rules yourself.
 
-Four principles in one file that directly address these issues:
+## Supported Integrations
 
-| Principle | Addresses |
-|-----------|-----------|
-| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
-| **Simplicity First** | Overcomplication, bloated abstractions |
-| **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
-| **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| Tool | Repository file | Best for |
+| --- | --- | --- |
+| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) and [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) | Plugin install, project instructions, or a reusable skill |
+| **OpenAI Codex** | [`AGENTS.md`](AGENTS.md) and [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) | Always-on project/global instructions or an invokable skill |
+| **Cursor** | [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc) | An always-applied project rule |
+| **Other coding agents** | [`CLAUDE.md`](CLAUDE.md) | Copy or merge into the instruction file supported by your tool |
 
-## The Four Principles in Detail
+## Quick Start
 
-### 1. Think Before Coding
+### OpenAI Codex
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+Codex automatically reads `AGENTS.md` before it starts work. Choose the scope you want:
 
-LLMs often pick an interpretation silently and run with it. This principle forces explicit reasoning:
+#### Current project
 
-- **State assumptions explicitly** — If uncertain, ask rather than guess
-- **Present multiple interpretations** — Don't pick silently when ambiguity exists
-- **Push back when warranted** — If a simpler approach exists, say so
-- **Stop when confused** — Name what's unclear and ask for clarification
+For a project that does not already have `AGENTS.md`:
 
-### 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-Combat the tendency toward overengineering:
-
-- No features beyond what was asked
-- No abstractions for single-use code
-- No "flexibility" or "configurability" that wasn't requested
-- No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
-
-**The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
-
-### 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting
-- Don't refactor things that aren't broken
-- Match existing style, even if you'd do it differently
-- If you notice unrelated dead code, mention it — don't delete it
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused
-- Don't remove pre-existing dead code unless asked
-
-**The test:** Every changed line should trace directly to the user's request.
-
-### 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform imperative tasks into verifiable goals:
-
-| Instead of... | Transform to... |
-|--------------|-----------------|
-| "Add validation" | "Write tests for invalid inputs, then make them pass" |
-| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
-| "Refactor X" | "Ensure tests pass before and after" |
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+```bash
+curl -L https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/AGENTS.md -o AGENTS.md
 ```
 
-Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
+If the project already has `AGENTS.md`, merge the four principles into it instead of overwriting project-specific instructions.
 
-## Install
+#### Every Codex project
 
-**Option A: Claude Code Plugin (recommended)**
+Merge [`AGENTS.md`](AGENTS.md) into `~/.codex/AGENTS.md`. Codex loads this global file for every repository and then layers project-level instructions on top of it.
 
-From within Claude Code, first add the marketplace:
+Verify the result from a repository root:
+
+```bash
+codex --ask-for-approval never "Summarize the current instructions."
 ```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
+
+#### Reusable Codex skill
+
+In Codex, ask the built-in skill installer to install this repository's skill:
+
+```text
+$skill-installer Install karpathy-guidelines from https://github.com/multica-ai/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines
 ```
 
-Then install the plugin:
-```
+Then invoke it explicitly with `$karpathy-guidelines`, or let Codex select it when a coding task matches the skill description.
+
+See [`CODEX.md`](CODEX.md) for Windows commands, global vs. project scope, verification, and troubleshooting. The setup follows the official OpenAI documentation for [AGENTS.md](https://developers.openai.com/codex/guides/agents-md/) and [Codex skills](https://developers.openai.com/codex/skills/).
+
+### Claude Code
+
+#### Plugin install (recommended)
+
+From Claude Code, add this repository as a marketplace and install the plugin:
+
+```text
+/plugin marketplace add multica-ai/andrej-karpathy-skills
 /plugin install andrej-karpathy-skills@karpathy-skills
 ```
 
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
+This makes the reusable skill available across projects.
 
-**Option B: CLAUDE.md (per-project)**
+#### Project instructions
 
-New project:
+For a project that does not already have `CLAUDE.md`:
+
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -L https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md -o CLAUDE.md
 ```
 
-Existing project (append):
+If `CLAUDE.md` already exists, merge the guidelines instead of replacing the file.
+
+### Cursor
+
+Copy the committed rule into another project's `.cursor/rules/` directory:
+
 ```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+mkdir -p .cursor/rules
+curl -L https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/.cursor/rules/karpathy-guidelines.mdc -o .cursor/rules/karpathy-guidelines.mdc
 ```
 
-## Using with Cursor
+The rule uses `alwaysApply: true`, so it is active whenever that project is open in Cursor. See [`CURSOR.md`](CURSOR.md) for details.
 
-This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+## The Four Principles
 
-## Key Insight
+### 1. Think Before Coding
 
-From Andrej:
+**Do not assume. Do not hide confusion. Surface tradeoffs.**
 
-> "LLMs are exceptionally good at looping until they meet specific goals... Don't tell it what to do, give it success criteria and watch it go."
+- State important assumptions before implementing.
+- When multiple interpretations are plausible, present them instead of choosing silently.
+- Point out a simpler approach or a meaningful downside when one exists.
+- If missing information would materially change the solution, stop and ask.
 
-The "Goal-Driven Execution" principle captures this: transform imperative instructions into declarative goals with verification loops.
+### 2. Simplicity First
 
-## How to Know It's Working
+**Write the minimum code that solves the stated problem.**
 
-These guidelines are working if you see:
+- Do not add features that were not requested.
+- Do not create an abstraction for one use case.
+- Do not add configurability for hypothetical future needs.
+- Match complexity to evidence from the current requirements.
+- If 200 lines can clearly be 50, simplify.
 
-- **Fewer unnecessary changes in diffs** — Only requested changes appear
-- **Fewer rewrites due to overcomplication** — Code is simple the first time
-- **Clarifying questions come before implementation** — Not after mistakes
-- **Clean, minimal PRs** — No drive-by refactoring or "improvements"
+### 3. Surgical Changes
 
-## Customization
+**Touch only what the task requires. Clean up only what your change makes obsolete.**
 
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
+- Do not reformat, rename, or refactor adjacent code without a task-related reason.
+- Match the existing style and patterns.
+- Mention unrelated problems rather than silently fixing them.
+- Remove imports, variables, or functions only when your own change made them unused.
 
-For project-specific rules, add sections like:
+The test: every changed line should trace back to the request or to verification of the requested behavior.
+
+### 4. Goal-Driven Execution
+
+**Turn instructions into observable success criteria, then loop until verified.**
+
+| Request | Verifiable goal |
+| --- | --- |
+| “Add validation” | Add tests for invalid inputs, then make them pass |
+| “Fix the bug” | Reproduce it with a test, fix it, and run regression checks |
+| “Refactor X” | Establish passing checks before and after the refactor |
+
+For multi-step work, pair each step with its check:
+
+```text
+1. Reproduce the behavior -> verify: focused test fails for the expected reason
+2. Make the smallest fix -> verify: focused test passes
+3. Check for regressions -> verify: relevant suite and diff review pass
+```
+
+## What Good Adoption Looks Like
+
+- Clarifying questions happen before costly implementation, not after it.
+- Diffs contain fewer unrelated edits.
+- Solutions have fewer speculative layers and abstractions.
+- Completion reports name the checks that actually ran.
+- Pull requests are smaller, easier to review, and easier to revert.
+
+These are behavioral guidelines, not a substitute for project requirements, security policy, tests, or human review.
+
+## Repository Map
+
+```text
+.
+|-- AGENTS.md                              # Codex project instructions
+|-- CLAUDE.md                              # Claude Code project instructions
+|-- CODEX.md                               # Detailed Codex setup
+|-- CURSOR.md                              # Detailed Cursor setup
+|-- EXAMPLES.md                            # Before/after examples
+|-- .claude-plugin/                        # Claude Code plugin metadata
+|-- .cursor/rules/karpathy-guidelines.mdc  # Cursor project rule
+`-- skills/karpathy-guidelines/SKILL.md     # Reusable Agent Skill
+```
+
+## Customize Without Losing Project Context
+
+Treat these principles as a behavioral layer, then keep repository-specific facts in the native project instruction file:
 
 ```markdown
 ## Project-Specific Guidelines
 
-- Use TypeScript strict mode
-- All API endpoints must have tests
-- Follow the existing error handling patterns in `src/utils/errors.ts`
+- Use TypeScript strict mode.
+- Run `npm test` after changing application code.
+- Follow the error-handling pattern in `src/utils/errors.ts`.
 ```
 
-## Tradeoff Note
+When a target file already exists, review and merge. Blindly replacing it can delete important setup, testing, or safety instructions.
 
-These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
+## Contributing
 
-The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
+The tool-specific files intentionally express the same four principles. When changing their behavior, keep these files aligned:
+
+- [`AGENTS.md`](AGENTS.md)
+- [`CLAUDE.md`](CLAUDE.md)
+- [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)
+- [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)
+
+Documentation-only wording can remain tool-specific when it explains installation or discovery behavior.
+
+## Tradeoff
+
+These guidelines bias toward caution over speed. Use judgment for obvious typo fixes and other trivial, low-risk work; the goal is to prevent expensive mistakes without turning every one-line edit into a ceremony.
+
+## Credits
+
+Inspired by [Andrej Karpathy's observations on coding agents](https://x.com/karpathy/status/2015883857489522876). Repository maintained by [Multica](https://github.com/multica-ai).
 
 ## License
 

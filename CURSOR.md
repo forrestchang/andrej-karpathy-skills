@@ -18,11 +18,12 @@ This project includes a **Cursor project rule** so the Karpathy-inspired behavio
 
 If you want the same content as a reusable skill under `~/.cursor/skills`, use [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). You can copy or symlink it into your personal skills directory; use whatever layout you use for other skills.
 
-## Claude Code vs Cursor
+## Claude Code, Codex, and Cursor
 
 - **Claude Code:** Install via the plugin marketplace and [`README.md`](README.md) instructions; the plugin exposes the skill from this repo. Per-project use can also rely on `CLAUDE.md`.
+- **OpenAI Codex:** Use [`AGENTS.md`](AGENTS.md) for always-on instructions or install [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) as a reusable skill. See [`CODEX.md`](CODEX.md).
 - **Cursor:** Use the committed `.cursor/rules/` file as described above. Cursor does not read `.claude-plugin/` or `CLAUDE.md` by default.
 
 ## For contributors
 
-When you change the four principles, keep **[`CLAUDE.md`](CLAUDE.md)** and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well.
+When you change the four principles, keep **[`AGENTS.md`](AGENTS.md)**, **[`CLAUDE.md`](CLAUDE.md)**, **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)**, and **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** behaviorally aligned.
