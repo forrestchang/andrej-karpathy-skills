@@ -25,6 +25,8 @@ browser's local storage — nothing is sent anywhere.
   don't erase" convention).
 - **Export / Print** — print or **Save as PDF** for your official record, and
   download a **CSV** as your backup.
+- **Packages** — track what is inbound from USPS, UPS and FedEx, and catch the
+  gap between *delivered* and *written into the bound book* (see below).
 - **Integrity** — every action is stored in an append-only, **hash-chained**
   event log; the screen verifies the chain (no gaps, nothing altered) and shows
   the full audit trail. Editing or deleting anything after the fact breaks the
@@ -66,13 +68,68 @@ manual step this local-first app cannot do for you.**
 > current ATF rules and any state requirements for your situation before
 > relying on this.
 
+## Inbound packages
+
+A firearm that arrives is an acquisition waiting to be logged. This screen
+tracks what is on its way and flags the gap between the two.
+
+It is deliberately **not** an email scraper. Status comes from the carriers'
+own APIs, which means it also sees the things no email would ever tell you:
+
+- a package that **stopped scanning** four or more days ago;
+- a package **past the date you expected it**;
+- a package **delivered but not yet in the bound book** — escalating once more
+  than one business day has passed, since an acquisition is due by the close of
+  the next business day after receipt.
+
+**Log as acquisition** carries a delivered package into the Acquire form with
+the delivery date prefilled, then links the two so the reminder clears. The
+firearm's details are still yours to enter — tracking cannot tell you what was
+in the box.
+
+### It is not part of the legal record
+
+Package data lives in its own store, outside the hash-chained log. Carrier
+status is third-party logistics information, not a regulated A&D field, so
+putting it in the chain would pad your system of record with noise you cannot
+correct or remove. Rows on this screen can be edited and deleted freely. The
+only thing that ever reaches the chain is an acquisition you log yourself.
+
+### There is no "everything coming to my address" API
+
+Worth stating plainly, because it shapes the design. USPS, UPS and FedEx all
+offer tracking APIs that take a *tracking number*. None offers a feed of
+everything inbound to an address — the consumer dashboards that show that
+(Informed Delivery, UPS My Choice, FedEx Delivery Manager) are web pages with
+no public API.
+
+So the poller in [`tracker/`](tracker/) does two separate things: it signs in to
+those dashboards to **discover tracking numbers**, then resolves every number
+against the **official API** for real status. Your carrier passwords are never
+stored — you sign in yourself once per carrier in a real browser window, and
+only the session is saved.
+
+The poller is a separate Node program because this app has no server and never
+gets one: a `file://` page cannot call those APIs, and an API secret in a web
+page is a published secret. The two halves meet over a file, the same way
+backup and restore already work:
+
+```
+Packages → Download tracking list   →   node poll.js poll --list tracking-list.json
+                                    →   Packages → Import snapshot
+```
+
+Setup, credentials and options: [`tracker/README.md`](tracker/README.md).
+
 ## Layout
 
 | File | Role |
 |------|------|
 | `core.js` | Pure logic: validation, entry model, append-only corrections, CSV. Storage-agnostic; runs in browser and Node. |
 | `integrity.js` | Hash-chained, append-only event log: SHA-256, chain verification (no-gaps + tamper), projection to ledger entries. |
-| `core.test.js` / `integrity.test.js` | Node tests. Run: `node --test` |
+| `packages.js` | Pure logic for the inbound package registry: carrier detection, status normalization, staleness, reconciliation against the ledger. Outside the chain by design. |
+| `tracker/` | Node poller: official USPS/UPS/FedEx APIs for status, portal sign-in for discovery. Has its own README. |
+| `core.test.js` / `integrity.test.js` / `packages.test.js` / `tracker/carriers.test.js` | Node tests. Run: `node --test` |
 | `index.html` / `app.js` / `styles.css` | UI, localStorage persistence, print stylesheet. |
 
 ## Test

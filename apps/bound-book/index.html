@@ -28,6 +28,7 @@
     <nav>
       <button data-view="acquire" class="active">Acquire</button>
       <button data-view="dispose">Dispose</button>
+      <button data-view="packages">Packages</button>
       <button data-view="ledger">Ledger</button>
       <button data-view="export">Export / Print</button>
       <button data-view="integrity">Integrity</button>
@@ -41,6 +42,7 @@
       <h1>Log an acquisition</h1>
       <p class="hint">Record a firearm coming in. All fields are required by ATF; source
         needs either a name + address, or an FFL number.</p>
+      <div id="acquire-from-package" class="pkg-banner hidden"></div>
       <form id="acquire-form" class="grid">
         <label>Date received<input name="dateReceived" type="date" required /></label>
         <label>Manufacturer / Importer<input name="mfrImporter" required /></label>
@@ -81,6 +83,54 @@
         <div class="errors span2" id="dispose-errors"></div>
         <button type="submit" class="span2">Record disposition</button>
       </form>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="view-packages" class="view hidden">
+      <h1>Inbound packages</h1>
+      <p class="hint">What is on its way here, and what has arrived but is not yet in the
+        bound book. Status comes from the carriers themselves, not from your email.</p>
+      <p class="hint"><strong>This screen is not part of the A&amp;D record.</strong> It is a
+        working list: carrier data is not a regulated field and never enters the hash-chained
+        log. The only thing that reaches your legal record is an acquisition you log yourself.</p>
+
+      <div id="packages-alerts"></div>
+
+      <div class="actions no-print">
+        <button id="btn-tracking-list">Download tracking list (.json)</button>
+        <label class="restore-btn">Import snapshot&hellip;
+          <input type="file" id="snapshot-input" accept="application/json,.json" hidden />
+        </label>
+      </div>
+      <div id="snapshot-msg"></div>
+      <p class="hint">Run <span class="mono">node poll.js poll --list tracking-list.json</span>
+        in <span class="mono">tracker/</span> between those two steps. See
+        <span class="mono">tracker/README.md</span> for first-time setup.</p>
+
+      <details id="package-add">
+        <summary>Add an expected package</summary>
+        <form id="package-form" class="grid">
+          <label class="span2">What are you expecting?
+            <input name="description" placeholder="e.g. Glock 19 from Acme Distributors" required />
+          </label>
+          <label>Tracking number
+            <input name="trackingNumber" placeholder="optional — add it when you have it" />
+          </label>
+          <label>Carrier
+            <select name="carrier">
+              <option value="">Detect from the number</option>
+              <option value="usps">USPS</option>
+              <option value="ups">UPS</option>
+              <option value="fedex">FedEx</option>
+            </select>
+          </label>
+          <label>Expected by<input name="expectedBy" type="date" /></label>
+          <div class="errors span2" id="package-errors"></div>
+          <button type="submit" class="span2">Add to the list</button>
+        </form>
+      </details>
+
+      <div id="packages-table"></div>
     </section>
 
     <!-- LEDGER -->
@@ -162,6 +212,7 @@
 
   <script src="core.js"></script>
   <script src="integrity.js"></script>
+  <script src="packages.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

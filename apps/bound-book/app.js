@@ -3,10 +3,12 @@
   'use strict';
   var BB = window.BoundBook;
   var INT = window.Integrity;
+  var PK = window.Packages;
   var LOG_KEY = 'boundbook.log.v1';
   var PROFILE_KEY = 'boundbook.profile.v1';
   var DISCLAIMER_KEY = 'boundbook.disclaimer.v1';
   var BACKUP_KEY = 'boundbook.lastbackup.v1';
+  var PACKAGES_KEY = 'boundbook.packages.v1';
 
   // --- persistence (append-only event log; the ledger is a projection) ---
   function loadLog() {
@@ -24,9 +26,16 @@
     catch (e) { return {}; }
   }
   function saveProfile(p) { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); }
+  // Packages are a working list, stored outside the chained log on purpose.
+  function loadPackages() {
+    try { return JSON.parse(localStorage.getItem(PACKAGES_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function savePackages() { localStorage.setItem(PACKAGES_KEY, JSON.stringify(packages)); }
 
   var log = loadLog();
   var entries = INT.project(log);
+  var packages = loadPackages();
 
   // Record an action as a new chained event, persist, and re-project the ledger.
   function commit(type, payload) {
@@ -40,7 +49,9 @@
     return 'e' + Date.now() + Math.floor(Math.random() * 1e6);
   }
   function nowIso() { return new Date().toISOString(); }
-  function shortDate(iso) { return String(iso || '').replace('T', ' ').replace(/\..*/, ''); }
+  // Carrier scan times may arrive without fractional seconds, so the trailing
+  // Z has to go too; for a toISOString() value the first replace already ate it.
+  function shortDate(iso) { return String(iso || '').replace('T', ' ').replace(/\..*/, '').replace(/Z$/, ''); }
   function formData(form) {
     var o = {};
     new FormData(form).forEach(function (v, k) { o[k] = String(v).trim(); });
@@ -65,6 +76,7 @@
       b.classList.toggle('active', b.dataset.view === view);
     });
     if (view === 'dispose') renderDisposeOptions();
+    if (view === 'packages') renderPackages();
     if (view === 'ledger') renderLedger();
     if (view === 'export') renderPrintLedger();
     if (view === 'integrity') renderIntegrity();
@@ -82,7 +94,11 @@
     if (!res.ok) return;
     data.entryId = newId();
     commit('acquire', data);
+    // If this came from a tracked package, tie the two together so the package
+    // stops showing as delivered-but-not-logged.
+    if (pendingPackageId) linkPackage(pendingPackageId, data.entryId);
     this.reset();
+    clearPendingPackage();
     showErrors(document.getElementById('acquire-errors'), []);
     show('ledger');
   });
@@ -367,6 +383,235 @@
       restoreInput.value = '';
       msg.innerHTML = '<div class="chain-ok">Restored ' + res.log.length + ' entries. Chain verified.</div>';
       renderIntegrity();
+    };
+    reader.readAsText(file);
+  });
+
+  // --- packages (inbound tracking; NOT part of the chained A&D record) ---
+  // Carrier data is third-party logistics information, not a regulated field,
+  // so it lives in its own store and rows here can be edited or removed freely.
+  // The single path into the legal record is "Log as acquisition", which writes
+  // an ordinary acquire event through commit().
+
+  var pendingPackageId = null;
+
+  function findPackage(id) {
+    return packages.filter(function (p) { return p.id === id; })[0];
+  }
+  function plural(n) { return n === 1 ? '' : 's'; }
+  function pkgRank(p) {
+    if (PK.needsLogging(p)) return 0;
+    if (PK.isActive(p)) return 1;
+    return 2;
+  }
+
+  function renderPackages() {
+    var rec = PK.reconcile(packages, entries, nowIso());
+    renderPackageAlerts(rec);
+    renderPackageTable(rec);
+  }
+
+  function alertLine(cls, text) { return '<div class="' + cls + '">' + text + '</div>'; }
+
+  function renderPackageAlerts(rec) {
+    var out = [];
+    if (rec.lateToLog.length) {
+      out.push(alertLine('chain-bad', '&#10007; ' + rec.lateToLog.length + ' delivered package' +
+        plural(rec.lateToLog.length) + ' not yet in the bound book. An acquisition is due by the close ' +
+        'of the next business day after you receive the firearm.'));
+    }
+    var waiting = rec.toLog.length - rec.lateToLog.length;
+    if (waiting > 0) {
+      out.push(alertLine('backup-warn', '&#9888; ' + waiting + ' delivered package' + plural(waiting) +
+        ' waiting to be logged as ' + (waiting === 1 ? 'an acquisition' : 'acquisitions') + '.'));
+    }
+    if (rec.stalled.length) {
+      out.push(alertLine('backup-warn', '&#9888; ' + rec.stalled.length + ' package' + plural(rec.stalled.length) +
+        ' stopped scanning ' + PK.DEFAULT_STALL_DAYS + '+ days ago. Nothing would have emailed you about this.'));
+    }
+    if (rec.overdue.length) {
+      out.push(alertLine('backup-warn', '&#9888; ' + rec.overdue.length + ' package' + plural(rec.overdue.length) +
+        ' past the date you expected ' + (rec.overdue.length === 1 ? 'it' : 'them') + '.'));
+    }
+    if (rec.orphanLinks.length) {
+      out.push(alertLine('backup-warn', '&#9888; ' + rec.orphanLinks.length + ' package' + plural(rec.orphanLinks.length) +
+        ' point at a ledger entry that no longer exists — likely a restore from an older backup.'));
+    }
+    if (!out.length) {
+      out.push(alertLine('chain-ok', packages.length
+        ? '&#10003; ' + rec.active.length + ' inbound, nothing needs attention.'
+        : '&#10003; No packages tracked yet.'));
+    }
+    document.getElementById('packages-alerts').innerHTML = out.join('');
+  }
+
+  function renderPackageTable(rec) {
+    var el = document.getElementById('packages-table');
+    if (!packages.length) {
+      el.innerHTML = '<p class="empty">Nothing tracked yet. Add what you are expecting above, ' +
+        'or run the poller to pull in what your carrier accounts already know about.</p>';
+      return;
+    }
+    var now = nowIso();
+    // Last flag wins, so the most serious one is applied last.
+    var flagged = {};
+    rec.overdue.forEach(function (p) { flagged[p.id] = 'Past its expected date'; });
+    rec.stalled.forEach(function (p) {
+      flagged[p.id] = 'No scan in ' + PK.daysBetween(p.lastScan.at, now) + ' days';
+    });
+    rec.lateToLog.forEach(function (p) { flagged[p.id] = 'Not logged as an acquisition'; });
+
+    var ranked = packages.slice().sort(function (a, b) {
+      return pkgRank(a) - pkgRank(b) ||
+        String(a.description).localeCompare(String(b.description));
+    });
+
+    var head = '<tr><th>Status</th><th>What</th><th>Carrier / tracking</th>' +
+      '<th>Last scan</th><th>Expected</th><th class="no-print"></th></tr>';
+    var body = ranked.map(function (p) {
+      var status = '<td><span class="pkg-status pkg-' + esc(p.status) + '">' +
+        esc(PK.STATUS_LABELS[p.status] || p.status) + '</span></td>';
+
+      var what = '<td>' + esc(p.description);
+      if (p.source === 'portal') {
+        what += '<span class="pkg-note">found on the ' + esc(PK.carrierLabel(p.carrier)) + ' portal</span>';
+      }
+      if (p.linkedEntryId) what += '<span class="pkg-note">logged as an acquisition</span>';
+      if (flagged[p.id]) what += '<span class="pkg-flag">' + esc(flagged[p.id]) + '</span>';
+      what += '</td>';
+
+      var tn = '<td>' + esc(PK.carrierLabel(p.carrier)) + (p.trackingNumber
+        ? '<span class="pkg-note mono">' + esc(p.trackingNumber) + '</span>'
+        : '<span class="pkg-note">no tracking number yet</span>') + '</td>';
+
+      var scan = '<td>' + (p.lastScan
+        ? esc(p.lastScan.description) + '<span class="pkg-note">' + esc(shortDate(p.lastScan.at)) +
+          (p.lastScan.location ? ' · ' + esc(p.lastScan.location) : '') + '</span>'
+        : '—') + '</td>';
+
+      var exp = '<td>' + esc(p.expectedBy || '—') + '</td>';
+
+      var actions = '<td class="no-print">';
+      if (PK.needsLogging(p)) {
+        actions += '<button type="button" class="link-btn" data-log="' + esc(p.id) + '">Log as acquisition</button><br>';
+      }
+      actions += '<button type="button" class="link-btn" data-drop="' + esc(p.id) + '">Remove</button></td>';
+
+      return '<tr class="' + (flagged[p.id] ? 'row-warn' : '') + '">' +
+        status + what + tn + scan + exp + actions + '</tr>';
+    }).join('');
+
+    el.innerHTML = '<table><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
+    el.querySelectorAll('[data-log]').forEach(function (b) {
+      b.addEventListener('click', function () { startAcquisitionFrom(b.dataset.log); });
+    });
+    el.querySelectorAll('[data-drop]').forEach(function (b) {
+      b.addEventListener('click', function () { dropPackage(b.dataset.drop); });
+    });
+  }
+
+  document.getElementById('package-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var data = formData(this);
+    var res = PK.validatePackage(data);
+    showErrors(document.getElementById('package-errors'), res.errors);
+    if (!res.ok) return;
+    packages = packages.concat([PK.newPackage(data, newId(), nowIso())]);
+    savePackages();
+    this.reset();
+    renderPackages();
+  });
+
+  // Removing a package touches nothing regulated — this list is not the record.
+  function dropPackage(id) {
+    var p = findPackage(id);
+    if (!p) return;
+    if (!window.confirm('Remove "' + p.description + '" from the package list? ' +
+      'This does not touch the A&D record.')) return;
+    packages = packages.filter(function (x) { return x.id !== id; });
+    savePackages();
+    renderPackages();
+  }
+
+  // --- the handoff into the legal record ---
+
+  function deliveryDate(p) {
+    var at = (p.lastScan && p.lastScan.at) || '';
+    return /^\d{4}-\d{2}-\d{2}/.test(at) ? at.slice(0, 10) : '';
+  }
+
+  function startAcquisitionFrom(id) {
+    var p = findPackage(id);
+    if (!p) return;
+    pendingPackageId = id;
+    var banner = document.getElementById('acquire-from-package');
+    banner.innerHTML = 'Logging the acquisition for <strong>' + esc(p.description) + '</strong>' +
+      (p.trackingNumber ? ' (' + esc(PK.carrierLabel(p.carrier)) + ' ' + esc(p.trackingNumber) + ')' : '') +
+      '. The carrier cannot tell you what was in the box, so the firearm details are yours to enter. ' +
+      '<button type="button" class="link-btn" id="cancel-from-package">Cancel</button>';
+    banner.classList.remove('hidden');
+    document.getElementById('cancel-from-package').addEventListener('click', clearPendingPackage);
+    // The delivery scan date is real carrier data, so it is worth prefilling.
+    // Nothing else on the form can be known from tracking.
+    var d = deliveryDate(p);
+    if (d) document.getElementById('acquire-form').dateReceived.value = d;
+    show('acquire');
+  }
+
+  function clearPendingPackage() {
+    pendingPackageId = null;
+    var banner = document.getElementById('acquire-from-package');
+    banner.innerHTML = '';
+    banner.classList.add('hidden');
+  }
+
+  function linkPackage(id, entryId) {
+    packages = packages.map(function (p) {
+      return p.id === id ? PK.linkToEntry(p, entryId, nowIso()) : p;
+    });
+    savePackages();
+  }
+
+  // --- poller round-trip (same shape as backup/restore: a file, not a server) ---
+
+  document.getElementById('btn-tracking-list').addEventListener('click', function () {
+    var list = {
+      app: 'bound-book-tracking-list',
+      version: 1,
+      exportedAt: nowIso(),
+      packages: PK.trackingList(packages)
+    };
+    var blob = new Blob([JSON.stringify(list, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'tracking-list.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  var snapshotInput = document.getElementById('snapshot-input');
+  snapshotInput.addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    var msg = document.getElementById('snapshot-msg');
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var data = null;
+      try { data = JSON.parse(String(reader.result)); } catch (e) { /* reported below */ }
+      if (!data || data.app !== 'bound-book-tracker' || !Array.isArray(data.packages)) {
+        msg.innerHTML = '<div class="chain-bad">That is not a poller snapshot. Expected ' +
+          'package-snapshot.json, written by tracker/poll.js.</div>';
+        snapshotInput.value = '';
+        return;
+      }
+      var res = PK.mergeSnapshot(packages, data, nowIso(), newId);
+      packages = res.packages;
+      savePackages();
+      snapshotInput.value = '';
+      msg.innerHTML = '<div class="chain-ok">Imported ' + data.packages.length + ' package' +
+        plural(data.packages.length) + ': ' + res.updated + ' updated, ' + res.added + ' newly discovered.</div>';
+      renderPackages();
     };
     reader.readAsText(file);
   });

@@ -152,3 +152,21 @@ tr.row-bad td { background: #fbe9ec; }
 @media print { .ledger-header { display: block; } }
 .ledger-header h2 { margin: 0; }
 .ledger-header .meta { font-size: 12px; color: #333; }
+
+/* --- Packages (working list; not part of the A&D record) --- */
+#packages-alerts:not(:empty) { margin-bottom: 1rem; }
+#packages-alerts > div + div { margin-top: 0.5rem; }
+#snapshot-msg:not(:empty) { margin: 0.7rem 0; }
+#package-add { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 1rem; }
+#package-add summary { padding: 0.7rem 1rem; cursor: pointer; color: var(--accent); font-weight: 600; }
+#package-add[open] summary { border-bottom: 1px solid var(--line); }
+#package-add .grid { border: none; }
+.pkg-banner { background: #e7f3ec; border: 1px solid #bfe0cc; border-radius: 6px; padding: 0.7rem 0.9rem; margin-bottom: 1rem; font-size: 0.9rem; }
+.pkg-status { font-weight: 600; white-space: nowrap; }
+.pkg-delivered { color: var(--accent); }
+.pkg-out_for_delivery { color: #8a5a00; }
+.pkg-exception, .pkg-returned { color: var(--err); }
+.pkg-expected, .pkg-unknown { color: var(--muted); }
+.pkg-note { display: block; font-size: 0.75rem; color: var(--muted); }
+.pkg-flag { display: block; font-size: 0.75rem; color: var(--err); font-weight: 600; }
+tr.row-warn td { background: #fdf3e3; }

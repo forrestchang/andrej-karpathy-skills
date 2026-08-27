@@ -1,0 +1,8 @@
+{
+  "name": "bound-book-tracker",
+  "private": true,
+  "description": "Inbound package poller for the Bound Book A&D record.",
+  "scripts": {
+    "poll": "node poll.js poll"
+  }
+}

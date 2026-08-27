@@ -1,0 +1,7 @@
+{
+  "_comment": "Copy to config.json and fill in. config.json is gitignored. These are API client credentials from each carrier's DEVELOPER portal — never your consumer account password. Env vars BB_USPS_CLIENT_ID / BB_USPS_CLIENT_SECRET (and UPS_/FEDEX_ equivalents) override anything set here.",
+  "usps":  { "clientId": "", "clientSecret": "" },
+  "ups":   { "clientId": "", "clientSecret": "" },
+  "fedex": { "clientId": "", "clientSecret": "" },
+  "portals": { "usps": true, "ups": true, "fedex": true }
+}
