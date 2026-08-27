@@ -1,12 +1,9 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "karpathy-skills",
-  "id": "karpathy-skills",
+  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
   "owner": {
     "name": "forrestchang"
-  },
-  "metadata": {
-    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
-    "version": "1.0.0"
   },
   "plugins": [
     {

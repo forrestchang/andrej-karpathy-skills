@@ -1,0 +1,8 @@
+# Carrier API credentials — never commit.
+config.json
+# Saved portal browser sessions (cookies for your USPS/UPS/FedEx accounts).
+state/
+# Poller output and the tracking list exported from the app.
+package-snapshot.json
+tracking-list.json
+node_modules/
