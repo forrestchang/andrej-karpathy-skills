@@ -96,13 +96,15 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+For worked before/after code examples of each principle, see **[EXAMPLES.md](EXAMPLES.md)**.
+
 ## Install
 
 **Option A: Claude Code Plugin (recommended)**
 
 From within Claude Code, first add the marketplace:
 ```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin marketplace add multica-ai/andrej-karpathy-skills
 ```
 
 Then install the plugin:
@@ -116,13 +118,13 @@ This installs the guidelines as a Claude Code plugin, making the skill available
 
 New project:
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md
 ```
 
 Existing project (append):
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## Using with Cursor

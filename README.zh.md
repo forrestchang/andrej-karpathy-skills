@@ -96,13 +96,15 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 强有力的成功标准让 LLM 能够独立循环执行。弱标准（"让它工作"）需要不断澄清。
 
+每条原则的正反代码示例，请参见 **[EXAMPLES.md](EXAMPLES.md)**。
+
 ## 安装
 
 **选项 A：Claude Code 插件（推荐）**
 
 在 Claude Code 中，首先添加插件市场：
 ```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin marketplace add multica-ai/andrej-karpathy-skills
 ```
 
 然后安装插件：
@@ -116,13 +118,13 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 新项目：
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md
 ```
 
 已有项目（追加）：
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## 在 Cursor 中使用
