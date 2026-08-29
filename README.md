@@ -96,6 +96,8 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+For worked before/after code examples of each principle, see **[EXAMPLES.md](EXAMPLES.md)**.
+
 ## Install
 
 **Option A: Claude Code Plugin (recommended)**
