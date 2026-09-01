@@ -10,13 +10,16 @@ This project includes a **Cursor project rule** so the Karpathy-inspired behavio
 
 ## Use the same guidelines in another project
 
-**Cursor (recommended):** Copy `.cursor/rules/karpathy-guidelines.mdc` into that project’s `.cursor/rules/` directory (create the folders if needed). Adjust or merge with existing rules as you like.
+**Local installation:** Copy `.cursor/rules/karpathy-guidelines.mdc` into that project’s `.cursor/rules/` directory (or run `make cursor`).
+
+**Global installation:** Copy to `~/.cursor/rules/` and `~/.cursor/skills/` (or run `make cursor-global`).
 
 **Other tools:** If a stack only supports a root instruction file, copy [`CLAUDE.md`](CLAUDE.md) into that project instead (or merge its contents into your existing instructions).
 
 ## Optional: personal Agent Skills
 
-If you want the same content as a reusable skill under `~/.cursor/skills`, use [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). You can copy or symlink it into your personal skills directory; use whatever layout you use for other skills.
+If you want the same content as a reusable skill under `~/.cursor/skills`, use [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md). You can copy or symlink it into your personal skills directory, or run `make cursor-global`.
+
 
 ## Claude Code vs Cursor
 

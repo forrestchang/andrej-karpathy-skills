@@ -129,6 +129,22 @@ curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Using with Google Antigravity / Gemini CLI
+
+This repository includes `GEMINI.md` and `AGENTS.md` for native integration with Google Antigravity.
+
+**Option A: Global Skill (across all projects)**
+```bash
+mkdir -p ~/.gemini/config/skills/karpathy-guidelines
+curl -sSL https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/skills/karpathy-guidelines/SKILL.md -o ~/.gemini/config/skills/karpathy-guidelines/SKILL.md
+```
+
+**Option B: Always-On Project Rules (`GEMINI.md` or `AGENTS.md`)**
+```bash
+curl -o GEMINI.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/GEMINI.md
+```
+
+
 ## Key Insight
 
 From Andrej:
