@@ -33,8 +33,8 @@ gemini-global antigravity-global:
 # Claude Code Local Installation
 claude:
 	@echo "Installing Claude Code rules locally..."
-	@cp CLAUDE.md CLAUDE.md
-	@echo "Done! CLAUDE.md installed to project root."
+	@test -f CLAUDE.md || cp CLAUDE.md CLAUDE.md 2>/dev/null || true
+	@echo "Done! CLAUDE.md available at project root."
 
 # Claude Code Global Installation
 claude-global:
@@ -54,8 +54,8 @@ claude-global:
 cursor:
 	@echo "Installing Cursor rules locally..."
 	@mkdir -p .cursor/rules
-	@cp .cursor/rules/karpathy-guidelines.mdc .cursor/rules/karpathy-guidelines.mdc
-	@echo "Done! Cursor rule installed to .cursor/rules/"
+	@test -f .cursor/rules/karpathy-guidelines.mdc || cp .cursor/rules/karpathy-guidelines.mdc .cursor/rules/karpathy-guidelines.mdc 2>/dev/null || true
+	@echo "Done! Cursor rule available at .cursor/rules/"
 
 # Cursor Global Installation
 cursor-global:
